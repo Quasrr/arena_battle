@@ -58,6 +58,29 @@
         return computePathData(playerPos, destination);
     });
 
+    function startPositionLogger(data) {
+        if (!travelAnimation) return;
+
+        function loop() {
+            if (!travelAnimation) return;
+
+            const timing = travelAnimation.effect.getComputedTiming();
+            const progress = timing ? timing.progress : 0;
+
+            const x = data.fromCenterX + (data.toCenterX - data.fromCenterX) * progress;
+            const y = data.fromCenterY + (data.toCenterY - data.fromCenterY) * progress;
+
+            console.log('Position:', { x, y, progress });
+
+            if (timing.progress !== null && timing.progress < 1) {
+                requestAnimationFrame(loop);
+            }
+        }
+
+        requestAnimationFrame(loop);
+    }
+
+
     $effect(() => {
         const data = pathData;
         const icon = pathIconEl;
@@ -83,6 +106,8 @@
                 fill: 'forwards'
             }
         );
+
+        startPositionLogger(data);
 
         travelAnimation.onfinish = () => {
             playerPos = destination;
