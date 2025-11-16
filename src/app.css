@@ -1,0 +1,413 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    display: flex;
+    height: 1239px;
+    width: 2591px;
+}
+
+#left-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #CFCFCF;
+    height: 1080px;
+    width: 480px;
+}
+
+#main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    background-color: #2A2A2A;
+    height: 100%;
+    width: 60%;
+}
+
+.gameButton {
+    display: flex;
+    justify-content: space-between;
+    width: 800px;
+}
+
+.turns {
+    padding: 0.5rem 1rem;
+    font-size: 24px;
+    color: #666464;
+    background-color: #DBDBDB;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    font-size: 24px;
+    color: #666464;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+#restart {
+    padding: 0.1rem 0.5rem;
+    font-size: 32px;
+}
+
+.char_zone {
+    height: 750px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    width: 80%;
+    gap: 10rem;
+    background-image: url('./assets/art/tilesets/dungeon/0_cave/fight_background_0.png');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: 1500px 800px;
+}
+
+.char_zone img {
+    max-height: 700px;
+}
+
+.player {
+    max-height: 400px;
+    max-width: 300px;
+}
+
+.enemy {
+    max-height: 700px;
+    max-width: 700px;
+}
+
+.fight-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.action_element {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 2rem;
+}
+
+.fight-zone {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    width: 800px;
+    background: center / cover no-repeat url('./assets/art/ui/hud/fighting/fighting_text_background.png');
+}   
+
+.fight-frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 800px;
+    height: 400px;
+    background: center / contain no-repeat url('./assets/art/ui/hud/fighting/fighting_text_frame.png');
+}
+
+.fight-text {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    height: 90%;
+    overflow: auto;
+}
+
+.fight-text p {
+    color: #646464;
+    font-size: 1.1rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    padding-left: 2.5rem;
+}
+
+.spellZone {
+    display: grid;
+    grid-template-columns: repeat(3, 125px);
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 4rem;
+    width: 500px;
+    height: 350px;
+    background-color: black;
+}
+
+.spell {
+    position: relative;
+    display: inline-block;
+    width: 125px;
+    height: 125px;
+}
+
+.spell-icon {
+    cursor: pointer;
+    display:block;
+    width: 125px;
+    height: 125px;
+}
+
+.spell-info {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.icon-info {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.text-info {
+    position: absolute;
+    top: 110%;
+    right: 0;
+    padding: 6px 10px;
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+.spell-info:hover .text-info {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+#right-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #CFCFCF;
+    height: 1080px;
+    width: 480px;
+}
+
+.playerHealthbarArea {
+    height: 224px;
+    width: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding-bottom: 48px;
+}
+
+.playerHealthbarArea p {
+    font-size: 20px;
+    color: #666464;
+    font-weight: 500;
+    padding-left: 2.5rem;
+}
+
+.enemyHealthbarArea {
+    height: 224px;
+    width: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding-bottom: 48px;
+}
+
+.enemyHealthbarArea p {
+    font-size: 20px;
+    color: #666464;
+    font-weight: 500;
+    padding-left: 2.5rem;
+}
+
+.healthbar {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    height: 20px;
+    width: 400px;
+    background: center/cover no-repeat url('./assets/art/ui/hud/fighting/healthbar_background.png');
+}
+
+.playerFill {
+    height: 20px;
+    background: no-repeat center/cover url('./assets/art/ui/hud/fighting/healthbar_player.png');
+}
+
+.health-frame {
+    position: absolute;
+    height: 30px;
+    width: 400px;
+    background: center/100% no-repeat url('./assets/art/ui/hud/fighting/healthbar_frame.png');
+}
+
+.enemyFill {
+    height: 20px;
+    background: no-repeat center url('./assets/art/ui/hud/fighting/healthbar_enemy.png');
+}
+
+.statisticsArea {
+    height: 136px;
+    width: 400px;
+    background-color: #DADADA;
+    align-self: center;
+}
+
+.statisticsArea p {
+    font-size: 20px;
+    color: #666464;
+    font-weight: 500;
+}
+
+.playerStats {
+    display: grid;
+    justify-content: center;
+    align-items: start;
+    row-gap: 0.3rem;
+    grid-template-columns: 170px 230px;
+    padding-top: 1rem;
+}
+
+.playerStats p {
+    padding-left: 0.5rem;
+}
+
+.enemyStats {
+    display: grid;
+    justify-content: center;
+    align-items: start;
+    row-gap: 0.3rem;
+    grid-template-columns: 170px 230px;
+    padding-top: 1rem;
+}
+
+.enemyStats p {
+    padding-left: 0.5rem;
+}
+
+.buffsArea {
+    margin-top: 35px;
+    height: 100px;
+    width: 400px;
+    background-color: #DADADA;
+    align-self: center;
+}
+
+.buffsArea p {
+    font-size: 20px;
+    color: #666464;
+    font-weight: 500;
+}
+
+.buffs {
+    display: grid;
+    justify-content: center;
+    align-items: start;
+    row-gap: 0.3rem;
+    grid-template-columns: 170px 230px;
+    padding-top: 1rem;
+}
+
+.buffs p {
+    padding-left: 0.5rem;
+}
+
+.nEffectsArea {
+    margin-top: 35px;
+    height: 100px;
+    width: 400px;
+    background-color: #DADADA;
+    align-self: center;
+}
+
+.nEffectsArea p {
+    font-size: 20px;
+    color: #666464;
+    font-weight: 500;
+}
+
+.nEffects {
+    display: grid;
+    justify-content: center;
+    align-items: start;
+    row-gap: 0.3rem;
+    grid-template-columns: 170px 230px;
+    padding-top: 1rem;
+}
+
+.nEffects p {
+    padding-left: 0.5rem;
+}
+
+.playerSpellsArea {
+    margin-top: 35px;
+    height: 350px;
+    width: 400px;
+    background-color: #DADADA;
+    align-self: center;
+}
+
+.playerSpellsArea p, .playerSpellsArea span {
+    font-size: 20px;
+    color: #666464;
+    font-weight: 500;
+}
+
+.playerSpellsArea span {
+    padding-left: 2rem;
+}
+
+.enemySpellsArea {
+    margin-top: 35px;
+    height: 350px;
+    width: 400px;
+    background-color: #DADADA;
+    align-self: center;
+}
+
+.enemySpellsArea p, .enemySpellsArea span {
+    font-size: 20px;
+    color: #666464;
+    font-weight: 500;
+}
+
+.spells {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    row-gap: 0.3rem;
+    grid-template-columns: 170px 230px;
+    padding-top: 1rem;
+}
+
+.spells p {
+    padding-left: 0.5rem;
+}
+
+.spells span {
+    padding-left: 1.5rem;
+}
