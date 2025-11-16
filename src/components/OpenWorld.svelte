@@ -5,14 +5,15 @@
 <div class="map">
     <div class="map_background">
         <div class="paper_background">
-            <div class="topography">
-                
-            </div>
-            <div class="line_background">
-                
-            </div>
+            <div class="topography"></div>
+            <div class="line_background"></div>
             <div class="water"></div>
             <div class="ground"></div>
+            {#each world as asset}
+                <button onclick={() => {console.log('test')}} class='asset' style={`background: center / cover no-repeat url("${asset.image}"); left:${asset.x}px; top:${asset.y}px; width:${asset.w}px; height: ${asset.h}px`}>
+                    <p>{asset.name}</p>
+                </button>
+            {/each}
         </div>
         <div class="map_border"></div>
         <div class="compass"></div>
@@ -102,5 +103,23 @@
         background: center / contain no-repeat url('./src/assets/art/tilesets/worldmap/legend_background.png');
         height: 50%;
         width: 50%;
+    }
+
+    .asset {
+        position: absolute;
+        z-index: 1000;
+        padding: 0;
+        cursor: pointer;
+        border: none;
+    }
+
+    .asset p {
+        position: absolute;
+        top: 35px;
+        color: #8F242B;
+        font-size: 1.2rem;
+        font-weight: bold;
+        -webkit-text-stroke-width: 0.3px;
+        -webkit-text-stroke-color: white;
     }
 </style>
