@@ -14,7 +14,7 @@
     {/if}
 
     {#if gameState === "open-world"}
-        <OpenWorld/>
+        <OpenWorld bind:gameState/>
     {/if}
 </main>
 <footer></footer>

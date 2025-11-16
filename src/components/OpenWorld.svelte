@@ -1,5 +1,43 @@
 <script>
     import { world } from '../assets/data/maps/world.data.js';
+
+    let { gameState = $bindable() } = $props();
+    let playerPos = $state('home');
+
+    function changeGameState(name) {
+        if (!name) return;
+        gameState = name;
+    }
+
+    function getAsset(id) {
+        return world.find((a) => a.id === id);
+    }
+
+    function getLineStyle(fromId, toId) {
+        const from = getAsset(fromId);
+        const to = getAsset(toId);
+        if (!from || !to) return '';
+
+        const fromCenterX = from.x + from.w / 2;
+        const fromCenterY = from.y + from.h / 2;
+        const toCenterX = to.x + to.w / 2;
+        const toCenterY = to.y + to.h / 2;
+
+        const dx = toCenterX - fromCenterX;
+        const dy = toCenterY - fromCenterY;
+
+        const length = Math.sqrt(dx * dx + dy * dy);
+        const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+
+        return `
+            left: ${fromCenterX}px;
+            top: ${fromCenterY}px;
+            width: ${length}px;
+            transform: rotate(${angle}deg);
+            transform-origin: left center;
+        `;
+    }
+
 </script>
 
 <div class="map">
@@ -9,9 +47,10 @@
             <div class="line_background"></div>
             <div class="water"></div>
             <div class="ground"></div>
+            <div class="path" style={getLineStyle('home', 'grimval')}></div>
             {#each world as asset}
-                <button onclick={() => {console.log('test')}} class='asset' style={`background: center / cover no-repeat url("${asset.image}"); left:${asset.x}px; top:${asset.y}px; width:${asset.w}px; height: ${asset.h}px`}>
-                    <p>{asset.name}</p>
+                <button onclick={() => { changeGameState(asset.id) }} class='asset' style={ `background: center / cover no-repeat url("${asset.image}"); left:${asset.x}px; top:${asset.y}px; width:${asset.w}px; height: ${asset.h}px` }>
+                    <p style={ `position: absolute; top:${asset.p_top}px; right: ${asset.p_right}px; color: #8F242B; font-size: 1.2rem; font-weight: bold; -webkit-text-stroke: 0.3px white;` }>{ asset.name }</p>
                 </button>
             {/each}
         </div>
@@ -27,7 +66,7 @@
         width: 100%;
     }
 
-    .map_background{
+    .map_background {
         position: relative;
         display: flex;
         justify-content: center;
@@ -74,7 +113,7 @@
 
     .line_background {
         position: absolute;
-        opacity: 0.10;
+
         background: center / cover no-repeat url('./src/assets/art/tilesets/worldmap/lines.png');
         height: 90%;
         width: 85%;
@@ -115,11 +154,17 @@
 
     .asset p {
         position: absolute;
-        top: 35px;
         color: #8F242B;
         font-size: 1.2rem;
         font-weight: bold;
-        -webkit-text-stroke-width: 0.3px;
-        -webkit-text-stroke-color: white;
+        -webkit-text-stroke: 0.3px white;
+    }
+
+    .path {
+        position: absolute;
+        height: 4px;
+        background: #8F242B;
+        z-index: 900;
+        pointer-events: none;
     }
 </style>
