@@ -2,7 +2,7 @@
     import { world } from '../assets/data/maps/world.data.js';
 
     let { gameState = $bindable() } = $props();
-    let playerPos = $state('home');
+    let playerPos = $state('refuge');
     let destination = $state('');
 
     let pathIconEl = $state(null);
@@ -79,7 +79,6 @@
 
         requestAnimationFrame(loop);
     }
-
 
     $effect(() => {
         const data = pathData;
