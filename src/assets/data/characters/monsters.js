@@ -347,7 +347,7 @@ export let monsters = {
                 },
                 canUse(caster, target) {
                     return (
-                        this.currentCooldown === 0 && caster.statistics.hp >= caster.statistics.maxHP
+                        this.currentCooldown === 0 && caster.statistics.HP >= caster.statistics.maxHP
                     );
                 },
                 use(target, self) {
