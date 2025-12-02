@@ -1,20 +1,8 @@
 import * as fight from '../../code/fight.js';
 import { addLine } from '../../../components/Fight.svelte';
+import Characters from './Character.js';
 
-class Enemy {
-    constructor(data) {
-        this.name = data.name;
-        this.image = data.image;
-        this.statistics = data.statistics;
-        this.selfAttributes = data.selfAttributes;
-        this.passives = data.passives;
-        this.buffs = data.buffs;
-        this.negativeEffects = data.negativeEffects;
-        this.spells = data.spells;
-    }
-}
-
-export let test = new Enemy({
+export let test = new Characters({
     name: "Baron",
     image: "./src/assets/art/characters/monsters/boss/baron.png",
     statistics: {
@@ -310,7 +298,7 @@ export let test = new Enemy({
     },
 })
 
-export let monsters = {
+let monsters = {
     /*blugam: {
         name: "Blugam",
         statistics: {

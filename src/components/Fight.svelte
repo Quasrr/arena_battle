@@ -1,6 +1,6 @@
 <script module>
     import { humans } from '../assets/data/characters/humans.js';
-    import { monsters, test } from '../assets/data/characters/monsters.js';
+    import { test } from '../assets/data/characters/monsters.js';
     import * as fight from '../assets/code/fight.js';
     import * as utilities from '../assets/code/utilities.js';
 
@@ -9,7 +9,6 @@
 
     let character = $state(humans);
     let monster = $state(test);
-    console.log(monster)
 
     export function addLine(obj) {
         logs.push(obj);
@@ -107,7 +106,7 @@
     }
 
     // affectation des personnages
-    let player = $state(character.verso);
+    let player = $state(character);
     let enemy = $state(monster);
 
     // état des personnages
