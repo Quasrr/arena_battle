@@ -4,8 +4,9 @@
     import * as fight from '../assets/code/fight.js';
     import * as utilities from '../assets/code/utilities.js';
     import Characters from '../assets/data/characters/Character.js';
+    import Game from '../assets/code/Game.js';
 
-    let logs = $state([]); 
+    let logs = $state(Game.logs);
     let action = $state(null);
 
     export function addLine(obj) {
