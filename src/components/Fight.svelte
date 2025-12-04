@@ -103,8 +103,12 @@
     }
 
     // affectation des personnages
-    let player = $state(new Characters(humans.verso));
-    let enemy = $state(new Characters(monsters.baron));
+    let p = new Characters(humans.verso);
+    let e = new Characters(monsters.baron);
+
+    let player = $state({ ...p });
+    console.log(player)
+    let enemy = $state({ ...e });
 
     // état des personnages
     let playerIsDead = false;
