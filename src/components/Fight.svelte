@@ -5,6 +5,7 @@
     import * as utilities from '../assets/code/utilities.js';
     import Characters from '../assets/data/characters/Character.svelte.js';
     import Fight from '../assets/code/Fight.svelte.js';
+    import Souls from '../assets/data/characters/Souls.svelte.js';
 
 
     const fight = new Fight('Testing Fight');
@@ -54,7 +55,7 @@
 
                 if (check) {
                     fights.refreshBuff(enemy, player);
-                    player.passives.perTurn(enemy, player);
+                    player.perTurn(enemy, player);
 
                     // attente de choix d'une action
                     while (action === null) {
@@ -69,7 +70,7 @@
 
                 if (check) {
                     fights.refreshBuff(player, enemy);
-                    enemy.passives.perTurn(player, enemy);
+                    enemy.perTurn(player, enemy);
 
                     let act = fights.randomAction(enemy, player);
                     // let act = "Sanguine Bite"
@@ -103,8 +104,27 @@
     }
 
     // affectation des personnages
-    let player = new Characters(humans.verso);
-    let enemy = new Characters(monsters.baron);
+    let player = new Characters({
+        name: humans.verso.name,
+        image: humans.verso.image,
+        statistics: humans.verso.statistics,
+        selfAttributes: humans.verso.selfAttributes,
+        passives: [new Souls()],
+        buffs: humans.verso.buffs,
+        negativeEffects: humans.verso.negativeEffects,
+        spells: humans.verso.spells
+    });
+
+    let enemy = new Characters({
+        name: humans.verso.name,
+        image: humans.verso.image,
+        statistics: humans.verso.statistics,
+        selfAttributes: humans.verso.selfAttributes,
+        passives: [new Souls()],
+        buffs: humans.verso.buffs,
+        negativeEffects: humans.verso.negativeEffects,
+        spells: humans.verso.spells
+    });
 
 
     // état des personnages

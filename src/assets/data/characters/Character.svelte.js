@@ -4,7 +4,7 @@ class Characters {
         this.image = data.image;
         this.statistics = $state(data.statistics);
         this.selfAttributes = data.selfAttributes;
-        this.passives = $state([]);
+        this.passives = $state(data.passives || []);
         this.buffs = data.buffs;
         this.negativeEffects = data.negativeEffects;
         this.spells = data.spells;
