@@ -7,7 +7,7 @@
     import Souls from '../assets/scripts/characters/passives/Souls.svelte.js';
     import Utilities from '../assets/utils/Utilities.svelte.js';
     import SpectralStrike from '../assets/scripts/characters/spells/SpectralStrike.svelte.js';
-    import PiercingStrike from '../assets/scripts/characters/spells/PiercingStrile.svelte.js';
+    import PiercingStrike from '../assets/scripts/characters/spells/PiercingStrike.svelte.js';
 
 
     const fight = new Fight('Testing Fight');
