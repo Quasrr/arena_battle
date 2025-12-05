@@ -7,7 +7,7 @@ class Characters {
         this.passives = $state(data.passives || []);
         this.buffs = data.buffs;
         this.negativeEffects = data.negativeEffects;
-        this.spells = data.spells;
+        this.spells = $state(data.spells || []);
     }
 
     perTurn(target, self) {

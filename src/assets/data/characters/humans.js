@@ -1,5 +1,3 @@
-import * as fights from '../../code/fight.js';
-
 const characters = {
     verso: {
         name: "Verso",
@@ -229,8 +227,8 @@ const characters = {
                 }
             },
         },
-        spells: {
-            0: {
+        spells: [
+            {
                 name: "Piercing Strike",
                 image: "./src/assets/art/characters/humans/classes/death_knight/spells_icons/piercing_strike.png",
                 description: "Piercing Strike on the enemy head, dealing 100 dmg",
@@ -239,31 +237,8 @@ const characters = {
                 currentCooldown: 0,
                 damageType: 'physical',
                 type: 'enemy',
-                log(target, self, damage) {
-                    fight.addLine({
-                        text: `${self.name} utilise ${this.name} et inflige ${damage} points de dégats à ${target.name}`,
-                        styles: 
-                            [   
-                                { word: `Piercing`, color: 'grey'},
-                                { word: `Strike`, color: 'grey'},
-                                { word: `${damage}`, color: 'yellow'}
-                        ]
-                    });
-                },
-                canUse(caster, target) {
-                    return this.currentCooldown === 0;
-                },
-                use(target, self) {
-                    self.selfAttributes.Souls++;
-                    let damage = Math.round(fights.calculateDamage(self.statistics.STR, target.statistics.ARM) * 1.2);
-                    target.statistics.HP -= damage;
-
-                    this.currentCooldown = this.cooldown;
-
-                    this.log(target, self, damage);
-                }
             },
-            1: {
+            /*1: {
                 name: "Spectral Strike",
                 image: "./src/assets/art/characters/humans/classes/death_knight/spells_icons/spectral_strike.png",
                 description: "Dealing some DMG + 25% missing health of the target",
@@ -402,8 +377,8 @@ const characters = {
 
                     this.log(target, self);
                 }
-            }
-        },
+            }*/
+        ],
     },
     /*{
         name: "Tatch",

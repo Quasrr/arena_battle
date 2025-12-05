@@ -1,5 +1,3 @@
-import * as fights from '../../code/fight.js';
-
 const characters = {
     /*blugam: {
         name: "Blugam",

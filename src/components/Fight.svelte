@@ -1,11 +1,12 @@
 <script module>
     import humans from '../assets/data/characters/humans.js';
     import monsters from '../assets/data/characters/monsters.js';
-    import * as fights from '../assets/code/fight.js';
-    import * as utilities from '../assets/code/utilities.js';
+    
     import Characters from '../assets/data/characters/Character.svelte.js';
     import Fight from '../assets/code/Fight.svelte.js';
     import Souls from '../assets/data/characters/Souls.svelte.js';
+    import Utilities from '../assets/code/Utilities.svelte.js';
+    import SpectralStrike from '../assets/data/characters/SpectralStrike.svelte.js';
 
 
     const fight = new Fight('Testing Fight');
@@ -47,7 +48,7 @@
                 ]
             });
 
-            await utilities.sleep(1500);
+            await Utilities.sleep(1500);
 
             if (toPlay) {
                 // tour du joueur
@@ -59,10 +60,12 @@
 
                     // attente de choix d'une action
                     while (action === null) {
-                        await utilities.sleep(50);
+                        await Utilities.sleep(50);
                     }
 
-                    fight.actionToDo(action, player, enemy);
+                    console.log(action);
+                    console.log(player.spells);
+                    fight.actionToDo(action, player, enemy, fight);
                     enemy.passives.onHit(player, enemy);
                 }
             } else {
@@ -112,7 +115,7 @@
         passives: [new Souls()],
         buffs: humans.verso.buffs,
         negativeEffects: humans.verso.negativeEffects,
-        spells: humans.verso.spells
+        spells: [new SpectralStrike(humans.verso.spells[0])]
     });
 
     let enemy = new Characters({
@@ -123,7 +126,7 @@
         passives: [new Souls()],
         buffs: humans.verso.buffs,
         negativeEffects: humans.verso.negativeEffects,
-        spells: humans.verso.spells
+        spells: [new SpectralStrike(humans.verso.spells[0])]
     });
 
 

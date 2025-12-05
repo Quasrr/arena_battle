@@ -1,7 +1,5 @@
 class Utilities {
-    static sleep(ms) {
-        new Promise(res => setTimeout(res, ms));
-    }
+    static sleep = (ms) => new Promise(res => setTimeout(res, ms));
 
     static choseRandomMonster(object) {
         let monsterList = [];

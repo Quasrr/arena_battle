@@ -1,4 +1,4 @@
-import { getRandomInt } from "./fight";
+import Utilities from "./Utilities.svelte.js";
 
 class Fight {
     fightingLogs = $state([]);
@@ -87,15 +87,15 @@ class Fight {
         }
     }
 
-    actionToDo(actionName, selfTarget, target) {
+    actionToDo(actionName, selfTarget, target, fightInstance) {
         if (!actionName) return;
 
-        for (let key in selfTarget.spells) {
-            if (selfTarget.spells[key].name === actionName) {
-                selfTarget.spells[key].use(target, selfTarget);
-                return;
+        selfTarget.spells.forEach(spell => {
+            console.log(spell)
+            if (actionName === spell.name) {
+                spell.useSpell(target, selfTarget, fightInstance)
             }
-        }
+        })
     }
 
     randomAction(user, target) {
@@ -116,7 +116,7 @@ class Fight {
             return null; 
         }
 
-        const randomIndex = getRandomInt(availableSpells.length);
+        const randomIndex = Utilities.getRandomInt(availableSpells.length);
 
         return availableSpells[randomIndex].name;
     }
