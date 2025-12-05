@@ -1,12 +1,12 @@
 <script module>
-    import humans from '../assets/data/characters/humans.js';
-    import monsters from '../assets/data/characters/monsters.js';
+    import humans from '../assets/data/humans.data.js';
+    import monsters from '../assets/data/humans.data.js'
     
-    import Characters from '../assets/data/characters/Character.svelte.js';
-    import Fight from '../assets/code/Fight.svelte.js';
-    import Souls from '../assets/data/characters/Souls.svelte.js';
-    import Utilities from '../assets/code/Utilities.svelte.js';
-    import SpectralStrike from '../assets/data/characters/SpectralStrike.svelte.js';
+    import Characters from '../assets/scripts/characters/Character.svelte.js';
+    import Fight from '../assets/utils/Fight.svelte.js';
+    import Souls from '../assets/scripts/characters/passives/Souls.svelte.js';
+    import Utilities from '../assets/utils/Utilities.svelte.js';
+    import SpectralStrike from '../assets/scripts/characters/spells/SpectralStrike.svelte.js';
 
 
     const fight = new Fight('Testing Fight');

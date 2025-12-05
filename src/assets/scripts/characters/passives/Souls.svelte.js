@@ -1,4 +1,4 @@
-import Passive from "./Passive.svelte.js";
+import Passive from "../Passive.svelte.js";
 
 class Souls extends Passive {
     constructor(name) {

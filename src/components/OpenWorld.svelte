@@ -1,5 +1,5 @@
 <script>
-    import { world } from '../assets/data/maps/world.data.js';
+    import { world } from '../assets/data/world.data.js';
 
     let { gameState = $bindable() } = $props();
     let playerPos = $state('refuge');
