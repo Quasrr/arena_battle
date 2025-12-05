@@ -3,14 +3,12 @@
     import monsters from '../assets/data/characters/monsters.js';
     import * as fight from '../assets/code/fight.js';
     import * as utilities from '../assets/code/utilities.js';
-    import Characters from '../assets/data/characters/Character.js';
+    import Characters from '../assets/data/characters/Character.svelte.js';
+    import Game from '../assets/code/Game.svelte.js';
 
-    let logs = $state([]); 
+    let logs = Game.logs;
+
     let action = $state(null);
-
-    export function addLine(obj) {
-        logs.push(obj);
-    }
 
     function determineAction(act, player) {
         for (let key in player.spells) {
@@ -37,7 +35,7 @@
             fight.reduceCooldown(player.spells);
             fight.reduceCooldown(enemy.spells);
 
-            addLine({
+            Game.addLine({
                 text: `Début du tour ${turn} !`,
                 styles: 
                     [   
@@ -103,15 +101,10 @@
     }
 
     // affectation des personnages
-    let p = new Characters(humans.verso);
-    let e = new Characters(monsters.baron);
+    let player = new Characters(humans.verso);
+    let enemy = new Characters(monsters.baron);
 
-    let player = $state({ ...p });
-    let enemy = $state({ ...e });
 
-    player.statistics.HP = 500;
-    console.log('Player: ', player.statistics.HP);
-    console.log('p: ', p.statistics.HP);
     // état des personnages
     let playerIsDead = false;
     let enemyIsDead = false;
@@ -119,7 +112,7 @@
     let turn = $state(0);
     let playerSpellsList = $state([]);
 
-    addLine({
+    Game.addLine({
         text: `Un combat est engagé entre ${player.name} et ${enemy.name} !`,
         styles: []
     });
