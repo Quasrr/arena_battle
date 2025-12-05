@@ -1,5 +1,5 @@
 class Utilities {
-    static sleep (ms){
+    static sleep(ms) {
         new Promise(res => setTimeout(res, ms));
     }
 
