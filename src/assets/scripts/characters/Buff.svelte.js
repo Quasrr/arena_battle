@@ -1,7 +1,7 @@
 class Buff {
     constructor(buffData) {
         this.name = buffData.name;
-        this.state = buffData.state;
+        this.state = $state(buffData.state);
         this.isActive = $state(buffData.isActive);
         this.isPermanent = buffData.isPermanent;
         this.duration = $state(buffData.duration);

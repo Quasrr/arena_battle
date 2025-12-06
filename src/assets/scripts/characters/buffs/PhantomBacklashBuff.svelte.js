@@ -1,19 +1,27 @@
 import Buff from "../Buff.svelte.js";
 
 class PhantomBacklashBuff extends Buff {
-    constructor(buffData) {
-        super(buffData)
+    constructor() {
+        const buffData = {
+            name: "Phantom Backlash",
+            state: false,
+            isActive: false,
+            isPermanent: false,
+            duration: 0,
+        }
+        
+        super(buffData);
     }
 
     applyBuff(target, self) {
         if (this.isPermanent) {
             return;
         }
-        
+
         this.state = true;
         this.duration = 2;
     }
-    
+
     checkBuff(target, self) {
         if (!this.state) {
             return;

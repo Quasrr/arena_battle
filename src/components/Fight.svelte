@@ -115,7 +115,7 @@
         statistics: humans.verso.statistics,
         selfAttributes: humans.verso.selfAttributes,
         passives: [new Souls(), new CounterStrike()],
-        buffs: [new PhantomBacklashBuff(humans.verso.buffs[0])],
+        buffs: [new PhantomBacklashBuff()],
         negativeEffects: humans.verso.negativeEffects,
         spells: [
             new PiercingStrike(),
@@ -130,7 +130,7 @@
         statistics: humans.verso.statistics,
         selfAttributes: humans.verso.selfAttributes,
         passives: [new Souls()],
-        buffs: [new PhantomBacklashBuff(humans.verso.buffs[0])],
+        buffs: [new PhantomBacklashBuff()],
         negativeEffects: humans.verso.negativeEffects,
         spells: [new PiercingStrike(), new SpectralStrike()]
     });
