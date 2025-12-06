@@ -109,10 +109,20 @@
 
     // affectation des personnages
     let player = new Characters({
-        name: humans.verso.name,
-        image: humans.verso.image,
-        statistics: humans.verso.statistics,
-        selfAttributes: humans.verso.selfAttributes,
+        name: "Verso",
+        image: "./src/assets/art/characters/humans/classes/death_knight/death_knight1.png",
+        statistics: {
+            HP: 800,
+            maxHP: 800,
+            STR: 150,
+            ARM: 60,
+            speed: 50,
+            CritChance: 0.2,
+            CritDamage: 1.5
+        },
+        selfAttributes: {
+            Souls: 0,
+        },
         passives: [new SoulsScalingPassive(), new CounterStrikePassive()],
         buffs: [new CounterStrike()],
         negativeEffects: humans.verso.negativeEffects,
@@ -124,10 +134,20 @@
     });
 
     let enemy = new Characters({
-        name: humans.verso.name,
-        image: humans.verso.image,
-        statistics: humans.verso.statistics,
-        selfAttributes: humans.verso.selfAttributes,
+        name: "Versa",
+        image: "./src/assets/art/characters/humans/classes/death_knight/death_knight1.png",
+        statistics: {
+            HP: 1500,
+            maxHP: 1500,
+            STR: 100,
+            ARM: 55,
+            speed: 50,
+            CritChance: 0.2,
+            CritDamage: 1.5
+        },
+        selfAttributes: {
+            Souls: 0,
+        },
         passives: [new SoulsScalingPassive()],
         buffs: [new CounterStrike()],
         negativeEffects: humans.verso.negativeEffects,
