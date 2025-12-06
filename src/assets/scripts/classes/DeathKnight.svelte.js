@@ -30,7 +30,7 @@ class DeathKnight extends Characters {
                 new PiercingStrike(),
                 new SpectralStrike(),
                 new PhantomBacklash()
-            ]
+            ],
         };
 
         super(charData);
