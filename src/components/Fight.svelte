@@ -57,7 +57,7 @@
             if (toPlay) {
                 // tour du joueur
                 let check = fight.checkCharacterNegativeEffectStates(player);
-                console.log(player.buffs)
+                console.log("Stack Player: ", player.selfAttributes.Souls)
                 if (check) {
                     fight.refreshCharacterBuff(enemy, player);
                     player.perTurn(enemy, player);
@@ -72,7 +72,7 @@
                 }
             } else {
                 let check = fight.checkCharacterNegativeEffectStates(enemy);
-
+                console.log("Stack enemy: ", enemy.selfAttributes.Souls)
                 if (check) {
                     fight.refreshCharacterBuff(player, enemy);
                     enemy.perTurn(player, enemy);
@@ -134,6 +134,10 @@
         negativeEffects: humans.verso.negativeEffects,
         spells: [new PiercingStrike(humans.verso.spells[0]), new SpectralStrike(humans.verso.spells[1])]
     });
+
+    console.log("Player === Enemy: ", player === enemy);
+    console.log("Player stats === Enemy stats: ", player.statistics === enemy.statistics);
+    console.log("Player selfAttr === Enemy selfAttr: ", player.selfAttributes === enemy.selfAttributes)
 
 
     // état des personnages

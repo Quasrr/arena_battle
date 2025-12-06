@@ -3,7 +3,7 @@ class Characters {
         this.name = data.name;
         this.image = data.image;
         this.statistics = $state(data.statistics);
-        this.selfAttributes = data.selfAttributes;
+        this.selfAttributes = $state(data.selfAttributes);
         this.passives = $state(data.passives || []);
         this.buffs = $state(data.buffs || []);
         this.negativeEffects = data.negativeEffects;

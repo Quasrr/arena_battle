@@ -91,7 +91,6 @@ class Fight {
         if (!actionName) return;
 
         selfTarget.spells.forEach(spell => {
-            console.log(spell)
             if (actionName === spell.name) {
                 spell.useSpell(target, selfTarget, fightInstance)
             }
@@ -99,14 +98,12 @@ class Fight {
     }
 
     randomAction(user, target) {
-        const allSpells = Object.values(user.spells);
-
-        const availableSpells = allSpells.filter(spell => {
+        const availableSpells = user.spells.filter(spell => {
             
             if (spell.currentCooldown > 0) return false;
 
-            if (typeof spell.canUse === "function") {
-                return spell.canUse(user, target);
+            if (typeof spell.canUseSpell === "function") {
+                return spell.canUseSpell(user, target);
             }
 
             return true;
