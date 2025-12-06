@@ -4,13 +4,13 @@
     
     import Characters from '../assets/scripts/characters/Character.svelte.js';
     import Fight from '../assets/utils/Fight.svelte.js';
-    import Souls from '../assets/scripts/characters/passives/Souls.svelte.js';
+    import SoulsScalingPassive from '../assets/scripts/characters/passives/SoulsScalingPassive.svelte.js';
     import Utilities from '../assets/utils/Utilities.svelte.js';
     import SpectralStrike from '../assets/scripts/characters/spells/SpectralStrike.svelte.js';
     import PiercingStrike from '../assets/scripts/characters/spells/PiercingStrike.svelte.js';
     import PhantomBacklash from '../assets/scripts/characters/spells/PhantomBacklash.svelte.js';
-    import PhantomBacklashBuff from '../assets/scripts/characters/buffs/PhantomBacklashBuff.svelte.js';
-    import CounterStrike from '../assets/scripts/characters/passives/CounterStrike.svelte.js';
+    import CounterStrike from '../assets/scripts/characters/buffs/CounterStrike.js';
+    import CounterStrikePassive from '../assets/scripts/characters/passives/CounterStrikePassive.svelte.js';
 
 
     const fight = new Fight('Testing Fight');
@@ -113,8 +113,8 @@
         image: humans.verso.image,
         statistics: humans.verso.statistics,
         selfAttributes: humans.verso.selfAttributes,
-        passives: [new Souls(), new CounterStrike()],
-        buffs: [new PhantomBacklashBuff()],
+        passives: [new SoulsScalingPassive(), new CounterStrikePassive()],
+        buffs: [new CounterStrike()],
         negativeEffects: humans.verso.negativeEffects,
         spells: [
             new PiercingStrike(),
@@ -128,8 +128,8 @@
         image: humans.verso.image,
         statistics: humans.verso.statistics,
         selfAttributes: humans.verso.selfAttributes,
-        passives: [new Souls()],
-        buffs: [new PhantomBacklashBuff()],
+        passives: [new SoulsScalingPassive()],
+        buffs: [new CounterStrike()],
         negativeEffects: humans.verso.negativeEffects,
         spells: [new PiercingStrike(), new SpectralStrike()]
     });

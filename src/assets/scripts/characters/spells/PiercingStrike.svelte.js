@@ -7,7 +7,7 @@ class PiercingStrike extends Spell {
             image: "./src/assets/art/characters/humans/classes/death_knight/spells_icons/piercing_strike.png",
             description: "Piercing Strike on the enemy head, dealing 100 dmg",
             castChance: 0.15,
-            cooldown: 0,
+            cooldown: 2,
             currentCooldown: 0,
             damageType: 'physical',
             type: 'enemy',

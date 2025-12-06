@@ -1,8 +1,8 @@
 import Passive from "../Passive.svelte.js";
 
-class CounterStrike extends Passive {
-    constructor(name) {
-        super(name);
+class CounterStrikePassive extends Passive {
+    constructor() {
+        super('Counter Strike');
     }
 
     onTurn(target, self) {} // méthode appelée au début du tour du personnage, gère les passifs du personnage
@@ -26,4 +26,4 @@ class CounterStrike extends Passive {
     }
 }
 
-export default CounterStrike;
+export default CounterStrikePassive;

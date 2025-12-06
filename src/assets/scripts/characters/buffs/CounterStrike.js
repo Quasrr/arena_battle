@@ -1,6 +1,6 @@
 import Buff from "../Buff.svelte.js";
 
-class PhantomBacklashBuff extends Buff {
+class CounterStrike extends Buff {
     constructor() {
         const buffData = {
             name: "Phantom Backlash",
@@ -38,4 +38,4 @@ class PhantomBacklashBuff extends Buff {
     }
 }
 
-export default PhantomBacklashBuff;
+export default CounterStrike;

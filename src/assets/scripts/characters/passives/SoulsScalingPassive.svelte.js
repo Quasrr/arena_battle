@@ -1,8 +1,8 @@
 import Passive from "../Passive.svelte.js";
 
-class Souls extends Passive {
+class SoulsScalingPassive extends Passive {
     constructor(name) {
-        super(name);
+        super('Souls');
     }
 
     onTurn(target, self) { // méthode appelée au début du tour du personnage, gère les passifs du personnage
@@ -16,4 +16,4 @@ class Souls extends Passive {
     onHit(target, self, fightInstance) {} // méthode appelée dès que le personnage prends un coups, gère les réactions à ce dernier
 }
 
-export default Souls;
+export default SoulsScalingPassive;
