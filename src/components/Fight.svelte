@@ -96,11 +96,10 @@
         }
     }
 
-    function initiatePlayerSpells(player) {
-        const playerSpells = Object.entries(player.spells);
-
-        playerSpellsList = playerSpells.map((element) => {
-            return { name: element[1].name, image: element[1].image, description: element[1].description }
+    function initiatePlayerSpells(player) {        
+        playerSpellsList = player.spells.map((element) => {
+            console.log(element)
+            return { name: element.name, image: element.image, description: element.description }
         });
     }
 
