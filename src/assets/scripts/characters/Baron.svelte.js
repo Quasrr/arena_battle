@@ -3,6 +3,7 @@ import Characters from "../Character.svelte.js";
 //import des sorts du personnage
 import ProfaneRake from "../spells/ProfaneRake.svelte.js";
 import SanguineBite from "../spells/SanguineBite.svelte.js";
+import sanguineOffering from "../spells/SanguineOffering.svelte.js";
 
 //import des états négatifs du personnage
 import Bleed from "../negativesEffects/Bleed.svelte.js";
@@ -12,17 +13,18 @@ import Poison from "../negativesEffects/Poison.svelte.js";
 import Slow from "../negativesEffects/Slow.svelte.js";
 import Stun from "../negativesEffects/Stun.svelte.js";
 
+
 class Baron extends Characters {
     constructor(name) {
         const charData = {
-            name: "Baron",
+            name: name,
             image: "./src/assets/art/characters/monsters/boss/baron.png",
             statistics: {
                 HP: 4500,
                 maxHP: 4500,
                 STR: 240,
                 ARM: 50,
-                speed: 30,
+                speed: 90,
                 CritChance: 0.2,
                 CritDamage: 1.5
             },
@@ -30,7 +32,7 @@ class Baron extends Characters {
             passives: [],
             buffs: [],
             negativeEffects: [new Bleed(), new Burn(), new Freeze(), new Poison(), new Slow(), new Stun()],
-            spells: [new ProfaneRake(), new SanguineBite()],
+            spells: [new ProfaneRake(), new SanguineBite(), new sanguineOffering()],
         };
 
         super(charData);
