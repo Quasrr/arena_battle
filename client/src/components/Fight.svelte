@@ -3,6 +3,7 @@
     import Utilities from '../assets/utils/Utilities.svelte.js';
     import DeathKnight from '../assets/scripts/characters/DeathKnight.svelte.js';
     import Baron from '../assets/scripts/characters/Baron.svelte.js';
+    import { onMount } from 'svelte';
 
 
     const fight = new Fight('Testing Fight');
@@ -97,8 +98,22 @@
         return char.image
     }
 
+    async function getCharacter() {
+        const res = await fetch('/api/characters');
+
+        let player = await res.json();
+
+        return player;
+    }
+
+    onMount(async () => {
+        let test = await getCharacter();
+        console.log(test)
+    });
+
     // affectation des personnages
     let player = new DeathKnight("Verso");
+    console.log(player)
 
     let enemy = new Baron("Baron");
 
