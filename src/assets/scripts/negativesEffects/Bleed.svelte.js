@@ -15,11 +15,11 @@ class Bleed extends NegativeEffects {
 
     logNegativeEffect(self, fightInstance) {
         fightInstance.addLogsLine({
-            text: `${self.name} est empoisonné et subit ${this.damage} points de dégats d' empoisonnement!`,
+            text: `${self.name} saigne et subit ${this.damage} points de dégats de saignement!`,
             styles:
                 [
-                    { word: `${this.damage}`, color: 'purple' },
-                    { word: `empoisonnement`, color: 'purple' }
+                    { word: `${this.damage}`, color: 'red' },
+                    { word: `saignement`, color: 'red' }
                 ]
         })
     }
@@ -30,4 +30,4 @@ class Bleed extends NegativeEffects {
     }
 }
 
-export default Bleed
+export default Bleed;

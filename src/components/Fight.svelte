@@ -70,7 +70,6 @@
                     enemy.perTurn(player, enemy);
 
                     let act = fight.randomAction(enemy, player);
-                    // let act = "Sanguine Bite"
                     fight.actionToDo(act, enemy, player, fight);
                     player.perHit(enemy, player, fight);
                 }

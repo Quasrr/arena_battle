@@ -1,5 +1,8 @@
 import Characters from "../Character.svelte.js";
 
+//import des sorts du personnage
+import ProfaneRake from "../spells/ProfaneRake.svelte.js";
+
 //import des états négatifs du personnage
 import Bleed from "../negativesEffects/Bleed.svelte.js";
 import Burn from "../negativesEffects/Burn.svelte.js";
@@ -26,7 +29,7 @@ class Baron extends Characters {
             passives: [],
             buffs: [],
             negativeEffects: [new Bleed(), new Burn(), new Freeze(), new Poison(), new Slow(), new Stun()],
-            spells: [],
+            spells: [new ProfaneRake()],
         };
 
         super(charData);
