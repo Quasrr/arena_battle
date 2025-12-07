@@ -89,7 +89,6 @@
 
     function initiatePlayerSpells(player) {        
         playerSpellsList = player.spells.map((element) => {
-            console.log(element)
             return { name: element.name, image: element.image, description: element.description }
         });
     }
