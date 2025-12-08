@@ -1,8 +1,6 @@
 <script>
     import Fight from "../assets/utils/Fight.svelte.js";
     import Utilities from "../assets/utils/Utilities.svelte.js";
-    import DeathKnight from "../assets/scripts/characters/DeathKnight.svelte.js";
-    import Baron from "../assets/scripts/characters/Baron.svelte.js";
     import { onMount } from "svelte";
 
     // initialisation du combat et des logs du combat en undefined avant récupération des informations
