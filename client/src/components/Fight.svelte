@@ -14,39 +14,37 @@
     // initialisation de l'action du joueur en undefined
     let action = $state(undefined);
 
+    // exécuté au montage du component
     onMount( async () => {
         // le serveur envoit les informations nécessaire au début du combat
         const battle = await initialiseBattle();
 
         // affectation des personnages
-        player = battle[0];
-        enemy = battle[1];
+        player = battle.player;
+        enemy = battle.enemy;
 
         // attribution des logs
-        fight = new Fight(battle[2]);
+        fight = new Fight(battle.fightName);
         logs = fight.fightingLogs;
 
         // initialisation des sorts du joueur 
         initiatePlayerSpells(player);
 
         // log de démarrage du combat
-        fight.addLogsLine(battle[3]);
+        fight.addLogsLine(battle.log);
 
         // démarrage du combat
         fighting();
     });
 
     async function initialiseBattle() {
+        // demande au serveur les informations du combat
         const res = await fetch('/api/battle/');
 
         const battle = await res.json();
 
         return battle;
     };
-
-    async function initialiseFight() {
-
-    }
 
     function determineAction(act, player) {
         for (let key in player.spells) {
