@@ -5,7 +5,8 @@ import Fight from '../scripts/utils/Fight.js';
 
 class FightController {
 
-    initialiseBattle(req, res) {
+    // méthode d'instance qui initialise un combat en utilisant BattleStore
+    initialiseBattle(_req, res) {
         const battle = BattleStore.createBattle();
         const { id, player, enemy, fight } = battle;
 
@@ -22,11 +23,8 @@ class FightController {
             log
         });
     }
-    
-    calculateCharacterHitChance(speed) {
-        return Math.floor(Math.random() * speed);
-    }
 
+    // méthode d'instance qui choisit quel personnage joue le tour
     chooseCharacterHitTurn(req, res) {
         const battleId = req.body.id;
         const battle = BattleStore.getBattle(battleId);
@@ -39,8 +37,25 @@ class FightController {
 
         const toPlay = battle.fight.chooseCharacterHitTurn(playerHitChance, enemyHitChance);
 
-        console.log(toPlay)
         res.status(200).json(toPlay);
+    }
+
+    reduceCharacterSpellsCooldown(req, res) {
+        const battleId = req.body.id;
+        const charName = req.body.name;
+
+        const battle = BattleStore.getBattle(battleId);
+        
+        const char = Object.values(battle).find(element => element.name === charName);
+
+        battle.fight.reduceCharacterSpellsCooldown(char.spells);
+
+        res.status(200).json(char);
+    }
+
+    reduceCharactersSpellsCooldown(req, res) {
+        const battleId = req.body.id;
+        
     }
 }
 

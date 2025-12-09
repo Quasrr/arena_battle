@@ -63,7 +63,7 @@
 
     async function getCharacterHitTurn(battleId) {
         const id = { id: battleId };
-        console.log(typeof battleId)
+
         const res = await fetch("/api/battle/turn/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -81,8 +81,8 @@
 
             let toPlay = await getCharacterHitTurn(battleId);
 
-            fight.reduceCharacterSpellsCooldown(player.spells);
-            fight.reduceCharacterSpellsCooldown(enemy.spells);
+            player = await fight.reduceCharactersSpellsCooldown(battleId, player.name);
+            enemy = await fight.reduceCharactersSpellsCooldown(battleId, enemy.name);
 
             fight.addLogsLine({
                 text: `Début du tour ${turn} !`,

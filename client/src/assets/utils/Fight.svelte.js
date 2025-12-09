@@ -25,14 +25,6 @@ class Fight {
         })
     }
 
-    calculateCharacterHitChance(speed) {
-        return Math.floor(Math.random() * speed);
-    }
-
-    chooseCharacterHitTurn(playerChance, enemyChance) {
-        return playerChance > enemyChance; 
-    }
-
     calculateCharacterCriticalChance(criticalChance) {
         return Math.random() < criticalChance;
     }
@@ -41,12 +33,17 @@ class Fight {
         return Math.floor((STR * (100 / (100 + ARM))) + Math.random() * (STR / 10));
     }
 
-    reduceCharacterSpellsCooldown(spells) {
-        spells.forEach(spell => {
-            if (spell.currentCooldown > 0) {
-                spell.currentCooldown--;
-            }
-        })
+    async reduceCharactersSpellsCooldown(battleId, name) {
+        let obj = { id: battleId, name}
+        const res = await fetch('/api/battle/reduce-character-spells-cd', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(obj),
+        });
+
+        const char = await res.json();
+
+        return char;
     }
 
     reduceCharacterNegativeEffectDuration(negate) { 
