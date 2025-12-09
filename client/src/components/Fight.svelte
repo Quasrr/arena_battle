@@ -5,6 +5,7 @@
 
     // initialisation du combat et des logs du combat en undefined avant récupération des informations
     let fight = $state(undefined);
+    let battleId = $state(undefined);
     let logs = $state(undefined);
 
     // initialisation des personnages en undefined avant récupération des informations
@@ -25,6 +26,7 @@
 
         // attribution des logs
         fight = new Fight(battle.fightName);
+        battleId = battle.battleId
         logs = fight.fightingLogs;
 
         // initialisation des sorts du joueur 
@@ -59,13 +61,13 @@
         }
     }
 
-    async function getCharacterHitTurn(player, enemy) {
-        const array = [player, enemy];
-
+    async function getCharacterHitTurn(battleId) {
+        const id = { id: battleId };
+        console.log(typeof battleId)
         const res = await fetch("/api/battle/turn/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(array),
+            body: JSON.stringify(id),
         });
 
         const toPlay = await res.json();
@@ -77,20 +79,7 @@
         while (playerIsDead === false && enemyIsDead === false) {
             turn++;
 
-            let playerHitChance = fight.calculateCharacterHitChance(
-                player.statistics.speed,
-            );
-            
-            let enemyHitChance = fight.calculateCharacterHitChance(
-                enemy.statistics.speed,
-            );
-
-            // let toPlay = fight.chooseCharacterHitTurn(
-            //     playerHitChance,
-            //     enemyHitChance,
-            // );
-
-            let toPlay = await getCharacterHitTurn(player, enemy);
+            let toPlay = await getCharacterHitTurn(battleId);
 
             fight.reduceCharacterSpellsCooldown(player.spells);
             fight.reduceCharacterSpellsCooldown(enemy.spells);

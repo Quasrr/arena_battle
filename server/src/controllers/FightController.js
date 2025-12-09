@@ -28,12 +28,19 @@ class FightController {
     }
 
     chooseCharacterHitTurn(req, res) {
-        const fight = new Fight('Test Fight');
+        const battleId = req.body.id;
+        const battle = BattleStore.getBattle(battleId);
 
-        let objs = req.body;
+        const playerSpeed = battle.player.statistics.speed;
+        const enemySpeed = battle.enemy.statistics.speed;
 
-        console.log(objs)
-        res.status(200).json(true);
+        const playerHitChance = battle.fight.calculateCharacterHitChance(playerSpeed);
+        const enemyHitChance = battle.fight.calculateCharacterHitChance(enemySpeed);
+
+        const toPlay = battle.fight.chooseCharacterHitTurn(playerHitChance, enemyHitChance);
+
+        console.log(toPlay)
+        res.status(200).json(toPlay);
     }
 }
 
