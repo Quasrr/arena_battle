@@ -53,9 +53,15 @@ class FightController {
         res.status(200).json(char);
     }
 
-    reduceCharactersSpellsCooldown(req, res) {
+    checkCharacterNegativeEffectStates(req, res) {
         const battleId = req.body.id;
-        
+        const charName = req.body.name;
+
+        const battle = BattleStore.getBattle(battleId);
+
+        const char = Object.values(battle).find(element => element.name === charName);
+        console.log(char)
+        let canPlay = true;
     }
 }
 

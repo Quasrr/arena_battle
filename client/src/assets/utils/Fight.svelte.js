@@ -59,25 +59,33 @@ class Fight {
         }
     }
 
-    checkCharacterNegativeEffectStates(self, fightInstance) {
-        let canPlay = true;
+    async checkCharacterNegativeEffectStates(battleId, name) {
+        const res = await fetch('/api/battle/check-character-negative-effect', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({id: battleId, name}),
+        });
 
-        const stunNegate = self.negativeEffects.find(element => {
-            return element.name === 'Stun';
-        })
+        const test = await res.json();
+        console.log(test);
+        // let canPlay = true;
 
-        if (stunNegate.state) {
-            canPlay = false;
-        }
+        // const stunNegate = self.negativeEffects.find(element => {
+        //     return element.name === 'Stun';
+        // })
 
-        self.negativeEffects.forEach(negate => {
-            if (negate.state && negate.duration >= 0) {
-                negate.applyNegativeEffect(self, fightInstance);
-                this.reduceCharacterNegativeEffectDuration(negate);
-            }
-        })
+        // if (stunNegate.state) {
+        //     canPlay = false;
+        // }
 
-        return canPlay;
+        // self.negativeEffects.forEach(negate => {
+        //     if (negate.state && negate.duration >= 0) {
+        //         negate.applyNegativeEffect(self, fightInstance);
+        //         this.reduceCharacterNegativeEffectDuration(negate);
+        //     }
+        // })
+
+        // return canPlay;
     }
 
     refreshCharacterBuff(target, self) {

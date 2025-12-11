@@ -96,12 +96,9 @@
 
             if (toPlay) {
                 // tour du joueur
-                let check = fight.checkCharacterNegativeEffectStates(
-                    player,
-                    fight,
-                );
+                player = await fight.checkCharacterNegativeEffectStates(battleId, player.name);
 
-                if (check) {
+                if (!player.negativeEffects.stun) {
                     fight.refreshCharacterBuff(enemy, player);
                     player.perTurn(enemy, player);
 
