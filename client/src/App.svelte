@@ -1,7 +1,7 @@
 <script>
     import Fight from './components/Fight.svelte';
     import OpenWorld from './components/OpenWorld.svelte';
-    import Game from './assets/utils/Game.svelte';
+    import Game from './assets/scripts/utils/Game.svelte';
     let gameState = $state(Game.state);
 </script>
 
