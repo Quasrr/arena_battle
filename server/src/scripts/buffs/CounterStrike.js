@@ -13,7 +13,7 @@ class CounterStrike extends Buff {
         super(buffData);
     }
 
-    applyBuff(target, self) {
+    applyBuff(self) {
         if (this.isPermanent) {
             return;
         }
@@ -22,7 +22,7 @@ class CounterStrike extends Buff {
         this.duration = 2;
     }
 
-    checkBuff(target, self) {
+    checkBuff(self) {
         if (!this.state) {
             return;
         }

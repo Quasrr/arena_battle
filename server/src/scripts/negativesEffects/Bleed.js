@@ -4,10 +4,10 @@ class Bleed extends NegativeEffects {
     constructor() {
         const effectsData = {
             name: "Bleed",
-            state: false,
+            state: true,
             stacks: 0,
-            duration: 0,
-            damage: 0
+            duration: 1,
+            damage: 20
         };
 
         super(effectsData);

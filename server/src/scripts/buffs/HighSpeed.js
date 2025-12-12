@@ -13,7 +13,7 @@ class HighSpeed extends Buff {
         super(buffData);
     }
 
-    applyBuff(target, self) {
+    applyBuff(self) {
         if (this.isPermanent) {
             return;
         }
@@ -23,7 +23,7 @@ class HighSpeed extends Buff {
         self.statistics.speed += Math.round(self.statistics.speed * 0.3);
     }
 
-    checkBuff(target, self) {
+    checkBuff(self) {
         if (!this.state) {
             return;
         }

@@ -70,9 +70,24 @@ class FightController {
         })
 
         res.status(200).json({
-            player: char,
+            char,
             log: logs
         });
+    }
+
+    checkCharacterBuffs(req, res) {
+        const battleId = req.body.id;
+        const charName = req.body.name;
+
+        const battle = BattleStore.getBattle(battleId);
+
+        const char = Object.values(battle).find(element => element.name === charName);
+
+        char.buffs.forEach(buff => {
+            buff.checkBuff(char);
+        })
+
+        res.status(200).json(char);
     }
 }
 

@@ -104,14 +104,14 @@
                 // tour du joueur
                 let log = [];
 
-                ({ player, log } = await fight.checkCharacterNegativeEffectStates(battleId, player.name));
+                ({ char: player, log } = await fight.checkCharacterNegativeEffectStates(battleId, player.name));
 
                 log.forEach(element => {
                     fight.addLogsLine(element);
                 });
 
                 if (canPlayTurn(player)) {
-                    fight.refreshCharacterBuff(enemy, player);
+                    player = fight.refreshCharacterBuff(battleId, player.name);
                     player.perTurn(enemy, player);
 
                     // attente de choix d'une action
@@ -124,14 +124,15 @@
                 }
             } else {
                 let log = [];
-                ({ enemy, log } = await fight.checkCharacterNegativeEffectStates(battleId, enemy.name));
 
+                ({ char: enemy, log } = await fight.checkCharacterNegativeEffectStates(battleId, enemy.name));
+                
                 log.forEach(element => {
                     fight.addLogsLine(element);
                 });
 
                 if (canPlayTurn(enemy)) {
-                    fight.refreshCharacterBuff(player, enemy);
+                    enemy = fight.refreshCharacterBuff(battleId, enemy.name);
                     enemy.perTurn(player, enemy);
 
                     let act = fight.randomAction(enemy, player);

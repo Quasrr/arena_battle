@@ -70,10 +70,16 @@ class Fight {
         return obj;
     }
 
-    refreshCharacterBuff(target, self) {
-        self.buffs.forEach(buff => {
-            buff.checkBuff(target, self);
-        })
+    async refreshCharacterBuff(battleId, name) {
+        const res = await fetch('/api/battle/check-character-buffs', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({id: battleId, name}),
+        });
+        
+        const char = await res.json();
+
+        return char;
     }
 
     actionToDo(actionName, selfTarget, target, fightInstance) {
