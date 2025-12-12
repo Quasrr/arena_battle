@@ -1,5 +1,3 @@
-import Utilities from "./Utilities.svelte.js";
-
 class Fight {
     fightingLogs = $state([]);
 
