@@ -82,6 +82,18 @@ class Fight {
         return char;
     }
 
+    async passivePerTurn(battleId, targetName, selfName) {
+        const res = await fetch('/api/battle/passive-per-turn', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({id: battleId, targetName, selfName}),
+        });
+
+        const char = await res.json();
+
+        return char;
+    }
+
     actionToDo(actionName, selfTarget, target, fightInstance) {
         if (!actionName) return;
 

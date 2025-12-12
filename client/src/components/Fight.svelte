@@ -111,8 +111,9 @@
                 });
 
                 if (canPlayTurn(player)) {
-                    player = fight.refreshCharacterBuff(battleId, player.name);
-                    player.perTurn(enemy, player);
+                    player = await fight.refreshCharacterBuff(battleId, player.name);
+
+                    ({ char: player } = await fight.passivePerTurn(battleId, enemy.name, player.name));
 
                     // attente de choix d'une action
                     while (action === null) {
@@ -132,10 +133,12 @@
                 });
 
                 if (canPlayTurn(enemy)) {
-                    enemy = fight.refreshCharacterBuff(battleId, enemy.name);
-                    enemy.perTurn(player, enemy);
+                    enemy = await fight.refreshCharacterBuff(battleId, enemy.name);
+
+                    ({ char: enemy } = await fight.passivePerTurn(battleId, player.name, enemy.name));
 
                     let act = fight.randomAction(enemy, player);
+                    
                     fight.actionToDo(act, enemy, player, fight);
                     player.perHit(enemy, player, fight);
                 }

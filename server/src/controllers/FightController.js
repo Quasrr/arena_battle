@@ -41,8 +41,7 @@ class FightController {
     }
 
     reduceCharacterSpellsCooldown(req, res) {
-        const battleId = req.body.id;
-        const charName = req.body.name;
+        const { id: battleId, name: charName } = req.body;
 
         const battle = BattleStore.getBattle(battleId);
         
@@ -54,8 +53,7 @@ class FightController {
     }
 
     checkCharacterNegativeEffectStates(req, res) {
-        const battleId = req.body.id;
-        const charName = req.body.name;
+        const { id: battleId, name: charName} = req.body
 
         const battle = BattleStore.getBattle(battleId);
 
@@ -76,8 +74,7 @@ class FightController {
     }
 
     checkCharacterBuffs(req, res) {
-        const battleId = req.body.id;
-        const charName = req.body.name;
+        const { id: battleId, name: charName} = req.body
 
         const battle = BattleStore.getBattle(battleId);
 
@@ -88,6 +85,19 @@ class FightController {
         })
 
         res.status(200).json(char);
+    }
+
+    passivePerTurn(req, res) {
+        const { id: battleId, targetName, selfName} = req.body;
+
+        const battle = BattleStore.getBattle(battleId);
+
+        const target = Object.values(battle).find(element => element.name === targetName);
+        const self = Object.values(battle).find(element => element.name === selfName);
+
+        self.perTurn(target, self);
+
+        res.status(200).json(self);
     }
 }
 
