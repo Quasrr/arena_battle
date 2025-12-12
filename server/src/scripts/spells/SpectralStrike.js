@@ -16,8 +16,20 @@ class SpectralStrike extends Spell {
         super(spellData);
     }
 
-    logSpellAction(target, self, damage, fightInstance) {
-        fightInstance.addLogsLine({
+    canUseSpell(caster) {
+        return this.currentCooldown === 0;
+    }
+
+    useSpell(target, self, battle) {
+        let targetHP = target.statistics.maxHP - target.statistics.HP;
+        let percentMissingHealthDamage = Math.round(targetHP * 0.25);
+
+        let damage = Math.round(battle.fight.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM) / 2 + percentMissingHealthDamage);
+        target.statistics.HP -= damage;
+
+        this.currentCooldown = this.cooldown;
+
+        return {
             text: `${self.name} utilise ${this.name} et inflige ${damage} points de dégats à ${target.name}`,
             styles:
                 [
@@ -25,23 +37,7 @@ class SpectralStrike extends Spell {
                     { word: `Strike`, color: 'grey' },
                     { word: `${damage}`, color: 'grey' }
                 ]
-        });
-    }
-
-    canUseSpell(caster, target) {
-        return this.currentCooldown === 0;
-    }
-
-    useSpell(target, self, fightInstance) {
-        let targetHP = target.statistics.maxHP - target.statistics.HP;
-        let percentMissingHealthDamage = Math.round(targetHP * 0.25);
-
-        let damage = Math.round(fightInstance.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM) / 2 + percentMissingHealthDamage);
-        target.statistics.HP -= damage;
-
-        this.currentCooldown = this.cooldown;
-
-        this.logSpellAction(target, self, damage, fightInstance);
+        }
     }
 }
 

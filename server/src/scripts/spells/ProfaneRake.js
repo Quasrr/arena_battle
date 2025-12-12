@@ -16,25 +16,12 @@ class ProfaneRake extends Spell {
         super(spellData);
     }
 
-    logSpellAction(target, self, damage, fightInstance) {
-        fightInstance.addLogsLine({
-            text: `${self.name} utilise Profane Rake et griffe ${target.name}, inflige ${damage} et applique un saignement! `,
-            styles:
-                [
-                    { word: `Profane`, color: 'red' },
-                    { word: `Rake`, color: 'red' },
-                    { word: `${damage}`, color: 'red' },
-                    { word: `saignement`, color: 'red' }
-                ]
-        });
-    }
-
-    canUseSpell(caster, target) {
+    canUseSpell(caster) {
         return this.currentCooldown === 0;
     }
 
-    useSpell(target, self, fightInstance) {
-        let damage = Math.round(fightInstance.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM) * 1.2);
+    useSpell(target, self, battle) {
+        let damage = Math.round(battle.fight.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM) * 1.2);
 
         const targetBleedState = target.negativeEffects.find(negate => {
             return negate.name === 'Bleed';
@@ -51,7 +38,16 @@ class ProfaneRake extends Spell {
 
         this.currentCooldown = this.cooldown;
 
-        this.logSpellAction(target, self, damage, fightInstance);
+        return {
+            text: `${self.name} utilise Profane Rake et griffe ${target.name}, inflige ${damage} et applique un saignement! `,
+            styles:
+                [
+                    { word: `Profane`, color: 'red' },
+                    { word: `Rake`, color: 'red' },
+                    { word: `${damage}`, color: 'red' },
+                    { word: `saignement`, color: 'red' }
+                ]
+        }
     }
 }
 

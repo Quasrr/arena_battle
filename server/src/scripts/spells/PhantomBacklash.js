@@ -16,20 +16,7 @@ class PhantomBacklash extends Spell {
         super(spellData);
     }
 
-    logSpellAction(target, self, damage, fightInstance) {
-        fightInstance.addLogsLine({
-            text: `${self.name} utilise Phantom Backlash et se prépare à riposter pendant 2 tours`,
-            styles:
-                [
-                    { word: `Phantom`, color: 'grey' },
-                    { word: `Backlash`, color: 'grey' },
-                    { word: `riposter`, color: 'orange' },
-                    { word: `2`, color: 'green' }
-                ]
-        });
-    }
-
-    canUseSpell(caster, target) {
+    canUseSpell(caster) {
         const counterStrike = caster.buffs.find(element => {
             return element.name === "Counter Strike";
         });
@@ -39,7 +26,7 @@ class PhantomBacklash extends Spell {
         );
     }
 
-    useSpell(target, self, fightInstance) {
+    useSpell(target, self, battle) {
         let damage = 0;
         this.currentCooldown = this.cooldown;
         
@@ -49,7 +36,16 @@ class PhantomBacklash extends Spell {
 
         counterStrike.applyBuff();
 
-        this.logSpellAction(target, self, damage, fightInstance);
+        return {
+            text: `${self.name} utilise Phantom Backlash et se prépare à riposter pendant 2 tours`,
+            styles:
+                [
+                    { word: `Phantom`, color: 'grey' },
+                    { word: `Backlash`, color: 'grey' },
+                    { word: `riposter`, color: 'orange' },
+                    { word: `2`, color: 'green' }
+                ]
+        }
     }
 }
 

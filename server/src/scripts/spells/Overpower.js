@@ -16,20 +16,7 @@ class Overpower extends Spell {
         super(spellData);
     }
 
-    logSpellAction(target, self, damage, fightInstance) {
-        fightInstance.addLogsLine({
-            text: `${self.name} utilise Overpower et s'octroie un bonus de vitesse et de dégats supplémentaire de 30%`,
-            styles:
-                [
-                    { word: `Overpower`, color: 'grey' },
-                    { word: `vitesse`, color: 'grey' },
-                    { word: `dégats`, color: 'grey' },
-                    { word: `30%`, color: 'green' }
-                ]
-        });
-    }
-
-    canUseSpell(caster, target) {
+    canUseSpell(caster) {
         const overpower = caster.buffs.find(element => {
             return element.name === "High Speed";
         });
@@ -37,7 +24,7 @@ class Overpower extends Spell {
         return this.currentCooldown === 0 && overpower;
     }
 
-    useSpell(target, self, fightInstance) {
+    useSpell(target, self, battle) {
         let damage = 0;
         this.currentCooldown = this.cooldown;
 
@@ -47,7 +34,16 @@ class Overpower extends Spell {
 
         overpower.applyBuff(target, self);
 
-        this.logSpellAction(target, self, damage, fightInstance);
+        return {
+            text: `${self.name} utilise Overpower et s'octroie un bonus de vitesse et de dégats supplémentaire de 30%`,
+            styles:
+                [
+                    { word: `Overpower`, color: 'grey' },
+                    { word: `vitesse`, color: 'grey' },
+                    { word: `dégats`, color: 'grey' },
+                    { word: `30%`, color: 'green' }
+                ]
+        }
     }
 }
 

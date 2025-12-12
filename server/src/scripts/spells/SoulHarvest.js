@@ -16,25 +16,12 @@ class SoulHarvest extends Spell {
         super(spellData);
     }
 
-    logSpellAction(target, self, damage, healing, fightInstance) {
-        fightInstance.addLogsLine({
-            text: `${self.name} utilise Soul Harvest, inflige ${damage} points de dégats et se soigne de ${healing} points de vie`,
-            styles:
-                [
-                    { word: `Soul`, color: 'grey' },
-                    { word: `Harvest`, color: 'grey' },
-                    { word: `${damage}`, color: 'orange' },
-                    { word: `${healing}`, color: 'green' }
-                ]
-        });
-    }
-
-    canUseSpell(caster, target) {
+    canUseSpell(caster) {
         return this.currentCooldown === 0;
     }
 
-    useSpell(target, self, fightInstance) {
-        let damage = fightInstance.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM);
+    useSpell(target, self, battle) {
+        let damage = battle.fight.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM);
         let healing = Math.floor(damage * 0.10);
         if (self.statistics.HP >= self.statistics.maxHP) {
             healing = 0;
@@ -47,7 +34,16 @@ class SoulHarvest extends Spell {
 
         this.currentCooldown = this.cooldown;
 
-        this.logSpellAction(target, self, damage, healing, fightInstance);
+        return {
+            text: `${self.name} utilise Soul Harvest, inflige ${damage} points de dégats et se soigne de ${healing} points de vie`,
+            styles:
+                [
+                    { word: `Soul`, color: 'grey' },
+                    { word: `Harvest`, color: 'grey' },
+                    { word: `${damage}`, color: 'orange' },
+                    { word: `${healing}`, color: 'green' }
+                ]
+        }
     }
 }
 

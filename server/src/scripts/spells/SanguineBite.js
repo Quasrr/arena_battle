@@ -16,25 +16,12 @@ class SanguineBite extends Spell {
         super(spellData);
     }
 
-    logSpellAction(target, self, damage, fightInstance) {
-        fightInstance.addLogsLine({
-            text: `${self.name} utilise Sanguine Bite et mord ${target.name}, inflige ${damage} et applique un saignement!`,
-            styles:
-                [
-                    { word: `Sanguine`, color: 'red' },
-                    { word: `Bite`, color: 'red' },
-                    { word: `${damage}`, color: 'red' },
-                    { word: `saignement`, color: 'red' }
-                ]
-        });
-    }
-
-    canUseSpell(caster, target) {
+    canUseSpell(caster) {
         return this.currentCooldown === 0;
     }
 
-    useSpell(target, self, fightInstance) {
-        let damage = Math.round(fightInstance.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM) / 4);
+    useSpell(target, self, battle) {
+        let damage = Math.round(battle.fight.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM) / 4);
 
         const targetBleedState = target.negativeEffects.find(negate => {
             return negate.name === 'Bleed';
@@ -50,7 +37,16 @@ class SanguineBite extends Spell {
 
         this.currentCooldown = this.cooldown;
 
-        this.logSpellAction(target, self, damage, fightInstance);
+        return {
+            text: `${self.name} utilise Sanguine Bite et mord ${target.name}, inflige ${damage} et applique un saignement!`,
+            styles:
+                [
+                    { word: `Sanguine`, color: 'red' },
+                    { word: `Bite`, color: 'red' },
+                    { word: `${damage}`, color: 'red' },
+                    { word: `saignement`, color: 'red' }
+                ]
+        }
     }
 }
 

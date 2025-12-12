@@ -16,20 +16,7 @@ class sanguineOffering extends Spell {
         super(spellData);
     }
 
-    logSpellAction(target, self, damage, fightInstance) {
-        fightInstance.addLogsLine({
-            text: `${self.name} utilise Sanguine Offering et sacrifie ${damage} points de vie, augmentant ses dégats de 25%`,
-            styles:
-                [
-                    { word: `Sanguine`, color: 'red' },
-                    { word: `Offering`, color: 'red' },
-                    { word: `${damage}`, color: 'red' },
-                    { word: `25%`, color: 'green' }
-                ]
-        });
-    }
-
-    canUseSpell(caster, target) {
+    canUseSpell(caster) {
         const cost = Math.round(caster.statistics.maxHP * 0.05);
 
         return (
@@ -37,7 +24,7 @@ class sanguineOffering extends Spell {
         );
     }
 
-    useSpell(target, self, fightInstance) {
+    useSpell(target, self, battle) {
         let damage = Math.round(self.statistics.maxHP * 0.05);
 
         self.statistics.STR += Math.round(self.statistics.STR * 0.25);
@@ -46,7 +33,16 @@ class sanguineOffering extends Spell {
 
         this.currentCooldown = this.cooldown;
 
-        this.logSpellAction(target, self, damage, fightInstance);
+        return {
+            text: `${self.name} utilise Sanguine Offering et sacrifie ${damage} points de vie, augmentant ses dégats de 25%`,
+            styles:
+                [
+                    { word: `Sanguine`, color: 'red' },
+                    { word: `Offering`, color: 'red' },
+                    { word: `${damage}`, color: 'red' },
+                    { word: `25%`, color: 'green' }
+                ]
+        }
     }
 }
 

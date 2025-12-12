@@ -16,8 +16,20 @@ class Exsanguinate extends Spell {
         super(spellData);
     }
 
-    logSpellAction(target, self, healing, fightInstance) {
-        fightInstance.addLogsLine({
+    canUseSpell(caster) {
+        return (
+            this.currentCooldown === 0 && caster.statistics.hp >= caster.statistics.maxHP
+        );
+    }
+
+    useSpell(target, self, battle) {
+        let healing = Math.round((self.statistics.maxHP - self.statistics.HP) * 0.1);
+
+        self.statistics.HP += healing;
+
+        this.currentCooldown = this.cooldown;
+
+        return {
             text: `${self.name} utilise Exsanguinate et se soigne de ${healing} points de vie!, ${self.name} saigne!`,
             styles:
                 [
@@ -26,23 +38,7 @@ class Exsanguinate extends Spell {
                     { word: `${healing}`, color: 'green' },
                     { word: `saigne!`, color: 'red' }
                 ]
-        });
-    }
-
-    canUseSpell(caster, target) {
-        return (
-            this.currentCooldown === 0 && caster.statistics.hp >= caster.statistics.maxHP
-        );
-    }
-
-    useSpell(target, self, fightInstance) {
-        let healing = Math.round((self.statistics.maxHP - self.statistics.HP) * 0.1);
-
-        self.statistics.HP += healing;
-
-        this.currentCooldown = this.cooldown;
-
-        this.logSpellAction(target, self, healing, fightInstance);
+        }
     }
 }
 
