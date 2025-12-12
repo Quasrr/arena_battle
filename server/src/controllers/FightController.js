@@ -88,7 +88,7 @@ class FightController {
     }
 
     passivePerTurn(req, res) {
-        const { id: battleId, targetName, selfName} = req.body;
+        const { id: battleId, targetName, selfName } = req.body;
 
         const battle = BattleStore.getBattle(battleId);
 
@@ -109,9 +109,30 @@ class FightController {
         const player = Object.values(battle).find(element => element.name === playerName);
         const spell = player.spells.find(spell => spell.name === spellName);
 
-        action = spell.currentCooldown > 0 ? undefined : spell.name;
+        action = spell.canUseSpell(player) ? spell.name : undefined;
+        
+        console.log(`${spell.name} cliqué`);
 
-        res.status(200).json({action});
+        res.status(200).json({ action });
+    }
+
+    playerUseSpell(req, res) {
+        const { id: battleId, actionName: spellName, targetName, selfName } = req.body;
+
+        const battle = BattleStore.getBattle(battleId);
+
+        const target = Object.values(battle).find(element => element.name === targetName);
+        const self = Object.values(battle).find(element => element.name === selfName);
+
+        const spell = self.spells.find(element => element.name === spellName);
+
+        let log = spell.useSpell(target, self, battle);
+
+        res.status(200).json({
+            target,
+            self,
+            log
+        })
     }
 }
 

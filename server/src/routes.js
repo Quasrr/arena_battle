@@ -10,5 +10,6 @@ router.post('/api/battle/check-character-negative-effect', FightController.check
 router.post('/api/battle/check-character-buffs', FightController.checkCharacterBuffs);
 router.post('/api/battle/passive-per-turn', FightController.passivePerTurn);
 router.post('/api/battle/determine-player-action', FightController.determinePlayerAction);
+router.post('/api/battle/player-use-spell', FightController.playerUseSpell);
 
 export default router;

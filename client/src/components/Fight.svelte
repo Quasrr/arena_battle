@@ -117,9 +117,12 @@
                         await Utilities.sleep(50);
                     }
 
-                    fight.actionToDo(action, player, enemy, fight);
+                    let spellLog;
 
+                    ({ target: enemy, self: player,  log: spellLog} = await fight.actionToDo(battleId, action, enemy.name, player.name));
 
+                    fight.addLogsLine(spellLog);
+                    console.log(player)
                     // enemy.perHit(player, enemy, fight);
                 }
             } else {
@@ -145,6 +148,7 @@
 
             action = undefined;
 
+            console.log(player)
             if (player.statistics.HP <= 0) {
                 playerIsDead = true;
                 return;

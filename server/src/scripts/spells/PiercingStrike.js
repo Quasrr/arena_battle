@@ -16,8 +16,18 @@ class PiercingStrike extends Spell {
         super(spellData);
     }
 
-    logSpellAction(target, self, damage, fightInstance) {
-        fightInstance.addLogsLine({
+    canUseSpell(caster, target) {
+        return this.currentCooldown === 0;
+    }
+
+    useSpell(target, self, battle) {
+        self.selfAttributes.Souls++;
+        let damage = Math.round(battle.fight.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM) * 1.2);
+        target.statistics.HP -= damage;
+
+        this.currentCooldown = this.cooldown;
+
+        return {
             text: `${self.name} utilise ${this.name} et inflige ${damage} points de dégats à ${target.name}`,
             styles:
                 [
@@ -25,21 +35,7 @@ class PiercingStrike extends Spell {
                     { word: `Strike`, color: 'grey' },
                     { word: `${damage}`, color: 'yellow' }
                 ]
-        });
-    }
-
-    canUseSpell(caster, target) {
-        return this.currentCooldown === 0;
-    }
-
-    useSpell(target, self, fightInstance) {
-        self.selfAttributes.Souls++;
-        let damage = Math.round(fightInstance.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM) * 1.2);
-        target.statistics.HP -= damage;
-
-        this.currentCooldown = this.cooldown;
-
-        this.logSpellAction(target, self, damage, fightInstance);
+        }
     }
 }
 

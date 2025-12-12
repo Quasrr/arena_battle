@@ -93,14 +93,18 @@ class Fight {
         return char;
     }
 
-    actionToDo(actionName, selfTarget, target, fightInstance) {
+    async actionToDo(battleId, actionName, targetName, selfName) {
         if (!actionName) return;
+        
+        const res = await fetch('/api/battle/player-use-spell', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({id: battleId, actionName, targetName, selfName}),
+        });
 
-        selfTarget.spells.forEach(spell => {
-            if (actionName === spell.name) {
-                spell.useSpell(target, selfTarget, fightInstance)
-            }
-        })
+        const obj = await res.json();
+
+        return obj;
     }
 
     randomAction(user, target) {
