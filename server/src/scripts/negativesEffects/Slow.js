@@ -13,17 +13,14 @@ class Slow extends NegativeEffects {
         super(effectsData);
     }
 
-    logNegativeEffect(self, fightInstance) {
-        fightInstance.addLogsLine({
+    applyNegativeEffect(self) {
+        self.statistics.HP -= this.damage;
+        
+        return {
             text: `${self.name} est ralentit et a du mal à avancer`,
             styles:
                 []
-        })
-    }
-
-    applyNegativeEffect(self, fightInstance) {
-        self.statistics.HP -= this.damage;
-        this.logNegativeEffect(self, fightInstance);
+        }
     }
 }
 

@@ -60,8 +60,19 @@ class FightController {
         const battle = BattleStore.getBattle(battleId);
 
         const char = Object.values(battle).find(element => element.name === charName);
-        console.log(char)
-        let canPlay = true;
+        const logs = [];
+
+        char.negativeEffects.forEach(negate => {
+            if (negate.state && negate.duration >= 0) {
+                logs.push(negate.applyNegativeEffect(char));
+                battle.fight.reduceCharacterNegativeEffectDuration(negate);
+            }
+        })
+
+        res.status(200).json({
+            player: char,
+            log: logs
+        });
     }
 }
 

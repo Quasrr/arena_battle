@@ -13,20 +13,17 @@ class Poison extends NegativeEffects {
         super(effectsData);
     }
 
-    logNegativeEffect(self, fightInstance) {
-        fightInstance.addLogsLine({
+    applyNegativeEffect(self) {
+        self.statistics.HP -= this.damage;
+        
+        return {
             text: `${self.name} est empoisonné et subit ${this.damage} points de dégats d' empoisonnement!`,
             styles:
                 [
                     { word: `${this.damage}`, color: 'purple' },
                     { word: `empoisonnement`, color: 'purple' }
                 ]
-        })
-    }
-
-    applyNegativeEffect(self, fightInstance) {
-        self.statistics.HP -= this.damage;
-        this.logNegativeEffect(self, fightInstance);
+        }
     }
 }
 

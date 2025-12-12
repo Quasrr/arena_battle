@@ -74,6 +74,12 @@
         return toPlay;
     }
 
+    function canPlayTurn(character) {
+        const stunEffect = character.negativeEffects.find(negate => negate.name === "Stun");
+
+        return !stunEffect.state;
+    }
+
     async function fighting() {
 
         while (playerIsDead === false && enemyIsDead === false) {
@@ -96,9 +102,15 @@
 
             if (toPlay) {
                 // tour du joueur
-                player = await fight.checkCharacterNegativeEffectStates(battleId, player.name);
+                let log = [];
 
-                if (!player.negativeEffects.stun) {
+                ({ player, log } = await fight.checkCharacterNegativeEffectStates(battleId, player.name));
+
+                log.forEach(element => {
+                    fight.addLogsLine(element);
+                });
+
+                if (canPlayTurn(player)) {
                     fight.refreshCharacterBuff(enemy, player);
                     player.perTurn(enemy, player);
 
@@ -111,12 +123,14 @@
                     enemy.perHit(player, enemy, fight);
                 }
             } else {
-                let check = fight.checkCharacterNegativeEffectStates(
-                    enemy,
-                    fight,
-                );
+                let log = [];
+                ({ enemy, log } = await fight.checkCharacterNegativeEffectStates(battleId, enemy.name));
 
-                if (check) {
+                log.forEach(element => {
+                    fight.addLogsLine(element);
+                });
+
+                if (canPlayTurn(enemy)) {
                     fight.refreshCharacterBuff(player, enemy);
                     enemy.perTurn(player, enemy);
 

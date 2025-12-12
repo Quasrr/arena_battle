@@ -66,26 +66,8 @@ class Fight {
             body: JSON.stringify({id: battleId, name}),
         });
 
-        const test = await res.json();
-        console.log(test);
-        // let canPlay = true;
-
-        // const stunNegate = self.negativeEffects.find(element => {
-        //     return element.name === 'Stun';
-        // })
-
-        // if (stunNegate.state) {
-        //     canPlay = false;
-        // }
-
-        // self.negativeEffects.forEach(negate => {
-        //     if (negate.state && negate.duration >= 0) {
-        //         negate.applyNegativeEffect(self, fightInstance);
-        //         this.reduceCharacterNegativeEffectDuration(negate);
-        //     }
-        // })
-
-        // return canPlay;
+        const obj = await res.json();
+        return obj;
     }
 
     refreshCharacterBuff(target, self) {

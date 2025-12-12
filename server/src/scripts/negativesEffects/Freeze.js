@@ -13,20 +13,17 @@ class Freeze extends NegativeEffects {
         super(effectsData);
     }
 
-    logNegativeEffect(self, fightInstance) {
-        fightInstance.addLogsLine({
+    applyNegativeEffect(self) {
+        self.statistics.HP -= this.damage;
+        
+        return {
             text: `${self.name} est gelé et subit ${this.damage} points de dégats de gel!`,
             styles:
                 [
                     { word: `${this.damage}`, color: 'lightblue' },
                     { word: `gel`, color: 'lightblue' }
                 ]
-        })
-    }
-
-    applyNegativeEffect(self, fightInstance) {
-        self.statistics.HP -= this.damage;
-        this.logNegativeEffect(self, fightInstance);
+        }
     }
 }
 

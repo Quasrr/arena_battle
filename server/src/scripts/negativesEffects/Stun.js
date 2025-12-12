@@ -13,19 +13,16 @@ class Stun extends NegativeEffects {
         super(effectsData);
     }
 
-    logNegativeEffect(self, fightInstance) {
-        fightInstance.addLogsLine({
+    applyNegativeEffect(self) {
+        self.statistics.HP -= this.damage;
+        
+        return {
             text: `${self.name} est paralysé et ne peut pas attaquer`,
             styles:
                 [
                     { word: `paralysé`, color: 'yellow' }
                 ]
-        })
-    }
-
-    applyNegativeEffect(self, fightInstance) {
-        self.statistics.HP -= this.damage;
-        this.logNegativeEffect(self, fightInstance);
+        }
     }
 }
 

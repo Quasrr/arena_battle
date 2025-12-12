@@ -13,20 +13,17 @@ class Burn extends NegativeEffects {
         super(effectsData);
     }
 
-    logNegativeEffect(self, fightInstance) {
-        fightInstance.addLogsLine({
+    applyNegativeEffect(self) {
+        self.statistics.HP -= this.damage;
+        
+        return {
             text: `${self.name} brûle et subit ${this.damage} points de dégats de brûlure!`,
             styles:
                 [
                     { word: `${this.damage}`, color: 'orange' },
                     { word: `brûlure`, color: 'orange' }
                 ]
-        })
-    }
-
-    applyNegativeEffect(self, fightInstance) {
-        self.statistics.HP -= this.damage;
-        this.logNegativeEffect(self, fightInstance);
+        }
     }
 }
 
