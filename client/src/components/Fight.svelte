@@ -252,7 +252,7 @@
 
             <div class="playing-turn">
                 {#if playTurn === player.name}
-                <p>A VOUS DE JOUER</p>
+                <p>À VOUS DE JOUER !</p>
                 {/if}
             </div>
 

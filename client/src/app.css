@@ -149,8 +149,7 @@ main {
 
 .playing-turn p {
     color: white;
-    font-size: 2rem;
-    padding-bottom: 10rem;
+    font-size: 2.5rem;
 }
 
 .characters-fight {
@@ -250,7 +249,7 @@ main {
 .veil{
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.849); /* ajustez 0.45 */
+    background: rgba(0, 0, 0, 0.849);
     pointer-events: none;
     display: flex;
     justify-content: center;
