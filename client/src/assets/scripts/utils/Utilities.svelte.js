@@ -17,6 +17,13 @@ class Utilities {
         return char.image;
     }
 
+    static checkSpellIsOnCooldown(spells, charSpells) {
+        const spell = charSpells.find(element => {
+            return element.name === spells.name
+        })
+
+        return spell.currentCooldown > 0;
+    }
 }
 
 export default Utilities;
