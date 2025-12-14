@@ -1,7 +1,5 @@
 <script>
-</script>
-
-<main class="character-selection">
+</script><main class="character-selection">
     <header class="page-header">
         <h1>SÉLECTIONNEZ UN PERSONNAGE</h1>
         <p>
@@ -57,8 +55,16 @@
                     <div class="character-image" aria-hidden="true"></div>
 
                     <div class="character-infos-area">
-                        <h2>Enemy Name</h2>
-                        <h2>Class Name</h2>
+ 
+                        <label for="enemy-name">Nom de l'adversaire</label>
+                        <input
+                            type="text"
+                            name="enemy-name"
+                            id="enemy-name"
+                            value="Enemy Name"
+                            readonly
+                        />
+                      <h2>Class Name</h2>
                         <p class="description">
                             Grosse description du personnage et de sa manière d'être jouée.
                         </p>
@@ -88,8 +94,8 @@
                 <div class="title">
                     <p>Sélection de l'adversaire</p>
                 </div>
-                <div class="list-body enemy-selection"></div>
-            </div>
+                  <div class="list-body enemy-selection"></div>
+          </div>
         </section>
 
         <footer class="selection-menu" aria-label="Lancer le combat">
@@ -135,7 +141,7 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
-        align-items: start;
+          align-items: stretch;
         max-width: 86rem;
         margin: 0 auto;
         width: 100%;
@@ -147,6 +153,10 @@
         padding: 0.75rem;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
         border: 1px solid rgba(255, 255, 255, 0.04);
+        display: flex;
+        flex-direction: column;
+        min-height: 22rem;
+        height: 100%;
     }
 
     .panel-header {
@@ -164,7 +174,9 @@
         display: grid;
         grid-template-columns: 15rem 1fr;
         gap: 1rem;
-        align-items: stretch;
+        align-items: center;
+        flex: 1 1 auto;
+        height: 100%;
     }
 
     .character-image {
@@ -194,6 +206,8 @@
         align-items: flex-start;
         gap: 0.6rem;
         min-width: 0;
+        flex: 1 1 auto;
+        height: 100%;
     }
 
     label {
@@ -211,6 +225,12 @@
         outline: none;
     }
 
+    input[readonly] {
+        color: #d0d2d3;
+        background-color: #141410;
+        cursor: default;
+    }
+
     input:focus {
         border-color: rgba(226, 34, 76, 0.7);
         box-shadow: 0 0 0 3px rgba(226, 34, 76, 0.15);
@@ -225,10 +245,11 @@
         color: #d0d2d3;
         font-size: 0.95rem;
         line-height: 1.35;
+        flex: 0 0 auto;
     }
 
     .statistics {
-        margin-top: 0.25rem;
+        margin-top: auto;
         width: 100%;
     }
 
@@ -255,6 +276,22 @@
         padding: 1rem;
         overflow: auto;
         flex: 1 1 auto;
+    }
+
+    .locked-text {
+        color: #a5a8a9;
+        font-size: 0.95rem;
+        line-height: 1.35;
+        margin-bottom: 0.75rem;
+    }
+
+    .enemy-selection {
+        min-height: 6rem;
+        border-radius: 0.9rem;
+        border: 1px dashed rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.03);
+        opacity: 0.4;
+        pointer-events: none;
     }
 
     .list-panel .title {
