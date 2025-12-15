@@ -17,7 +17,9 @@
                 </div>
 
                 <div class="character-card">
-                    <div class="character-image" aria-hidden="true"></div>
+                    <div class="character-image" aria-hidden="true">
+                        <img style="width: 10rem; height: 15rem;" src="./src/assets/art/characters/humans/classes/death_knight/death_knight1.png" alt="">
+                    </div>
 
                     <div class="character-infos-area">
                         <label for="player-name">Nom du personnage</label>
@@ -52,7 +54,9 @@
                 </div>
 
                 <div class="character-card">
-                    <div class="character-image" aria-hidden="true"></div>
+                    <div class="character-image" aria-hidden="true">
+                        <img style="width: 15rem; height: 15rem;" src="./src/assets/art/characters/monsters/boss/baron.png" alt="">
+                    </div>
 
                     <div class="character-infos-area">
  
@@ -180,6 +184,9 @@
     }
 
     .character-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         height: 15rem;
         width: 15rem;
         border-radius: 1rem;
