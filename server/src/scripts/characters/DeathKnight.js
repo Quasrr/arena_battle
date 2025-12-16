@@ -19,7 +19,10 @@ class DeathKnight extends Characters {
     constructor(name) {
         const charData = {
             name: name,
+            className: "DeathKnight",
+            typeName: "Human",
             image: "./src/assets/art/characters/humans/classes/death_knight/death_knight1.png",
+            avatar: "",
             statistics: {
                 HP: 800,
                 maxHP: 800,

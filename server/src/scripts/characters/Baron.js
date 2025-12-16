@@ -19,7 +19,10 @@ class Baron extends Characters {
     constructor(name) {
         const charData = {
             name: name,
+            className: "Baron",
+            typeName: "Monster",
             image: "./src/assets/art/characters/monsters/boss/baron.png",
+            avatar: "",
             statistics: {
                 HP: 4500,
                 maxHP: 4500,

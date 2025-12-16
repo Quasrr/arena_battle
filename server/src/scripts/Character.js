@@ -1,7 +1,10 @@
 class Characters {
     constructor(data) {
         this.name = data.name;
+        this.className = data.className;
+        this.typeName = data.typeName; // Résistances à l'avenir ?
         this.image = data.image;
+        this.avatar = data.avatar;
         this.statistics = data.statistics || {};
         this.selfAttributes = data.selfAttributes || {};
         this.passives = data.passives || [];

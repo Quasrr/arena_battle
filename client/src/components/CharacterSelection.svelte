@@ -1,5 +1,14 @@
 <script>
-</script><main class="character-selection">
+    let charImg;
+    let charHalfW;
+    let charHalfH;
+
+    let enemyImg;
+    let enemyHalfW;
+    let enemyHalfH;
+</script>
+
+<main class="character-selection">
     <header class="page-header">
         <h1>SÉLECTIONNEZ UN PERSONNAGE</h1>
         <p>
@@ -18,7 +27,7 @@
 
                 <div class="character-card">
                     <div class="character-image" aria-hidden="true">
-                        <img style="width: 10rem; height: 15rem;" src="./src/assets/art/characters/humans/classes/death_knight/death_knight1.png" alt="">
+                        <img bind:this={charImg} on:load={() => { charHalfW = charImg.naturalWidth / 2; charHalfH = charImg.naturalHeight / 2; }} style={`width: ${charHalfW ? `${charHalfW}px` : 'auto'}; ${charHalfH ? `${charHalfH}px` : 'auto'}`} src="./src/assets/art/characters/humans/classes/death_knight/death_knight1.png" alt="">
                     </div>
 
                     <div class="character-infos-area">
@@ -28,6 +37,7 @@
                             name="player-name"
                             id="player-name"
                             placeholder="Entrez le nom de votre personnage..."
+                            required
                         />
 
                         <h2>Class Name</h2>
@@ -55,7 +65,7 @@
 
                 <div class="character-card">
                     <div class="character-image" aria-hidden="true">
-                        <img style="width: 15rem; height: 15rem;" src="./src/assets/art/characters/monsters/boss/baron.png" alt="">
+                        <img bind:this={enemyImg} on:load={() => { enemyHalfW = enemyImg.naturalWidth / 2; enemyHalfH = enemyImg.naturalHeight / 2; }} style={`transform: scaleX(-1); width: ${enemyHalfW ? `${enemyHalfW}px` : 'auto'}; ${enemyHalfH ? `${enemyHalfH}px` : 'auto'}`} src="./src/assets/art/characters/monsters/boss/baron.png" alt="">
                     </div>
 
                     <div class="character-infos-area">
