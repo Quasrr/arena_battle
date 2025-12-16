@@ -5,7 +5,7 @@ import Baron from '../scripts/characters/Baron.js';
 class SelectionController {
 
     initialiseCharacters(_req, res) {
-        const characters = [new DeathKnight(), new Baron()];
+        const characters = [new DeathKnight("Deathknight"), new Baron("Baron")];
 
         return res.status(200).json(characters);
     }

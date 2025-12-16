@@ -11,17 +11,27 @@
     let enemyHalfH = $state(undefined);
 
     let characters = $state(undefined);
-    let selected = $state(undefined);
+
+    let selectedPlayer = $state(undefined);
+    let selectedEnemy = $state(undefined);
+
     let player = $state(undefined);
+    let enemy = $state(undefined);
 
     onMount(async () => {
         characters = await Utilities.initiateCharacters();
     }); 
 
     function selectPlayerCharacter(character) {
-        selected = (selected === character.className) ? undefined : character.className;
+        selectedPlayer = (selectedPlayer === character.className) ? undefined : character.className;
 
-        player = character;
+        player = selectedPlayer ? character : undefined;
+    }
+
+    function selectEnemyCharacter(character) {
+        selectedEnemy = (selectedEnemy === character.className) ? undefined : character.className;
+
+        enemy = selectedEnemy ? character : undefined;
     }
 </script>
 
@@ -44,7 +54,7 @@
 
                 <div class="character-card">
                     <div class="character-image" aria-hidden="true">
-                        <img bind:this={charImg} on:load={() => { charHalfW = charImg.naturalWidth / 2; charHalfH = charImg.naturalHeight / 2; }} style={`width: ${charHalfW ? `${charHalfW}px` : 'auto'}; ${charHalfH ? `${charHalfH}px` : 'auto'}`} src="./src/assets/art/characters/humans/classes/death_knight/death_knight1.png" alt="">
+                        <img bind:this={charImg} on:load={() => { charHalfW = charImg.naturalWidth / 2; charHalfH = charImg.naturalHeight / 2; }} style={`width: ${charHalfW ? `${charHalfW}px` : 'auto'}; ${charHalfH ? `${charHalfH}px` : 'auto'}`} src={player ? player.image : ""} alt="">
                     </div>
 
                     <div class="character-infos-area">
@@ -82,7 +92,7 @@
 
                 <div class="character-card">
                     <div class="character-image" aria-hidden="true">
-                        <img bind:this={enemyImg} on:load={() => { enemyHalfW = enemyImg.naturalWidth / 2; enemyHalfH = enemyImg.naturalHeight / 2; }} style={`transform: scaleX(-1); width: ${enemyHalfW ? `${enemyHalfW}px` : 'auto'}; ${enemyHalfH ? `${enemyHalfH}px` : 'auto'}`} src="./src/assets/art/characters/monsters/boss/baron.png" alt="">
+                        <img bind:this={enemyImg} on:load={() => { enemyHalfW = enemyImg.naturalWidth / 2; enemyHalfH = enemyImg.naturalHeight / 2; }} style={`transform: scaleX(-1); width: ${enemyHalfW ? `${enemyHalfW}px` : 'auto'}; ${enemyHalfH ? `${enemyHalfH}px` : 'auto'}`} src={enemy ? enemy.image : ""} alt="">
                     </div>
 
                     <div class="character-infos-area">
@@ -92,21 +102,21 @@
                             type="text"
                             name="enemy-name"
                             id="enemy-name"
-                            value="Enemy Name"
+                            value={enemy ? enemy.name : ""}
                             readonly
                         />
-                      <h2>Class Name</h2>
+                      <h2>{enemy ? enemy.className : ""}</h2>
                         <p class="description">
-                            Grosse description du personnage et de sa manière d'être jouée.
+                            {enemy ? enemy.description : ""}
                         </p>
 
                         <div class="statistics" aria-label="Statistiques de l'adversaire">
-                            <p><span>HP</span> 999</p>
-                            <p><span>STR</span> 999</p>
-                            <p><span>ARM</span> 999</p>
-                            <p><span>SPEED</span> 999</p>
-                            <p><span>CRIT %</span> 999</p>
-                            <p><span>CRIT DMG%</span> 999</p>
+                            <p><span>HP</span> {enemy ? enemy.statistics.HP : ""}</p>
+                            <p><span>STR</span> {enemy ? enemy.statistics.STR : ""}</p>
+                            <p><span>ARM</span> {enemy ? enemy.statistics.ARM : ""}</p>
+                            <p><span>SPEED</span> {enemy ? enemy.statistics.speed : ""}</p>
+                            <p><span>CRIT %</span> {enemy ? enemy.statistics.CritChance : ""}</p>
+                            <p><span>CRIT DMG%</span> {enemy ? enemy.statistics.CritDamage : ""}</p>
                         </div>
                     </div>
                 </div>
@@ -120,7 +130,7 @@
                 </div>
                 <div class="list-body player-selection">
                     {#each characters as character}
-                        <div class="character" class:character-active={selected === character.className} id="player-{character.className}" on:click={() => selectPlayerCharacter(character)}>
+                        <div class="character" class:character-active={selectedPlayer === character.className} id="player-{character.className}" on:click={() => selectPlayerCharacter(character)}>
                             <img style="width: 5rem; height: 5rem;" src="{character.avatar}" alt="">
                         </div>
                     {/each}
@@ -133,7 +143,7 @@
                 </div>
                   <div class="list-body enemy-selection">
                     {#each characters as character}
-                        <div class="character">
+                        <div class="character" class:character-active={selectedEnemy === character.className} id="enemy-{character.className}" on:click={() => selectEnemyCharacter(character)}>
                             <img style="width: 5rem; height: 5rem;" src="{character.avatar}" alt="">
                         </div>
                     {/each}
