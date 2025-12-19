@@ -21,9 +21,9 @@ class Baron extends Characters {
             name: name,
             className: "Baron",
             typeName: "Monster",
-            image: "./src/assets/art/characters/monsters/boss/baron.png",
+            image: "./src/assets/art/characters/monsters/boss/baron/baron.png",
             description: "Baron is a strong boss using powerfull strikes and bleedings",
-            avatar: "./src/assets/art/characters/monsters/boss/avatars/baron_avatar.png",
+            avatar: "./src/assets/art/characters/monsters/boss/baron/avatars/baron_avatar.png",
             statistics: {
                 HP: 4500,
                 maxHP: 4500,

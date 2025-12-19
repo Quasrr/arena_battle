@@ -4,7 +4,7 @@ class ProfaneRake extends Spell {
     constructor() {
         const spellData = {
             name: "Profane Rake",
-            image: undefined,
+            image: "./src/assets/art/characters/monsters/boss/baron/spells_icon/profane_rake.png",
             description: "Perform a huge claw attack on the target, dealing damage, apply bleeding, 2 per turn, stackable, 3 turn duration.",
             castChance: 0.3,
             cooldown: 2,

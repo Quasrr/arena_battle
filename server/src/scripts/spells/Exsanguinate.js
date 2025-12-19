@@ -4,7 +4,7 @@ class Exsanguinate extends Spell {
     constructor() {
         const spellData = {
             name: "Exsanguinate",
-            image: undefined,
+            image: "./src/assets/art/characters/monsters/boss/baron/spells_icon/exsanguinate.png",
             description: "10% missing health healing, apply 10 dmg per turn bleeding on the caster, stackable. 10 turn duration",
             castChance: 0.3,
             cooldown: 6,

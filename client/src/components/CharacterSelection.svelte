@@ -25,15 +25,16 @@
     }); 
 
     function selectPlayerCharacter(character) {
+        console.log(character)
         selectedPlayer = (selectedPlayer === character.className) ? undefined : character.className;
 
-        player = selectedPlayer ? character : undefined;
+        player = selectedPlayer ? JSON.parse(JSON.stringify(character)) : undefined;
     }
 
     function selectEnemyCharacter(character) {
         selectedEnemy = (selectedEnemy === character.className) ? undefined : character.className;
 
-        enemy = selectedEnemy ? character : undefined;
+        enemy = selectedEnemy ? JSON.parse(JSON.stringify(character)) : undefined;
     }
 
     async function sendForm(e) {

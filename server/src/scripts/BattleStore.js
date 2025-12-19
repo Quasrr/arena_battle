@@ -8,7 +8,7 @@ class BattleStore {
         const id = crypto.randomUUID();
 
         const player = playerCharacter;
-        const enemy = enemyCharacter
+        const enemy = enemyCharacter;
         const fight = new Fight('Test Fight');
 
         this.battles.set(id, { id, player, enemy, fight});
