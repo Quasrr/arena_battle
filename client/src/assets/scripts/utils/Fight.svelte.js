@@ -112,6 +112,18 @@ class Fight {
 
         return action;
     }
+
+    async passivePerHit(battleId, targetName, selfName) {
+        const res = await fetch('/api/battle/passive-per-hit', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({id: battleId, selfName, targetName}),
+        });
+        
+        const obj = await res.json();
+
+        return obj;
+    }
 }
 
 export default Fight;

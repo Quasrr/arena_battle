@@ -65,10 +65,16 @@ class DeathKnight extends Characters {
         })
     }
 
-    perHit(target, self, fightInstance) {
+    perHit(target, self, battle) {
+        const passiveArray = [];
+
         this.passives.forEach(passive => {
-            passive.onHit(target, self, fightInstance);
+            let log = passive.onHit(target, self, battle);
+            if (log) {
+                passiveArray.push(log);
+            }
         })
+        return passiveArray;
     }
 }
 

@@ -19,7 +19,7 @@ class CounterStrike extends Buff {
         }
 
         this.state = true;
-        this.duration = 2;
+        this.duration = 0;
     }
 
     checkBuff(self) {

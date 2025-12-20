@@ -116,8 +116,6 @@ class FightController {
 
         action = spell.canUseSpell(player) ? spell.name : undefined;
 
-        console.log(`${spell.name} cliqué`);
-
         res.status(200).json({ action });
     }
 
@@ -152,6 +150,24 @@ class FightController {
         const spell = self.spells.find(element => element.name === spellName);
 
         let log = spell.useSpell(target, self, battle);
+
+        res.status(200).json({
+            target,
+            self,
+            log
+        })
+    }
+    
+    // méthode d'instance appelée dès que le personnage prends un coups
+    passivePerHit(req, res) {
+        const { id: battleId, selfName, targetName } = req.body;
+
+        const battle = BattleStore.getBattle(battleId);
+
+        const self = Object.values(battle).find(element => element.name === selfName);
+        const target = Object.values(battle).find(element => element.name === targetName);
+        
+        let log = self.perHit(target, self, battle);
 
         res.status(200).json({
             target,

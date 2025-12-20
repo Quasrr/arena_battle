@@ -82,14 +82,8 @@
 
             let toPlay = await fight.getCharacterHitTurn(battleId);
 
-            player = await fight.reduceCharactersSpellsCooldown(
-                battleId,
-                player.name,
-            );
-            enemy = await fight.reduceCharactersSpellsCooldown(
-                battleId,
-                enemy.name,
-            );
+            player = await fight.reduceCharactersSpellsCooldown(battleId, player.name);
+            enemy = await fight.reduceCharactersSpellsCooldown(battleId, enemy.name);
 
             // affichage des sorts du joueur dans la vue
             playerSpellsList = Utilities.initiatePlayerSpells(player);
@@ -112,26 +106,14 @@
                 let negateLog = [];
 
                 // affectations par destructuration de la réponse
-                ({ char: player, log: negateLog } =
-                    await fight.checkCharacterNegativeEffectStates(
-                        battleId,
-                        player.name,
-                    ));
+                ({ char: player, log: negateLog } = await fight.checkCharacterNegativeEffectStates(battleId, player.name));
 
-                negateLog.forEach((element) => {
-                    fight.addLogsLine(element);
-                });
+                negateLog.forEach((element) => fight.addLogsLine(element));
 
                 if (fight.canPlayTurn(player)) {
-                    player = await fight.refreshCharacterBuff(
-                        battleId,
-                        player.name,
-                    );
-                    player = await fight.passivePerTurn(
-                        battleId,
-                        enemy.name,
-                        player.name,
-                    );
+                    player = await fight.refreshCharacterBuff(battleId, player.name);
+
+                    player = await fight.passivePerTurn(battleId, enemy.name, player.name);
 
                     // attente de choix d'une action
                     while (!action) {
@@ -140,67 +122,44 @@
 
                     let spellLog;
 
-                    ({
-                        target: enemy,
-                        self: player,
-                        log: spellLog,
-                    } = await fight.actionToDo(
-                        battleId,
-                        action,
-                        enemy.name,
-                        player.name,
-                    ));
+                    ({ target: enemy, self: player, log: spellLog } = await fight.actionToDo(battleId, action, enemy.name, player.name));
 
                     fight.addLogsLine(spellLog);
-                    // enemy.perHit(player, enemy, fight);
+                    
+                    let passivesLog = [];
+                    
+                    ({ target: player, self: enemy, log: passivesLog } = await fight.passivePerHit(battleId, player.name, enemy.name));
+
+                    passivesLog.forEach((element) => fight.addLogsLine(element));
                 }
             } else {
                 playTurn = enemy.name;
 
                 let negateLog = [];
 
-                ({ char: enemy, log: negateLog } =
-                    await fight.checkCharacterNegativeEffectStates(
-                        battleId,
-                        enemy.name,
-                    ));
+                ({ char: enemy, log: negateLog } = await fight.checkCharacterNegativeEffectStates(battleId, enemy.name));
 
-                negateLog.forEach((element) => {
-                    fight.addLogsLine(element);
-                });
+                negateLog.forEach((element) => fight.addLogsLine(element));
 
                 if (fight.canPlayTurn(enemy)) {
-                    enemy = await fight.refreshCharacterBuff(
-                        battleId,
-                        enemy.name,
-                    );
-                    enemy = await fight.passivePerTurn(
-                        battleId,
-                        player.name,
-                        enemy.name,
-                    );
+                    enemy = await fight.refreshCharacterBuff(battleId, enemy.name);
+
+                    enemy = await fight.passivePerTurn(battleId, player.name, enemy.name);
 
                     let act;
-                    ({ action: act } = await fight.randomAction(
-                        battleId,
-                        enemy.name,
-                        player.name,
-                    ));
+
+                    ({ action: act } = await fight.randomAction(battleId, enemy.name, player.name));
 
                     let spellLog;
-                    ({
-                        target: player,
-                        self: enemy,
-                        log: spellLog,
-                    } = await fight.actionToDo(
-                        battleId,
-                        act,
-                        player.name,
-                        enemy.name,
-                    ));
+
+                    ({ target: player, self: enemy, log: spellLog } = await fight.actionToDo(battleId, act, player.name, enemy.name));
 
                     fight.addLogsLine(spellLog);
-                    // player.perHit(enemy, player, fight);
+
+                    let passivesLog = [];
+                    
+                    ({ target: enemy, self: player, log: passivesLog } = await fight.passivePerHit(battleId, enemy.name, player.name));
+                    passivesLog.forEach((element) => fight.addLogsLine(element));
                 }
             }
 

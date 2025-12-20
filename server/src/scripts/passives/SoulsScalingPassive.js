@@ -13,7 +13,7 @@ class SoulsScalingPassive extends Passive {
         self.statistics.CritDamage = self.statistics.CritDamage + (0.01 * self.selfAttributes.Souls);
     }
 
-    onHit(target, self, fightInstance) {} // méthode appelée dès que le personnage prends un coups, gère les réactions à ce dernier
+    onHit(target, self) {} // méthode appelée dès que le personnage prends un coups, gère les réactions à ce dernier
 }
 
 export default SoulsScalingPassive;
