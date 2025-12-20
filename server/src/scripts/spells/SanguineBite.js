@@ -4,7 +4,7 @@ class SanguineBite extends Spell {
     constructor() {
         const spellData = {
             name: "Sanguine Bite",
-            image: "./src/assets/art/characters/monsters/boss/baron/spells_icon/sanguine_bite.png",
+            image: "/images/characters/monsters/boss/baron/spells_icon/sanguine_bite.png",
             description: "Bite the target, 10 dmg, apply bleeding, 5 dmg per turn, stackable. 3 turn duration",
             castChance: 0.3,
             cooldown: 2,

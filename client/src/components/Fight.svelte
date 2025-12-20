@@ -342,7 +342,7 @@
                         <div class="spell-info">
                             <img
                                 class="icon-info"
-                                src="./src/assets/art/ui/icons/information.png"
+                                src="/images/ui/icons/information.png"
                                 alt=""
                             />
                             <div class="text-info">

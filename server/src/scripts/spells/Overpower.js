@@ -4,7 +4,7 @@ class Overpower extends Spell {
     constructor() {
         const spellData = {
             name: "Overpower",
-            image: "./src/assets/art/characters/humans/classes/death_knight/spells_icons/overpower.png",
+            image: "/images/characters/humans/classes/death_knight/spells_icons/overpower.png",
             description: "+30% bonus speed and +30% bonus attack damage",
             castChance: 0.4,
             cooldown: 4,

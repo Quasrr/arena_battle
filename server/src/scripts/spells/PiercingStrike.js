@@ -4,7 +4,7 @@ class PiercingStrike extends Spell {
     constructor() {
         const spellData = {
             name: "Piercing Strike",
-            image: "./src/assets/art/characters/humans/classes/death_knight/spells_icons/piercing_strike.png",
+            image: "/images/characters/humans/classes/death_knight/spells_icons/piercing_strike.png",
             description: "Piercing Strike on the enemy head, dealing 100 dmg",
             castChance: 0.15,
             cooldown: 2,

@@ -4,7 +4,7 @@ class sanguineOffering extends Spell {
     constructor() {
         const spellData = {
             name: "Sanguine Offering",
-            image: "./src/assets/art/characters/monsters/boss/baron/spells_icon/sanguine_offering.png",
+            image: "/images/characters/monsters/boss/baron/spells_icon/sanguine_offering.png",
             description: "Sacrifice 5% max health for 25% bonus attack damage",
             castChance: 0.3,
             cooldown: 4,

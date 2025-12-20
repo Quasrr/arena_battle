@@ -4,7 +4,7 @@ class SoulHarvest extends Spell {
     constructor() {
         const spellData = {
             name: "Soul Harvest",
-            image: "./src/assets/art/characters/humans/classes/death_knight/spells_icons/soul_harvest.png",
+            image: "/images/characters/humans/classes/death_knight/spells_icons/soul_harvest.png",
             description: "Steal soul's fragment of the target, dealing damage and healing himself for 10% of this amount",
             castChance: 0.3,
             cooldown: 3,

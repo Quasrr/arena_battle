@@ -4,7 +4,7 @@ class PhantomBacklash extends Spell {
     constructor() {
         const spellData = {
             name: "Phatom Backlash",
-            image: "./src/assets/art/characters/humans/classes/death_knight/spells_icons/phantom_backlash.png",
+            image: "/images/characters/humans/classes/death_knight/spells_icons/phantom_backlash.png",
             description: "Activate counterattack for 2 turns. Counterattack dealing -50% attack damage. Can't fail.",
             castChance: 0.3,
             cooldown: 4,
