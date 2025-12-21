@@ -21,6 +21,12 @@ class Utilities {
         return playerSpellsList;
     }
 
+    static initiatePassives(character) {
+        let passives = character.passives.filter(element => element.display === true);
+
+        return passives
+    }
+
     static initiateCharacterImage(char) {
         return char.image;
     }

@@ -2,7 +2,12 @@ import Passive from "../Passive.js";
 
 class CounterStrikePassive extends Passive {
     constructor() {
-        super('Counter Strike');
+        const data = {
+            name: 'Counter Strike',
+            display: false
+        }
+        
+        super(data);
     }
 
     onTurn(target, self) {} // méthode appelée au début du tour du personnage, gère les passifs du personnage

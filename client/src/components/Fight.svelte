@@ -30,6 +30,10 @@
     // initialisation de la liste des sorts du personnage à afficher dans la vue
     let playerSpellsList = $state([]);
 
+    // initialisation des propriétés passives des personnages
+    let playerPassivesList = $state([]);
+    let enemyPassivesList = $state([]);
+
     // exécuté au montage du component
     onMount(async () => {
         // le serveur envoit les informations nécessaire au début du combat
@@ -87,6 +91,10 @@
 
             // affichage des sorts du joueur dans la vue
             playerSpellsList = Utilities.initiatePlayerSpells(player);
+
+            // affichage des propriétés passives des personnages
+            playerPassivesList = Utilities.initiatePassives(player);
+            enemyPassivesList = Utilities.initiatePassives(enemy);
 
             fight.addLogsLine({
                 text: `Début du tour ${turn} !`,
@@ -207,7 +215,11 @@
                     <p><span>CRIT DMG%</span> {`${Math.round(player.statistics.CritDamage.toFixed(1) * 100)}`}</p>
                 </div>
                 <div class="passives">
-                    <p>Passive</p>
+                    {#each playerPassivesList as passive}
+                        {#if passive.display}
+                            <p>{passive.name}</p>
+                        {/if}
+                    {/each}
                 </div>
                 <div class="buffs-debuffs">
                     <p class="buff">Buff</p>
@@ -247,7 +259,11 @@
                     <p><span>CRIT DMG%</span> {`${Math.round(enemy.statistics.CritDamage.toFixed(1) * 100)}`}</p>
                 </div>
                 <div class="passives">
-                    <p>Passive</p>
+                    {#each enemyPassivesList as passive}
+                        {#if passive.display}
+                            <p>{passive.name}</p>
+                        {/if}
+                    {/each}
                 </div>
                 <div class="buffs-debuffs">
                     <p class="buff">Buff</p>

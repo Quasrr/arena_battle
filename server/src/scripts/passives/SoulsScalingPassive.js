@@ -1,8 +1,13 @@
 import Passive from "../Passive.js";
 
 class SoulsScalingPassive extends Passive {
-    constructor(name) {
-        super('Souls');
+    constructor() {
+        const data = {
+            name: 'Souls',
+            display: true
+        }
+
+        super(data);
     }
 
     onTurn(target, self) { // méthode appelée au début du tour du personnage, gère les passifs du personnage

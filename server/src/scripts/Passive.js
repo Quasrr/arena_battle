@@ -1,6 +1,7 @@
 class Passive {
-    constructor(name) {
-        this.name = name;
+    constructor(data) {
+        this.name = data.name;
+        this.display = data.display;
     }
 }
 
