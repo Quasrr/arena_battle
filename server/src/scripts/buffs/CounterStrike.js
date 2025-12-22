@@ -7,7 +7,7 @@ class CounterStrike extends Buff {
             state: false,
             isActive: false,
             isPermanent: false,
-            duration: 0,
+            duration: 2,
         }
         
         super(buffData);
