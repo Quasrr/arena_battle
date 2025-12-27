@@ -27,6 +27,8 @@ class PhantomBacklash extends Spell {
     }
 
     useSpell(target, self, battle) {
+        const log = [];
+
         let damage = 0;
         this.currentCooldown = this.cooldown;
         
@@ -36,7 +38,7 @@ class PhantomBacklash extends Spell {
 
         counterStrike.applyBuff();
 
-        return {
+        let spellLog = {
             text: `${self.name} utilise Phantom Backlash et se prépare à riposter pendant 2 tours`,
             styles:
                 [
@@ -46,6 +48,10 @@ class PhantomBacklash extends Spell {
                     { word: `2`, color: 'green' }
                 ]
         }
+
+        log.push(spellLog);
+
+        return log;
     }
 }
 

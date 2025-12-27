@@ -21,21 +21,34 @@ class PiercingStrike extends Spell {
     }
 
     useSpell(target, self, battle) {
+        const log = [];
+
         self.selfAttributes.Souls++;
         let damage = Math.round(battle.fight.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM) * 1.2);
-        target.statistics.HP -= damage;
+        
+        const damageEffect = target.perHit(target, self, battle, damage);
 
         this.currentCooldown = this.cooldown;
 
-        return {
-            text: `${self.name} utilise ${this.name} et inflige ${damage} points de dégats à ${target.name}`,
-            styles:
-                [
-                    { word: `Piercing`, color: 'grey' },
-                    { word: `Strike`, color: 'grey' },
-                    { word: `${damage}`, color: 'yellow' }
+        if (damageEffect.damage > 0) {
+            let spellLog = {
+                text: `${self.name} utilise ${this.name} et inflige ${damage} points de dégats à ${target.name}`,
+                styles:
+                    [
+                        { word: `Piercing`, color: 'grey' },
+                        { word: `Strike`, color: 'grey' },
+                        { word: `${damage}`, color: 'yellow' }
                 ]
+            }
+
+            log.push(spellLog);
         }
+
+        if (damageEffect.log) {
+            damageEffect.log.forEach(element => log.push(element));
+        }
+
+        return log;
     }
 }
 

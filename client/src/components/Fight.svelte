@@ -140,13 +140,7 @@
 
                     ({ target: enemy, self: player, log: spellLog } = await fight.actionToDo(battleId, action, enemy.name, player.name));
 
-                    fight.addLogsLine(spellLog);
-                    
-                    let passivesLog = [];
-                    
-                    ({ target: player, self: enemy, log: passivesLog } = await fight.passivePerHit(battleId, player.name, enemy.name));
-
-                    passivesLog.forEach((element) => fight.addLogsLine(element));
+                    spellLog.forEach((element) => fight.addLogsLine(element));
                 }
             } else {
                 playTurn = enemy.name;
@@ -170,12 +164,7 @@
 
                     ({ target: player, self: enemy, log: spellLog } = await fight.actionToDo(battleId, act, player.name, enemy.name));
 
-                    fight.addLogsLine(spellLog);
-
-                    let passivesLog = [];
-                    
-                    ({ target: enemy, self: player, log: passivesLog } = await fight.passivePerHit(battleId, enemy.name, player.name));
-                    passivesLog.forEach((element) => fight.addLogsLine(element));
+                    spellLog.forEach((element) => fight.addLogsLine(element));
                 }
             }
 

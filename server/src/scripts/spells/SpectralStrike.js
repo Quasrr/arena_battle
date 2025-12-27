@@ -21,23 +21,36 @@ class SpectralStrike extends Spell {
     }
 
     useSpell(target, self, battle) {
+        const log = [];
+
         let targetHP = target.statistics.maxHP - target.statistics.HP;
         let percentMissingHealthDamage = Math.round(targetHP * 0.25);
 
         let damage = Math.round(battle.fight.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM) / 2 + percentMissingHealthDamage);
-        target.statistics.HP -= damage;
+        
+        const damageEffect = target.perHit(target, self, battle, damage);
 
         this.currentCooldown = this.cooldown;
-
-        return {
-            text: `${self.name} utilise ${this.name} et inflige ${damage} points de dégats à ${target.name}`,
-            styles:
-                [
-                    { word: `Spectral`, color: 'grey' },
-                    { word: `Strike`, color: 'grey' },
-                    { word: `${damage}`, color: 'grey' }
+        
+        if (damageEffect.damage > 0) {
+            let spellLog = {
+                text: `${self.name} utilise ${this.name} et inflige ${damage} points de dégats à ${target.name}`,
+                styles:
+                    [
+                        { word: `Spectral`, color: 'grey' },
+                        { word: `Strike`, color: 'grey' },
+                        { word: `${damage}`, color: 'grey' }
                 ]
+            }
+
+            log.push(spellLog);
         }
+
+        if (damageEffect.log) {
+            damageEffect.log.forEach(element => log.push(element));
+        }
+
+        return log;
     }
 }
 

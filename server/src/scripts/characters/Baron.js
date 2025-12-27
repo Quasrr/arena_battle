@@ -49,15 +49,20 @@ class Baron extends Characters {
         })
     }
 
-    perHit(target, self, battle) {
-        const passiveArray = [];
+    perHit(target, self, battle, damage) {
+        const log = [];
+
+        this.statistics.HP -= damage;
 
         this.passives.forEach(passive => {
             let p = passive.onHit(target, self, battle);
-            passiveArray.push(p);
+            
+            if (p) {
+                log.push(p);
+            }
         })
 
-        return passiveArray;
+        return { damage, log };
     }
 }
 

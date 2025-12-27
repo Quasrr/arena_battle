@@ -18,6 +18,5 @@ router.post('/api/battle/passive-per-turn', FightController.passivePerTurn);
 router.post('/api/battle/determine-player-action', FightController.determinePlayerAction);
 router.post('/api/battle/determine-enemy-action', FightController.determineEnemyAction);
 router.post('/api/battle/character-use-spell', FightController.characterUseSpell);
-router.post('/api/battle/passive-per-hit', FightController.passivePerHit);
 
 export default router;

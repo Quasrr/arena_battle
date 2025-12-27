@@ -21,6 +21,8 @@ class SoulHarvest extends Spell {
     }
 
     useSpell(target, self, battle) {
+        const log = [];
+
         let damage = battle.fight.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM);
         let healing = Math.floor(damage * 0.10);
         if (self.statistics.HP >= self.statistics.maxHP) {
@@ -30,20 +32,30 @@ class SoulHarvest extends Spell {
         self.selfAttributes.Souls += 5;
         self.statistics.HP += healing
 
-        target.statistics.HP -= damage;
+        const damageEffect = target.perHit(target, self, battle, damage);
 
         this.currentCooldown = this.cooldown;
 
-        return {
-            text: `${self.name} utilise Soul Harvest, inflige ${damage} points de dégats et se soigne de ${healing} points de vie`,
-            styles:
-                [
-                    { word: `Soul`, color: 'grey' },
-                    { word: `Harvest`, color: 'grey' },
-                    { word: `${damage}`, color: 'orange' },
-                    { word: `${healing}`, color: 'green' }
-                ]
+        if (damageEffect.damage > 0) {
+            const spellLog = {
+                text: `${self.name} utilise Soul Harvest, inflige ${damage} points de dégats et se soigne de ${healing} points de vie`,
+                styles:
+                    [
+                        { word: `Soul`, color: 'grey' },
+                        { word: `Harvest`, color: 'grey' },
+                        { word: `${damage}`, color: 'orange' },
+                        { word: `${healing}`, color: 'green' }
+                    ]
+            };
+
+            log.push(spellLog);
         }
+
+        if (damageEffect.log) {
+            damageEffect.log.forEach(element => log.push(element));
+        }
+
+        return log;
     }
 }
 

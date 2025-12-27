@@ -21,6 +21,8 @@ class SanguineBite extends Spell {
     }
 
     useSpell(target, self, battle) {
+        const log = [];
+
         let damage = Math.round(battle.fight.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM) / 4);
 
         const targetBleedState = target.negativeEffects.find(negate => {
@@ -33,20 +35,30 @@ class SanguineBite extends Spell {
         targetBleedState.duration = 3;
         targetBleedState.damage += 4;
 
-        target.statistics.HP -= damage;
+        const damageEffect = target.perHit(target, self, battle, damage);
 
         this.currentCooldown = this.cooldown;
 
-        return {
-            text: `${self.name} utilise Sanguine Bite et mord ${target.name}, inflige ${damage} et applique un saignement!`,
-            styles:
-                [
-                    { word: `Sanguine`, color: 'red' },
-                    { word: `Bite`, color: 'red' },
-                    { word: `${damage}`, color: 'red' },
-                    { word: `saignement`, color: 'red' }
+        if (damageEffect.damage > 0) {
+            const spellLog = {
+                text: `${self.name} utilise Sanguine Bite et mord ${target.name}, inflige ${damage} et applique un saignement!`,
+                styles:
+                    [
+                        { word: `Sanguine`, color: 'red' },
+                        { word: `Bite`, color: 'red' },
+                        { word: `${damage}`, color: 'red' },
+                        { word: `saignement`, color: 'red' }
                 ]
+            };
+
+            log.push(spellLog);
         }
+
+        if (damageEffect.log) {
+            damageEffect.log.forEach(element => log.push(element));
+        }
+
+        return log
     }
 }
 

@@ -25,6 +25,8 @@ class Overpower extends Spell {
     }
 
     useSpell(target, self, battle) {
+        const log = [];
+
         let damage = 0;
         this.currentCooldown = this.cooldown;
 
@@ -34,7 +36,7 @@ class Overpower extends Spell {
 
         overpower.applyBuff(self);
 
-        return {
+        const spellLog = {
             text: `${self.name} utilise Overpower et s'octroie un bonus de vitesse et de dégats supplémentaire de 30%`,
             styles:
                 [
@@ -44,6 +46,10 @@ class Overpower extends Spell {
                     { word: `30%`, color: 'green' }
                 ]
         }
+
+        log.push(spellLog);
+
+        return log;
     }
 }
 

@@ -25,6 +25,8 @@ class sanguineOffering extends Spell {
     }
 
     useSpell(target, self, battle) {
+        const log = [];
+
         let damage = Math.round(self.statistics.maxHP * 0.05);
 
         self.statistics.STR += Math.round(self.statistics.STR * 0.25);
@@ -33,7 +35,7 @@ class sanguineOffering extends Spell {
 
         this.currentCooldown = this.cooldown;
 
-        return {
+        const spellLog = {
             text: `${self.name} utilise Sanguine Offering et sacrifie ${damage} points de vie, augmentant ses dégats de 25%`,
             styles:
                 [
@@ -43,6 +45,10 @@ class sanguineOffering extends Spell {
                     { word: `25%`, color: 'green' }
                 ]
         }
+
+        log.push(spellLog);
+
+        return log;
     }
 }
 

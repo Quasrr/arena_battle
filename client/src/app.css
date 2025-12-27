@@ -228,7 +228,6 @@ main {
     max-width: min(42%, 460px);
     max-height: 100%;
     object-fit: contain;
-    image-rendering: pixelated;
 }
 
 .utilities {

@@ -21,7 +21,7 @@ class CounterStrikePassive extends Passive {
             return element.name === "Stun";
         })
 
-        if (counterStrike.state && !stun.state) {
+        if (counterStrike?.state && !stun.state) {
             let damage = Math.round(battle.fight.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM) / 2);
             target.statistics.HP -= damage;
 

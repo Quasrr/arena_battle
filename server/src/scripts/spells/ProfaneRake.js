@@ -21,6 +21,8 @@ class ProfaneRake extends Spell {
     }
 
     useSpell(target, self, battle) {
+        const log = [];
+
         let damage = Math.round(battle.fight.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM) * 1.2);
 
         const targetBleedState = target.negativeEffects.find(negate => {
@@ -29,25 +31,34 @@ class ProfaneRake extends Spell {
 
         if (!targetBleedState) return;
 
-
         targetBleedState.state = true;
         targetBleedState.duration = 3;
         targetBleedState.damage += 2;
 
-        target.statistics.HP -= damage;
+        const damageEffect = target.perHit(target, self, battle, damage);
 
         this.currentCooldown = this.cooldown;
 
-        return {
-            text: `${self.name} utilise Profane Rake et griffe ${target.name}, inflige ${damage} et applique un saignement! `,
-            styles:
-                [
-                    { word: `Profane`, color: 'red' },
-                    { word: `Rake`, color: 'red' },
-                    { word: `${damage}`, color: 'red' },
-                    { word: `saignement`, color: 'red' }
+        if (damageEffect.damage > 0) {
+            const spellLog = {
+                text: `${self.name} utilise Profane Rake et griffe ${target.name}, inflige ${damage} et applique un saignement! `,
+                styles:
+                    [
+                        { word: `Profane`, color: 'red' },
+                        { word: `Rake`, color: 'red' },
+                        { word: `${damage}`, color: 'red' },
+                        { word: `saignement`, color: 'red' }
                 ]
+            };
+
+            log.push(spellLog);
         }
+
+        if (damageEffect.log) {
+            damageEffect.log.forEach(element => log.push(element));
+        }
+
+        return log;
     }
 }
 
