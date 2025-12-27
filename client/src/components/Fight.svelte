@@ -311,7 +311,7 @@
                     >
                     {#if Utilities.checkSpellIsOnCooldown(spell, player.spells)}
                         <span class="veil" aria-hidden="true">
-                            <p>{ player.spells.find(element => element.name === spell.name).currentCooldown}</p>
+                            <p>{ player.spells.find(element => element.name === spell.name).currentCooldown }</p>
                         </span>
                     {/if}
                         <img
@@ -329,6 +329,7 @@
                                 {spell.description}
                             </div>
                         </div>
+                        <p>{ spell.name }</p>
                     </div>
                 {/each}
             </div>
