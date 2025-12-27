@@ -23,7 +23,12 @@ class PiercingStrike extends Spell {
     useSpell(target, self, battle) {
         const log = [];
 
-        self.selfAttributes.Souls++;
+        let soulsPassive = self.passives.find(element => element.name === "Souls");
+
+        if (soulsPassive) {
+            soulsPassive.stacks++;
+        }
+
         let damage = Math.round(battle.fight.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM) * 1.2);
         
         const damageEffect = target.perHit(target, self, battle, damage);

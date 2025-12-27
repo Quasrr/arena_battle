@@ -214,7 +214,10 @@
                 <div class="passives">
                     {#each playerPassivesList as passive}
                         {#if passive.display}
-                            <p>{passive.name}</p>
+                        <div class="passive">
+                            <div class="passive-info">{passive.description}</div>
+                            <p>{passive.stacks > 0 ? `${passive.name}: ${passive.stacks}` : `${passive.name}`}</p>
+                        </div>
                         {/if}
                     {/each}
                 </div>
@@ -262,7 +265,10 @@
                 <div class="passives">
                     {#each enemyPassivesList as passive}
                         {#if passive.display}
-                            <p>{passive.name}</p>
+                            <div class="passive">
+                                <div class="passive-info">{passive.description}</div>
+                                <p>{passive.name}</p>
+                            </div>
                         {/if}
                     {/each}
                 </div>

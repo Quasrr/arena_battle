@@ -4,7 +4,9 @@ class CounterStrikePassive extends Passive {
     constructor() {
         const data = {
             name: 'Counter Strike',
-            display: false
+            display: false,
+            description: "Counter Strike",
+            stacks: 0
         }
         
         super(data);

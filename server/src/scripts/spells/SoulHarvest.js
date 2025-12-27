@@ -29,7 +29,12 @@ class SoulHarvest extends Spell {
             healing = 0;
         }
 
-        self.selfAttributes.Souls += 5;
+        let soulsPassive = self.passives.find(element => element.name === "Souls");
+
+        if (soulsPassive) {
+            soulsPassive.stacks += 5;
+        }
+
         self.statistics.HP += healing
 
         const damageEffect = target.perHit(target, self, battle, damage);
