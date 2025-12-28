@@ -5,7 +5,7 @@ class RiftChargePassive extends Passive {
         const data = {
             name: 'Rift Charge',
             display: true,
-            description: "Gathered Souls, give stats to the DeathKnight",
+            description: "Reduce damage taken by %",
             stacks: 1
         }
 

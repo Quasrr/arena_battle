@@ -4,6 +4,7 @@ import Characters from "../Character.js";
 import RiftChargePassive from "../passives/RiftChargePassive.js";
 
 // import des sorts du personnage
+import SpatialShear from "../spells/SpatialShear.js";
 
 // import des états négatifs du personnage
 import Bleed from "../negativesEffects/Bleed.js";
@@ -12,8 +13,6 @@ import Freeze from "../negativesEffects/Freeze.js";
 import Poison from "../negativesEffects/Poison.js";
 import Slow from "../negativesEffects/Slow.js";
 import Stun from "../negativesEffects/Stun.js";
-
-
 
 class DimensionalDevourer extends Characters {
     constructor(name) {
@@ -36,7 +35,7 @@ class DimensionalDevourer extends Characters {
             passives: [new RiftChargePassive()],
             buffs: [],
             negativeEffects: [new Bleed(), new Burn(), new Freeze(), new Poison(), new Slow(), new Stun()],
-            spells: [],
+            spells: [new SpatialShear()],
         };
 
         super(charData);
@@ -54,7 +53,9 @@ class DimensionalDevourer extends Characters {
         const rift = this.passives.find(element => element.name === 'Rift Charge');
 
         if (rift) {
-            damage = damage - ((damage * rift.stacks) / 100)
+            const staks = rift.stacks >= 80 ? 80 : rift.stacks;
+
+            damage = Math.round(damage - ((damage * staks) / 100));
         }
         
         this.statistics.HP -= damage;
