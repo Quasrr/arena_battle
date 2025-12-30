@@ -1,9 +1,31 @@
 <script>
+    import { loginUser } from "../assets/scripts/services/auth.service.js";
+
     let { gameState = $bindable(), id = $bindable() } = $props();
+
+    async function login(e) {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        const username = formData.get("username");
+        const password = formData.get("password");
+        const validatePassword = formData.get("validate-password");
+
+        if (password !== validatePassword) return;
+
+        try {
+            await loginUser({ username, password });
+
+            gameState = "login";
+        } catch (error) {
+            // TODO
+        }
+    }
+
 </script>
 
 <div class="login">
-    <form action="POST" name="login-form" class="login-form">
+    <form action="POST" name="login-form" class="login-form" on:submit={login}>
         <header class="login-header">
             <h1>Login</h1>
             <p>Connecte-toi pour continuer l'aventure.</p>

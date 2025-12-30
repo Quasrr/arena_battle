@@ -25,6 +25,10 @@ class AuthController {
             return res.status(500).json({ error: 'Internal Server Error' });
         }
     }
+    
+    async login(req, res) {
+        
+    }
 }
 
 export default new AuthController();

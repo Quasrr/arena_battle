@@ -32,3 +32,7 @@ export async function registerUser(credentials) {
 
     return data;
 }
+
+export async function loginUser(credentials) {
+    
+}
