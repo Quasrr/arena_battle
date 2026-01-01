@@ -36,11 +36,11 @@ class Fight {
         return !stunEffect.state;
     }
 
-    async getCharacterHitTurn(battleId) {
+    async getCharacterHitTurn(data) {
         const res = await fetch("/api/battle/turn/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id: battleId }),
+            body: JSON.stringify(data),
         });
 
         const toPlay = await res.json();

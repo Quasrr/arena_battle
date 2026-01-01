@@ -1,4 +1,5 @@
 import BattleStore from '../scripts/BattleStore.js';
+import Fight from '../scripts/utils/Fight.js';
 import Utilities from '../scripts/utils/Utilities.js';
 
 class FightController {
@@ -26,17 +27,20 @@ class FightController {
     }
 
     // méthode d'instance qui choisit quel personnage joue le tour
-    chooseCharacterHitTurn(req, res) {
-        const battleId = req.body.id;
-        const battle = BattleStore.getBattle(battleId);
+    async chooseCharacterHitTurn(req, res) {
+        const { id, username, currentBattle } = req.body;
+        const battle = await BattleStore.getBattle(currentBattle);
 
-        const playerSpeed = battle.player.statistics.speed;
-        const enemySpeed = battle.enemy.statistics.speed;
+        const { data } = battle;
+        const { player, enemy } = data;
 
-        const playerHitChance = battle.fight.calculateCharacterHitChance(playerSpeed);
-        const enemyHitChance = battle.fight.calculateCharacterHitChance(enemySpeed);
+        const playerSpeed = player.statistics.speed;
+        const enemySpeed = enemy.statistics.speed;
 
-        const toPlay = battle.fight.chooseCharacterHitTurn(playerHitChance, enemyHitChance);
+        const playerHitChance = Fight.calculateCharacterHitChance(playerSpeed);
+        const enemyHitChance = Fight.calculateCharacterHitChance(enemySpeed);
+
+        const toPlay = Fight.chooseCharacterHitTurn(playerHitChance, enemyHitChance);
 
         res.status(200).json(toPlay);
     }

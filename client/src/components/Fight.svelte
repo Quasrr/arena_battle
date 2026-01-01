@@ -88,7 +88,7 @@
         while (playerIsDead === false && enemyIsDead === false) {
             
 
-            let toPlay = await fight.getCharacterHitTurn(battleId);
+            let toPlay = await fight.getCharacterHitTurn(authUser);
 
             player = await fight.reduceCharactersSpellsCooldown(battleId, player.name);
             enemy = await fight.reduceCharactersSpellsCooldown(battleId, enemy.name);
@@ -167,7 +167,7 @@
                     spellLog.forEach((element) => fight.addLogsLine(element));
                 }
             }
-            
+
             turn++;
             action = undefined;
             playTurn = undefined;
