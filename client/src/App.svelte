@@ -10,7 +10,6 @@
     import { authUser } from './assets/scripts/store/auth.svelte.js';
 
     let gameState = $state(Game.state);
-    let id = $state(undefined);
 
     onMount(async () => {
         await initAuth();
@@ -19,7 +18,6 @@
             console.log(authUser.currentBattle);
 
             if (authUser.currentBattle) {
-                id = authUser.currentBattle;
                 gameState = "fight";
             } else {
                 gameState = "character-selection"
@@ -47,19 +45,19 @@
 </header>
 
 {#if gameState === "fight"}
-    <Fight bind:id bind:gameState/>
+    <Fight bind:gameState/>
 {/if}
 
 {#if gameState === "character-selection"}
-    <CharacterSelection bind:id bind:gameState/>
+    <CharacterSelection bind:gameState/>
 {/if}
 
 {#if gameState === "register"}
-    <Register bind:id bind:gameState/>
+    <Register bind:gameState/>
 {/if}
 
 {#if gameState === "login"}
-    <Login bind:id bind:gameState/>
+    <Login bind:gameState/>
 {/if}
 
 {#if gameState === "open-world"}

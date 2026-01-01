@@ -1,7 +1,7 @@
 <script>
     import { registerUser } from "../assets/scripts/services/auth.service.js";
 
-    let { gameState = $bindable(), id = $bindable() } = $props();
+    let { gameState = $bindable() } = $props();
 
     async function register(e) {
         e.preventDefault();

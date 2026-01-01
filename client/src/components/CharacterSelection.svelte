@@ -61,7 +61,7 @@
 
         const { battleId } = await res.json();
         
-        id = battleId;
+        authUser.currentBattle = battleId;
         gameState = "fight";
     }
 </script>

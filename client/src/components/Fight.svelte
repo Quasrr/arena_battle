@@ -1,13 +1,15 @@
 <script>
     import Fight from "../assets/scripts/utils/Fight.svelte.js";
     import Utilities from "../assets/scripts/utils/Utilities.svelte.js";
+    import { authUser } from "../assets/scripts/store/auth.svelte.js";
     import { onMount } from "svelte";
 
-    let { gameState = $bindable(), id = $bindable() } = $props();
+    let { gameState = $bindable() } = $props();
+
+    const battleId = authUser.currentBattle;
 
     // initialisation du combat et des logs du combat en undefined avant récupération des informations
     let fight = $state(undefined);
-    let battleId = $state(id);
     let logs = $state(undefined);
 
     // initialisation des personnages en undefined avant récupération des informations
@@ -49,7 +51,6 @@
 
         // attribution des logs
         fight = new Fight(battle.fightName);
-        battleId = battle.battleId;
         logs = fight.fightingLogs;
 
         // log de démarrage du combat

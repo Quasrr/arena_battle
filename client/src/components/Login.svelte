@@ -2,7 +2,7 @@
     import { loginUser } from "../assets/scripts/services/auth.service.js";
     import { setAuth } from "../assets/scripts/store/auth.svelte.js";
 
-    let { gameState = $bindable(), id = $bindable() } = $props();
+    let { gameState = $bindable() } = $props();
 
     async function login(e) {
         e.preventDefault();
