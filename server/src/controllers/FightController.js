@@ -46,14 +46,16 @@ class FightController {
     }
 
     // méthode d'instance qui réduit les temps de récupérations des sorts des personnages
-    reduceCharacterSpellsCooldown(req, res) {
-        const { id: battleId, name: charName } = req.body;
+    async reduceCharacterSpellsCooldown(req, res) {
+        const { currentBattle, name } = req.body;
 
-        const battle = BattleStore.getBattle(battleId);
+        const battle = await BattleStore.getBattle(currentBattle);
         
-        const char = Object.values(battle).find(element => element.name === charName);
+        const char = Object.values(battle.data).find(element => element.name === name);
 
-        battle.fight.reduceCharacterSpellsCooldown(char.spells);
+        Fight.reduceCharacterSpellsCooldown(char.spells);
+
+        await BattleStore.updateBattle(battle.data, currentBattle)
 
         res.status(200).json(char);
     }

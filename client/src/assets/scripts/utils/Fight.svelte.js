@@ -19,12 +19,13 @@ class Fight {
         })
     }
 
-    async reduceCharactersSpellsCooldown(battleId, name) {
-        let obj = { id: battleId, name}
+    async reduceCharactersSpellsCooldown(data, name) {
+        const { id, username, currentBattle } = data;
+
         const res = await fetch('/api/battle/reduce-character-spells-cd', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(obj),
+            body: JSON.stringify({ id, username, currentBattle, name}),
         });
 
         const char = await res.json();

@@ -90,8 +90,8 @@
 
             let toPlay = await fight.getCharacterHitTurn(authUser);
 
-            player = await fight.reduceCharactersSpellsCooldown(battleId, player.name);
-            enemy = await fight.reduceCharactersSpellsCooldown(battleId, enemy.name);
+            player = await fight.reduceCharactersSpellsCooldown(authUser, player.name);
+            enemy = await fight.reduceCharactersSpellsCooldown(authUser, enemy.name);
 
             // affichage des sorts du joueur dans la vue
             playerSpellsList = Utilities.initiatePlayerSpells(player);
