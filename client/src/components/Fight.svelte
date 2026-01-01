@@ -122,7 +122,7 @@
                 let negateLog = [];
 
                 // affectations par destructuration de la réponse
-                ({ char: player, log: negateLog } = await fight.checkCharacterNegativeEffectStates(battleId, player.name));
+                ({ char: player, log: negateLog } = await fight.checkCharacterNegativeEffectStates(authUser, player.name));
 
                 negateLog.forEach((element) => fight.addLogsLine(element));
 
@@ -147,7 +147,7 @@
 
                 let negateLog = [];
 
-                ({ char: enemy, log: negateLog } = await fight.checkCharacterNegativeEffectStates(battleId, enemy.name));
+                ({ char: enemy, log: negateLog } = await fight.checkCharacterNegativeEffectStates(authUser, enemy.name));
 
                 negateLog.forEach((element) => fight.addLogsLine(element));
 

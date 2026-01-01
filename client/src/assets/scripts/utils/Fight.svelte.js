@@ -48,11 +48,13 @@ class Fight {
         return toPlay;
     }
 
-    async checkCharacterNegativeEffectStates(battleId, name) {
+    async checkCharacterNegativeEffectStates(data, name) {
+        const { id, username, currentBattle } = data;
+
         const res = await fetch('/api/battle/check-character-negative-effect', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({id: battleId, name}),
+            body: JSON.stringify({ id, username, currentBattle, name}),
         });
 
         const obj = await res.json();

@@ -28,7 +28,7 @@
     async function logout() {
         await logoutUser();
 
-        gameState = 'login';
+        window.location.reload();
     }
 </script>
 

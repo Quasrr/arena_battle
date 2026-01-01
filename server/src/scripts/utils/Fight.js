@@ -1,5 +1,10 @@
 import Utilities from "./Utilities.js";
 
+// import des personnages
+import DeathKnight from "../characters/DeathKnight.js";
+import Baron from "../characters/Baron.js";
+import DimensionalDevourer from "../characters/DimensionalDevourer.js";
+
 class Fight {
 
     static calculateCharacterHitChance(speed) {
@@ -24,6 +29,26 @@ class Fight {
                 spell.currentCooldown--;
             }
         })
+    }
+
+    // méthode static qui créer les personnages à la volée
+    static createCharacter(char) {
+        let character;
+
+        switch(char.className) {
+            case "DeathKnight":
+                character = Object.assign(Object.create(DeathKnight.prototype), char);
+                break;
+            case "Baron":
+                character = Object.assign(Object.create(Baron.prototype), char);
+                break;
+            case "Dimensional Devourer":
+                character = Object.assign(Object.create(DimensionalDevourer.prototype), char);
+                break;
+        }
+
+        console.log(character.passives);
+        return character;
     }
 
     static reduceCharacterNegativeEffectDuration(negate) { 
