@@ -88,7 +88,7 @@ class Fight {
         return char;
     }
 
-    async actionToDo(data, actionName, targetName, selfName) {
+    async actionToDo(data, actionName, targetName, selfName, turn) {
         if (!actionName) return;
 
         const { id, username, currentBattle } = data;
@@ -96,7 +96,7 @@ class Fight {
         const res = await fetch('/api/battle/character-use-spell', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id, username, currentBattle, actionName, targetName, selfName }),
+            body: JSON.stringify({ id, username, currentBattle, actionName, targetName, selfName, turn }),
         });
 
         const obj = await res.json();

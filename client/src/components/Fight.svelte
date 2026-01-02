@@ -140,7 +140,7 @@
 
                     let spellLog;
 
-                    ({ target: enemy, self: player, log: spellLog } = await fight.actionToDo(authUser, action, enemy.name, player.name));
+                    ({ target: enemy, self: player, log: spellLog } = await fight.actionToDo(authUser, action, enemy.name, player.name, turn));
 
                     spellLog.forEach((element) => fight.addLogsLine(element));
                 }
@@ -164,7 +164,7 @@
 
                     let spellLog;
 
-                    ({ target: player, self: enemy, log: spellLog } = await fight.actionToDo(authUser, act, player.name, enemy.name));
+                    ({ target: player, self: enemy, log: spellLog } = await fight.actionToDo(authUser, act, player.name, enemy.name, turn));
 
                     spellLog.forEach((element) => fight.addLogsLine(element));
                 }

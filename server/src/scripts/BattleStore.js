@@ -30,8 +30,12 @@ class BattleStore {
         return { battleId, state, turn, data: JSON.parse(data) };
     }
 
-    async updateBattle(data, id) {
+    async updateBattleData(data, id) {
         const battle = await Battle.update({ data: JSON.stringify(data) }, { where: { battleId: id } });
+    }
+
+    async updateBattleTurn(turn, id) {
+        const battle = await Battle.update({ turn }, { where: { battleId: id } });
     }
 }
 

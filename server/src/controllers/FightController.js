@@ -55,7 +55,7 @@ class FightController {
 
         Fight.reduceCharacterSpellsCooldown(char.spells);
 
-        await BattleStore.updateBattle(battle.data, currentBattle);
+        await BattleStore.updateBattleData(battle.data, currentBattle);
 
         res.status(200).json(char);
     }
@@ -82,7 +82,7 @@ class FightController {
 
         battle.data[key] = character;
 
-        await BattleStore.updateBattle(battle.data, currentBattle);
+        await BattleStore.updateBattleData(battle.data, currentBattle);
 
         res.status(200).json({
             character,
@@ -107,7 +107,7 @@ class FightController {
 
         battle.data[key] = character;
 
-        await BattleStore.updateBattle(battle.data, currentBattle);
+        await BattleStore.updateBattleData(battle.data, currentBattle);
 
         res.status(200).json(character);
     }
@@ -132,7 +132,7 @@ class FightController {
         battle.data[targetKey] = target;
         battle.data[selfKey] = self;
 
-        await BattleStore.updateBattle(battle.data, currentBattle);
+        await BattleStore.updateBattleData(battle.data, currentBattle);
 
         res.status(200).json(self);
     }
@@ -175,7 +175,7 @@ class FightController {
 
     // méthode d'instance qui utilise les sorts d'un personnage
     async characterUseSpell(req, res) {
-        const { currentBattle, actionName, targetName, selfName } = req.body;
+        const { currentBattle, actionName, targetName, selfName, turn } = req.body;
 
         const battle = await BattleStore.getBattle(currentBattle);
 
@@ -195,7 +195,8 @@ class FightController {
         battle.data[targetKey] = target;
         battle.data[selfKey] = self;
 
-        await BattleStore.updateBattle(battle.data, currentBattle);
+        await BattleStore.updateBattleData(battle.data, currentBattle);
+        await BattleStore.updateBattleTurn(turn, currentBattle);
 
         res.status(200).json({
             target,
