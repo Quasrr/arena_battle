@@ -54,18 +54,20 @@ class Fight {
         const res = await fetch('/api/battle/check-character-negative-effect', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id, username, currentBattle, name}),
+            body: JSON.stringify({ id, username, currentBattle, name }),
         });
 
         const obj = await res.json();
         return obj;
     }
 
-    async refreshCharacterBuff(battleId, name) {
+    async refreshCharacterBuff(data, name) {
+        const { id, username, currentBattle } = data;
+
         const res = await fetch('/api/battle/check-character-buffs', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({id: battleId, name}),
+            body: JSON.stringify({ id, username, currentBattle, name }),
         });
         
         const char = await res.json();

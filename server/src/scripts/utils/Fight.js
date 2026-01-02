@@ -31,7 +31,8 @@ class Fight {
         })
     }
 
-    // méthode static qui créer les personnages à la volée
+    // méthode static qui créer les personnages à la volée et hydratation de ceci pour permettre
+    // l'utilisation des méthodes d'instance de leur classe respective
     static createCharacter(char) {
         let character;
 

@@ -62,11 +62,13 @@ class FightController {
 
     // méthode d'instance qui vérifie les états négatif des personnages
     async checkCharacterNegativeEffectStates(req, res) {
-        const { id, username, currentBattle, name} = req.body
+        const { currentBattle, name } = req.body
 
         const battle = await BattleStore.getBattle(currentBattle);
 
-        const savedChar = Object.values(battle.data).find(element => element.name === name);
+        const entry = Object.entries(battle.data).find(element => element[1].name === name);
+        const [ key, savedChar ] = entry;
+
         const character = Fight.createCharacter(savedChar);
         
         const logs = [];
@@ -78,6 +80,8 @@ class FightController {
             }
         }) 
 
+        battle.data[key] = character;
+        console.log(battle.data)
         await BattleStore.updateBattle(battle.data, currentBattle);
 
         res.status(200).json({

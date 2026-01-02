@@ -122,12 +122,12 @@
                 let negateLog = [];
 
                 // affectations par destructuration de la réponse
-                ({ char: player, log: negateLog } = await fight.checkCharacterNegativeEffectStates(authUser, player.name));
+                ({ character: player, log: negateLog } = await fight.checkCharacterNegativeEffectStates(authUser, player.name));
 
                 negateLog.forEach((element) => fight.addLogsLine(element));
 
                 if (fight.canPlayTurn(player)) {
-                    player = await fight.refreshCharacterBuff(battleId, player.name);
+                    player = await fight.refreshCharacterBuff(authUser, player.name);
 
                     player = await fight.passivePerTurn(battleId, enemy.name, player.name);
 
@@ -152,7 +152,7 @@
                 negateLog.forEach((element) => fight.addLogsLine(element));
 
                 if (fight.canPlayTurn(enemy)) {
-                    enemy = await fight.refreshCharacterBuff(battleId, enemy.name);
+                    enemy = await fight.refreshCharacterBuff(authUser, enemy.name);
 
                     enemy = await fight.passivePerTurn(battleId, player.name, enemy.name);
 
