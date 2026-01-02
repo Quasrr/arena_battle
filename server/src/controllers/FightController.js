@@ -138,14 +138,14 @@ class FightController {
     }
 
     // méthode d'instance qui vérifie les conditions d'utilisation des sorts du joueur
-    determinePlayerAction(req, res) {
-        const { id: battleId, act: spellName, name: playerName} = req.body;
+    async determinePlayerAction(req, res) {
+        const { currentBattle, act, name} = req.body;
         let action = undefined;
 
-        const battle = BattleStore.getBattle(battleId);
+        const battle = await BattleStore.getBattle(currentBattle);
 
-        const player = Object.values(battle).find(element => element.name === playerName);
-        const spell = player.spells.find(spell => spell.name === spellName);
+        const player = Object.values(battle.data).find(element => element.name === name);
+        const spell = player.spells.find(spell => spell.name === act);
 
         action = spell.canUseSpell(player) ? spell.name : undefined;
 

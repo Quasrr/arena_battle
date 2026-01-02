@@ -72,11 +72,13 @@
         return battle;
     }
 
-    async function determineAction(battleId, act, name) {
+    async function determineAction(data, act, name) {
+        const { id, username, currentBattle } = data;
+
         const res = await fetch("/api/battle/determine-player-action", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id: battleId, act, name }),
+            body: JSON.stringify({ id, username, currentBattle, act, name }),
         });
 
         const spell = await res.json();
@@ -138,7 +140,7 @@
 
                     let spellLog;
 
-                    ({ target: enemy, self: player, log: spellLog } = await fight.actionToDo(battleId, action, enemy.name, player.name));
+                    ({ target: enemy, self: player, log: spellLog } = await fight.actionToDo(authUser, action, enemy.name, player.name));
 
                     spellLog.forEach((element) => fight.addLogsLine(element));
                 }
@@ -313,7 +315,7 @@
                             player.spells,
                         )}
                         onclick={() => {
-                            determineAction(battleId, spell.name, player.name);
+                            determineAction(authUser, spell.name, player.name);
                         }}
                     >
                     {#if Utilities.checkSpellIsOnCooldown(spell, player.spells)}
