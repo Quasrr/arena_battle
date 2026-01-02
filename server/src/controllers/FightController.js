@@ -62,7 +62,7 @@ class FightController {
 
     // méthode d'instance qui vérifie les états négatif des personnages
     async checkCharacterNegativeEffectStates(req, res) {
-        const { currentBattle, name } = req.body
+        const { currentBattle, name } = req.body;
 
         const battle = await BattleStore.getBattle(currentBattle);
 
@@ -81,7 +81,7 @@ class FightController {
         }) 
 
         battle.data[key] = character;
-        console.log(battle.data)
+
         await BattleStore.updateBattle(battle.data, currentBattle);
 
         res.status(200).json({
@@ -91,18 +91,25 @@ class FightController {
     }
 
     // méthode d'instance qui vérifie les buffs d'un personnage
-    checkCharacterBuffs(req, res) {
-        const { id: battleId, name: charName} = req.body
+    async checkCharacterBuffs(req, res) {
+        const { currentBattle, name } = req.body;
 
-        const battle = BattleStore.getBattle(battleId);
+        const battle = await BattleStore.getBattle(currentBattle);
 
-        const char = Object.values(battle).find(element => element.name === charName);
+        const entry = Object.entries(battle.data).find(element => element[1].name === name);
+        const [ key, savedChar ] = entry;
 
-        char.buffs.forEach(buff => {
-            buff.checkBuff(char);
+        const character = Fight.createCharacter(savedChar);
+
+        character.buffs.forEach(buff => {
+            buff.checkBuff(character);
         })
 
-        res.status(200).json(char);
+        battle.data[key] = character;
+
+        await BattleStore.updateBattle(battle.data, currentBattle);
+
+        res.status(200).json(character);
     }
 
     // méthode d'instance qui utilise les passifs des personnages

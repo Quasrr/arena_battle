@@ -75,11 +75,13 @@ class Fight {
         return char;
     }
 
-    async passivePerTurn(battleId, targetName, selfName) {
+    async passivePerTurn(data, targetName, selfName) {
+        const { id, username, currentBattle } = data;
+
         const res = await fetch('/api/battle/passive-per-turn', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({id: battleId, targetName, selfName}),
+            body: JSON.stringify({ id, username, currentBattle, targetName, selfName}),
         });
 
         const char = await res.json();

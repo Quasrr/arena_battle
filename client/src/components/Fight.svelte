@@ -129,7 +129,7 @@
                 if (fight.canPlayTurn(player)) {
                     player = await fight.refreshCharacterBuff(authUser, player.name);
 
-                    player = await fight.passivePerTurn(battleId, enemy.name, player.name);
+                    player = await fight.passivePerTurn(authUser, enemy.name, player.name);
 
                     // attente de choix d'une action
                     while (!action) {
@@ -154,7 +154,7 @@
                 if (fight.canPlayTurn(enemy)) {
                     enemy = await fight.refreshCharacterBuff(authUser, enemy.name);
 
-                    enemy = await fight.passivePerTurn(battleId, player.name, enemy.name);
+                    enemy = await fight.passivePerTurn(authUser, player.name, enemy.name);
 
                     let act;
 
