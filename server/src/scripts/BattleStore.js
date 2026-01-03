@@ -37,6 +37,12 @@ class BattleStore {
     async updateBattleTurn(turn, id) {
         const battle = await Battle.update({ turn }, { where: { battleId: id } });
     }
+
+    async deleteUserCurrentBattle(id) {
+        const user = await User.update({ currentBattle: null }, { where: { id: id } });
+
+        console.log(user);
+    }
 }
 
 export default new BattleStore;

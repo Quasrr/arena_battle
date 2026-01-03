@@ -26,5 +26,6 @@ router.post('/api/battle/passive-per-turn', AuthMiddleware.requireAuth, FightCon
 router.post('/api/battle/determine-player-action', AuthMiddleware.requireAuth, FightController.determinePlayerAction);
 router.post('/api/battle/determine-enemy-action', AuthMiddleware.requireAuth, FightController.determineEnemyAction);
 router.post('/api/battle/character-use-spell', AuthMiddleware.requireAuth, FightController.characterUseSpell);
+router.post('/api/battle/check-character-alive', AuthMiddleware.requireAuth, FightController.checkCharacterAlive);
 
 export default router;

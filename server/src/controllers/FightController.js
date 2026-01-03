@@ -204,6 +204,28 @@ class FightController {
             log
         })
     }
+
+    async checkCharacterAlive(req, res) {
+        const { id, currentBattle, name } = req.body;
+
+        const battle = await BattleStore.getBattle(currentBattle);
+
+        const character = Object.values(battle.data).find(element => element.name === name);
+
+        let state = false;
+
+        console.log(character.statistics.HP);
+
+        if (character.statistics.HP <= 0) {
+            state = true;
+
+            await BattleStore.deleteUserCurrentBattle(id);
+
+            return res.status(200).json(state);
+        }
+
+        return res.status(200).json(state);
+    }
 }
 
 export default new FightController();

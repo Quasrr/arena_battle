@@ -107,7 +107,7 @@ class Fight {
     async randomAction(data, selfName) {
         const { id, username, currentBattle } = data;
 
-         const res = await fetch('/api/battle/determine-enemy-action', {
+        const res = await fetch('/api/battle/determine-enemy-action', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id, username, currentBattle, selfName }),
@@ -116,6 +116,20 @@ class Fight {
         const action = await res.json();
 
         return action;
+    }
+
+    async checkCharacterAlive(data, name) {
+        const { id, username, currentBattle } = data;
+
+        const res = await fetch('/api/battle/check-character-alive', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id, username, currentBattle, name }),
+        });
+
+        const response = await res.json();
+
+        return response;
     }
 }
 

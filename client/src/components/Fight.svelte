@@ -15,8 +15,8 @@
     let enemy = $state(undefined);
 
     // état des personnages
-    let playerIsDead = false;
-    let enemyIsDead = false;
+    let playerIsDead = $state(false);
+    let enemyIsDead = $state(false);
 
     // initialisation de l'action du joueur en undefined
     let action = $state(undefined);
@@ -87,7 +87,7 @@
     }
 
     async function fighting() {
-        while (playerIsDead === false && enemyIsDead === false) {
+        while (!playerIsDead && !enemyIsDead) {
             
 
             let toPlay = await fight.getCharacterHitTurn(authUser);
@@ -175,10 +175,12 @@
             playTurn = undefined;
 
             if (player.statistics.HP <= 0) {
-                playerIsDead = true;
+                playerIsDead = await fight.checkCharacterAlive(authUser, player.name);
                 return;
             } else if (enemy.statistics.HP <= 0) {
-                enemyIsDead = true;
+                enemyIsDead = await fight.checkCharacterAlive(authUser, enemy.name);
+
+                console.log(enemyIsDead)
                 return;
             }
         }
@@ -237,6 +239,12 @@
             <div class="playing-turn">
                 {#if playTurn === player.name}
                 <p>À VOUS DE JOUER !</p>
+                {/if}
+                {#if playerIsDead}
+                <p>VOUS AVEZ PERDU !</p>
+                {/if}
+                {#if enemyIsDead}
+                <p>VOUS AVEZ GAGNÉ !</p>
                 {/if}
             </div>
 
