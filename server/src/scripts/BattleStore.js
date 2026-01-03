@@ -40,8 +40,6 @@ class BattleStore {
 
     async deleteUserCurrentBattle(id) {
         const user = await User.update({ currentBattle: null }, { where: { id: id } });
-
-        console.log(user);
     }
 }
 

@@ -12,7 +12,6 @@
 
     onMount(async () => {
         await initAuth();
-
         if (authUser.username) {
             if (authUser.currentBattle) {
                 gameState = "fight";

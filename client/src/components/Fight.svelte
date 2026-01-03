@@ -176,12 +176,13 @@
 
             if (player.statistics.HP <= 0) {
                 playerIsDead = await fight.checkCharacterAlive(authUser, player.name);
-                return;
             } else if (enemy.statistics.HP <= 0) {
                 enemyIsDead = await fight.checkCharacterAlive(authUser, enemy.name);
+            }
 
-                console.log(enemyIsDead)
-                return;
+            if (playerIsDead || enemyIsDead) {
+                await Utilities.sleep(15000);
+                window.location.reload();
             }
         }
     }
