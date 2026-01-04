@@ -35,6 +35,7 @@ class Baron extends Characters {
             },
             passives: [],
             buffs: [],
+            debuffs: [],
             negativeEffects: [new Bleed(), new Burn(), new Freeze(), new Poison(), new Slow(), new Stun()],
             spells: [new ProfaneRake(), new SanguineBite(), new sanguineOffering(), new Exsanguinate()],
         };

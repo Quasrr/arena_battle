@@ -53,9 +53,9 @@ class DimensionalDevourer extends Characters {
         const rift = this.passives.find(element => element.name === 'Rift Charge');
 
         if (rift) {
-            const staks = rift.stacks >= 80 ? 80 : rift.stacks;
+            const stacks = rift.stacks >= 80 ? 80 : rift.stacks;
 
-            damage = Math.round(damage - ((damage * staks) / 100));
+            damage = Math.round(damage - ((damage * stacks) / 100));
         }
         
         this.statistics.HP -= damage;
