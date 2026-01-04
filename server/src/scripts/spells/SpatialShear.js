@@ -24,7 +24,7 @@ class SpatialShear extends Spell {
     useSpell(target, self) {
         const log = [];
 
-        let damage = Fight.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM * 0.66);
+        let damage = Fight.calculateCharacterDamage(self.statistics.str, target.statistics.arm * 0.66);
 
         let riftPassive = self.passives.find(element => element.name === "Rift Charge");
 

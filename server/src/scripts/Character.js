@@ -7,6 +7,7 @@ class Characters {
         this.description = data.description;
         this.avatar = data.avatar;
         this.statistics = data.statistics || {};
+        this.baseStatistics = data.baseStatistics || {};
         this.passives = data.passives || [];
         this.buffs = data.buffs || [];
         this.negativeEffects = data.negativeEffects || [];

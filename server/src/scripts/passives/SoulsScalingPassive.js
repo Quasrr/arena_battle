@@ -13,11 +13,16 @@ class SoulsScalingPassive extends Passive {
     }
 
     onTurn(target, self) { // méthode appelée au début du tour du personnage, gère les passifs du personnage
-        self.statistics.STR = Math.floor(self.statistics.STR + (0.5 * this.stacks));
-        self.statistics.ARM = Math.floor(self.statistics.ARM + (0.5 * this.stacks));
-        self.statistics.speed = Math.floor(self.statistics.speed + (0.1 * this.stacks));
-        self.statistics.CritChance = self.statistics.CritChance + (0.01 * this.stacks);
-        self.statistics.CritDamage = self.statistics.CritDamage + (0.01 * this.stacks);
+        const highSpeed = self.buffs.find(buff => buff.name === 'High Speed');
+
+        if (!highSpeed) {
+            self.statistics.speed = Math.floor(self.baseStatistics.speed + (0.1 * this.stacks));
+        }
+
+        self.statistics.str = Math.floor(self.baseStatistics.str + (1 * this.stacks));
+        self.statistics.arm = Math.floor(self.baseStatistics.arm + (0.5 * this.stacks));
+        self.statistics.critChance = self.baseStatistics.critChance + (0.01 * this.stacks);
+        self.statistics.critDamage = self.baseStatistics.critDamage + (0.01 * this.stacks);
     }
 
     onHit(target, self) {} // méthode appelée dès que le personnage prends un coups, gère les réactions à ce dernier

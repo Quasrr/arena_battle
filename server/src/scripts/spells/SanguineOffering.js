@@ -17,21 +17,21 @@ class sanguineOffering extends Spell {
     }
 
     canUseSpell(caster) {
-        const cost = Math.round(caster.statistics.maxHP * 0.05);
+        const cost = Math.round(caster.baseStatistics.hp * 0.05);
 
         return (
-            this.currentCooldown === 0 && caster.statistics.HP > cost + 1
+            this.currentCooldown === 0 && caster.statistics.hp > cost + 1
         );
     }
 
     useSpell(target, self) {
         const log = [];
 
-        let damage = Math.round(self.statistics.maxHP * 0.05);
+        let damage = Math.round(self.baseStatistics.hp * 0.05);
 
-        self.statistics.STR += Math.round(self.statistics.STR * 0.25);
+        self.statistics.str += Math.round(self.baseStatistics.str * 0.25);
 
-        self.statistics.HP -= damage;
+        self.statistics.hp -= damage;
 
         this.currentCooldown = this.cooldown;
 

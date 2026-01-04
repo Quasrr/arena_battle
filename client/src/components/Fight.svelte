@@ -174,9 +174,9 @@
             action = undefined;
             playTurn = undefined;
 
-            if (player.statistics.HP <= 0) {
+            if (player.statistics.hp <= 0) {
                 playerIsDead = await fight.checkCharacterAlive(authUser, player.name);
-            } else if (enemy.statistics.HP <= 0) {
+            } else if (enemy.statistics.hp <= 0) {
                 enemyIsDead = await fight.checkCharacterAlive(authUser, enemy.name);
             }
 
@@ -201,21 +201,21 @@
                     <div class="health">
                         <div class="health-text">
                             <p class="hp">HP</p>
-                            <p>{`${player.statistics.HP <= 0 ? 0 : player.statistics.HP} / ${player.statistics.maxHP}`}</p>
+                            <p>{`${player.statistics.hp <= 0 ? 0 : player.statistics.hp} / ${player.baseStatistics.hp}`}</p>
                         </div>
 
                         <div class="healthbar">
-                            <div style={`width: ${player.statistics.HP <= 0 ? 0 : (player.statistics.HP * 100) / player.statistics.maxHP}%`} class="health-fill"></div>
+                            <div style={`width: ${player.statistics.hp <= 0 ? 0 : (player.statistics.hp * 100) / player.baseStatistics.hp}%`} class="health-fill"></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="statistics">
-                    <p><span>STR</span> {`${player.statistics.STR}`}</p>
-                    <p><span>ARM</span> {`${player.statistics.ARM}`}</p>
+                    <p><span>STR</span> {`${player.statistics.str}`}</p>
+                    <p><span>ARM</span> {`${player.statistics.arm}`}</p>
                     <p><span>SPEED</span> {`${player.statistics.speed}`}</p>
-                    <p><span>CRIT %</span> {`${Math.round(player.statistics.CritChance.toFixed(1) * 100)}`}</p>
-                    <p><span>CRIT DMG%</span> {`${Math.round(player.statistics.CritDamage.toFixed(1) * 100)}`}</p>
+                    <p><span>CRIT %</span> {`${Math.round(player.statistics.critChance.toFixed(1) * 100)}`}</p>
+                    <p><span>CRIT DMG%</span> {`${Math.round(player.statistics.critDamage.toFixed(1) * 100)}`}</p>
                 </div>
                 <div class="passives">
                     {#each playerPassivesList as passive}
@@ -259,20 +259,20 @@
                     <div class="health">
                         <div class="health-text">
                             <p class="hp">HP</p>
-                            <p>{`${enemy.statistics.HP <= 0 ? 0 : enemy.statistics.HP} / ${enemy.statistics.maxHP}`}</p>
+                            <p>{`${enemy.statistics.hp <= 0 ? 0 : enemy.statistics.hp} / ${enemy.baseStatistics.hp}`}</p>
                         </div>
                         <div class="healthbar">
-                            <div style={`width: ${enemy.statistics.HP <= 0 ? 0 : (enemy.statistics.HP * 100) / enemy.statistics.maxHP}%`} class="health-fill"></div>
+                            <div style={`width: ${enemy.statistics.hp <= 0 ? 0 : (enemy.statistics.hp * 100) / enemy.baseStatistics.hp}%`} class="health-fill"></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="statistics">
-                    <p><span>STR</span> {`${enemy.statistics.STR}`}</p>
-                    <p><span>ARM</span> {`${enemy.statistics.ARM}`}</p>
+                    <p><span>STR</span> {`${enemy.statistics.str}`}</p>
+                    <p><span>ARM</span> {`${enemy.statistics.arm}`}</p>
                     <p><span>SPEED</span> {`${enemy.statistics.speed}`}</p>
-                    <p><span>CRIT %</span> {`${Math.round(enemy.statistics.CritChance.toFixed(1) * 100)}`}</p>
-                    <p><span>CRIT DMG%</span> {`${Math.round(enemy.statistics.CritDamage.toFixed(1) * 100)}`}</p>
+                    <p><span>CRIT %</span> {`${Math.round(enemy.statistics.critChance.toFixed(1) * 100)}`}</p>
+                    <p><span>CRIT DMG%</span> {`${Math.round(enemy.statistics.critDamage.toFixed(1) * 100)}`}</p>
                 </div>
                 <div class="passives">
                     {#each enemyPassivesList as passive}

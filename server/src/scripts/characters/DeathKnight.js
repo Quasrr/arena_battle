@@ -33,13 +33,20 @@ class DeathKnight extends Characters {
             avatar: "/images/characters/humans/classes/death_knight/avatars/deathknight_avatar.png",
             description: "Deathknight is a powerfull class using stats scaling based on collected souls",
             statistics: {
-                HP: 800,
-                maxHP: 800,
-                STR: 150,
-                ARM: 60,
+                hp: 800,
+                str: 150,
+                arm: 60,
                 speed: 50,
-                CritChance: 0.2,
-                CritDamage: 1.5
+                critChance: 0.2,
+                critDamage: 1.5
+            },
+            baseStatistics: {
+                hp: 800,
+                str: 150,
+                arm: 60,
+                speed: 50,
+                critChance: 0.2,
+                critDamage: 1.5
             },
             passives: [new SoulsScalingPassive(), new CounterStrikePassive()],
             buffs: [new CounterStrike(), new HighSpeed()],
@@ -65,7 +72,7 @@ class DeathKnight extends Characters {
     perHit(target, self, damage) {
         const log = [];
 
-        this.statistics.HP -= damage;
+        this.statistics.hp -= damage;
 
         this.passives.forEach(passive => {
             let p = passive.onHit(target, self);

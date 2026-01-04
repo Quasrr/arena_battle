@@ -24,7 +24,7 @@ class ProfaneRake extends Spell {
     useSpell(target, self) {
         const log = [];
 
-        let damage = Math.round(Fight.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM) * 1.2);
+        let damage = Math.round(Fight.calculateCharacterDamage(self.statistics.str, target.statistics.arm) * 1.2);
 
         const targetBleedState = target.negativeEffects.find(negate => {
             return negate.name === 'Bleed';

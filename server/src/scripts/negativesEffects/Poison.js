@@ -14,7 +14,7 @@ class Poison extends NegativeEffects {
     }
 
     applyNegativeEffect(self) {
-        self.statistics.HP -= this.damage;
+        self.statistics.hp -= this.damage;
         
         return {
             text: `${self.name} est empoisonné et subit ${this.damage} points de dégats d' empoisonnement!`,

@@ -14,7 +14,7 @@ class Freeze extends NegativeEffects {
     }
 
     applyNegativeEffect(self) {
-        self.statistics.HP -= this.damage;
+        self.statistics.hp -= this.damage;
         
         return {
             text: `${self.name} est gelé et subit ${this.damage} points de dégats de gel!`,

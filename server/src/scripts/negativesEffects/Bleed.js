@@ -14,7 +14,7 @@ class Bleed extends NegativeEffects {
     }
 
     applyNegativeEffect(self) {
-        self.statistics.HP -= this.damage;
+        self.statistics.hp -= this.damage;
         
         return {
             text: `${self.name} saigne et subit ${this.damage} points de dégats de saignement!`,

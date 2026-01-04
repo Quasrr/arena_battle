@@ -104,12 +104,12 @@
                         </p>
 
                         <div class="statistics" aria-label="Statistiques du joueur">
-                            <p><span>HP</span> {player ? player.statistics.HP : "0"}</p>
-                            <p><span>STR</span> {player ? player.statistics.STR : "0"}</p>
-                            <p><span>ARM</span> {player ? player.statistics.ARM : "0"}</p>
-                            <p><span>SPEED</span> {player ? player.statistics.speed : "0"}</p>
-                            <p><span>CRIT %</span> {player ? player.statistics.CritChance : "0"}</p>
-                            <p><span>CRIT DMG%</span> {player ? player.statistics.CritDamage : "0"}</p>
+                            <p><span>HP</span> {player ? player.baseStatistics.hp : "0"}</p>
+                            <p><span>STR</span> {player ? player.baseStatistics.str : "0"}</p>
+                            <p><span>ARM</span> {player ? player.baseStatistics.arm : "0"}</p>
+                            <p><span>SPEED</span> {player ? player.baseStatistics.speed : "0"}</p>
+                            <p><span>CRIT %</span> {player ? player.baseStatistics.critChance : "0"}</p>
+                            <p><span>CRIT DMG%</span> {player ? player.baseStatistics.critDamage : "0"}</p>
                         </div>
                     </div>
                 </div>
@@ -142,12 +142,12 @@
                         </p>
 
                         <div class="statistics" aria-label="Statistiques de l'adversaire">
-                            <p><span>HP</span> {enemy ? enemy.statistics.HP : "0"}</p>
-                            <p><span>STR</span> {enemy ? enemy.statistics.STR : "0"}</p>
-                            <p><span>ARM</span> {enemy ? enemy.statistics.ARM : "0"}</p>
-                            <p><span>SPEED</span> {enemy ? enemy.statistics.speed : "0"}</p>
-                            <p><span>CRIT %</span> {enemy ? enemy.statistics.CritChance : "0"}</p>
-                            <p><span>CRIT DMG%</span> {enemy ? enemy.statistics.CritDamage : "0"}</p>
+                            <p><span>HP</span> {enemy ? enemy.baseStatistics.hp : "0"}</p>
+                            <p><span>STR</span> {enemy ? enemy.baseStatistics.str : "0"}</p>
+                            <p><span>ARM</span> {enemy ? enemy.baseStatistics.arm : "0"}</p>
+                            <p><span>SPEED</span> {enemy ? enemy.baseStatistics.speed : "0"}</p>
+                            <p><span>CRIT %</span> {enemy ? enemy.baseStatistics.critChance : "0"}</p>
+                            <p><span>CRIT DMG%</span> {enemy ? enemy.baseStatistics.critDamage : "0"}</p>
                         </div>
                     </div>
                 </div>

@@ -24,9 +24,9 @@ class SoulHarvest extends Spell {
     useSpell(target, self) {
         const log = [];
 
-        let damage = Fight.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM);
+        let damage = Fight.calculateCharacterDamage(self.statistics.str, target.statistics.arm);
         let healing = Math.floor(damage * 0.10);
-        if (self.statistics.HP >= self.statistics.maxHP) {
+        if (self.statistics.hp >= self.baseStatistics.hp) {
             healing = 0;
         }
 
@@ -36,7 +36,7 @@ class SoulHarvest extends Spell {
             soulsPassive.stacks += 5;
         }
 
-        self.statistics.HP += healing
+        self.statistics.hp += healing
 
         const damageEffect = target.perHit(target, self, damage);
 

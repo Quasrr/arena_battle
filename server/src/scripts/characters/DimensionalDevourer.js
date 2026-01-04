@@ -24,13 +24,20 @@ class DimensionalDevourer extends Characters {
             description: "An apex aberration that tears reality, steals tempo, and banishes targets between dimensions. Its powers weaken when Anchored.",
             avatar: "/images/characters/monsters/boss/dimensional_devourer/avatars/dimensional_devourer.png",
             statistics: {
-                HP: 2400,
-                maxHP: 2400,
-                STR: 220,
-                ARM: 85,
+                hp: 2400,
+                str: 220,
+                arm: 85,
                 speed: 62,
-                CritChance: 0.2,
-                CritDamage: 1.8
+                critChance: 0.1,
+                critDamage: 1.8
+            },
+            baseStatistics: {
+                hp: 2400,
+                str: 220,
+                arm: 85,
+                speed: 62,
+                critChance: 0.1,
+                critDamage: 1.8
             },
             passives: [new RiftChargePassive()],
             buffs: [],
@@ -58,7 +65,7 @@ class DimensionalDevourer extends Characters {
             damage = Math.round(damage - ((damage * stacks) / 100));
         }
         
-        this.statistics.HP -= damage;
+        this.statistics.hp -= damage;
 
         this.passives.forEach(passive => {
             let p = passive.onHit(target, self);

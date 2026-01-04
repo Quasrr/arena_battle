@@ -14,7 +14,7 @@ class Slow extends NegativeEffects {
     }
 
     applyNegativeEffect(self) {
-        self.statistics.HP -= this.damage;
+        self.statistics.hp -= this.damage;
         
         return {
             text: `${self.name} est ralentit et a du mal à avancer`,

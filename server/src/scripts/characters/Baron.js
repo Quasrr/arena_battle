@@ -25,13 +25,20 @@ class Baron extends Characters {
             description: "Baron is a strong boss using powerfull strikes and bleedings",
             avatar: "/images/characters/monsters/boss/baron/avatars/baron_avatar.png",
             statistics: {
-                HP: 4500,
-                maxHP: 4500,
-                STR: 240,
-                ARM: 50,
+                hp: 4500,
+                str: 240,
+                arm: 50,
                 speed: 30,
-                CritChance: 0.2,
-                CritDamage: 1.5
+                critChance: 0.2,
+                critDamage: 1.5
+            },
+            baseStatistics: {
+                hp: 4500,
+                str: 240,
+                arm: 50,
+                speed: 30,
+                critChance: 0.2,
+                critDamage: 1.5
             },
             passives: [],
             buffs: [],
@@ -52,7 +59,7 @@ class Baron extends Characters {
     perHit(target, self, damage) {
         const log = [];
 
-        this.statistics.HP -= damage;
+        this.statistics.hp -= damage;
 
         this.passives.forEach(passive => {
             let p = passive.onHit(target, self);

@@ -18,16 +18,16 @@ class Exsanguinate extends Spell {
 
     canUseSpell(caster) {
         return (
-            this.currentCooldown === 0 && caster.statistics.hp >= caster.statistics.maxHP
+            this.currentCooldown === 0 && caster.statistics.hp >= caster.baseStatistics.hp
         );
     }
 
     useSpell(target, self) {
         const log = [];
 
-        let healing = Math.round((self.statistics.maxHP - self.statistics.HP) * 0.1);
+        let healing = Math.round((self.baseStatistics.hp - self.statistics.hp) * 0.1);
 
-        self.statistics.HP += healing;
+        self.statistics.hp += healing;
 
         this.currentCooldown = this.cooldown;
 

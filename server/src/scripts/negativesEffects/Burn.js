@@ -14,7 +14,7 @@ class Burn extends NegativeEffects {
     }
 
     applyNegativeEffect(self) {
-        self.statistics.HP -= this.damage;
+        self.statistics.hp -= this.damage;
         
         return {
             text: `${self.name} brûle et subit ${this.damage} points de dégats de brûlure!`,

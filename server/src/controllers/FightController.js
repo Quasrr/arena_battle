@@ -214,9 +214,7 @@ class FightController {
 
         let state = false;
 
-        console.log(character.statistics.HP);
-
-        if (character.statistics.HP <= 0) {
+        if (character.statistics.hp <= 0) {
             state = true;
 
             await BattleStore.deleteUserCurrentBattle(id);

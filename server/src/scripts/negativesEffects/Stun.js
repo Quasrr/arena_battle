@@ -14,7 +14,7 @@ class Stun extends NegativeEffects {
     }
 
     applyNegativeEffect(self) {
-        self.statistics.HP -= this.damage;
+        self.statistics.hp -= this.damage;
         
         return {
             text: `${self.name} est paralysé et ne peut pas attaquer`,

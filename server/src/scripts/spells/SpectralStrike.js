@@ -24,10 +24,10 @@ class SpectralStrike extends Spell {
     useSpell(target, self) {
         const log = [];
 
-        let targetHP = target.statistics.maxHP - target.statistics.HP;
+        let targetHP = target.baseStatistics.hp - target.statistics.hp;
         let percentMissingHealthDamage = Math.round(targetHP * 0.25);
 
-        let damage = Math.round(Fight.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM) / 2 + percentMissingHealthDamage);
+        let damage = Math.round(Fight.calculateCharacterDamage(self.statistics.str, target.statistics.arm) / 2 + percentMissingHealthDamage);
         
         const damageEffect = target.perHit(target, self, damage);
 

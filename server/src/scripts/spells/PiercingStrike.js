@@ -30,7 +30,7 @@ class PiercingStrike extends Spell {
             soulsPassive.stacks++;
         }
 
-        let damage = Math.round(Fight.calculateCharacterDamage(self.statistics.STR, target.statistics.ARM) * 1.2);
+        let damage = Math.round(Fight.calculateCharacterDamage(self.statistics.str, target.statistics.arm) * 1.2);
         
         const damageEffect = target.perHit(target, self, damage);
 
