@@ -12,7 +12,7 @@ class LowArmor extends Debuff {
         super(debuffData);
     }
 
-    applyBuff(self, duration) {
+    applyDebuff(self, duration) {
         if (this.isPermanent) {
             return;
         }
@@ -21,7 +21,7 @@ class LowArmor extends Debuff {
         this.duration = duration;
     }
 
-    checkBuff(self) {
+    checkDebuff(self) {
         if (!this.state) {
             return;
         }
