@@ -13,13 +13,15 @@ class LowStrength extends Debuff {
         super(debuffData);
     }
 
-    applyDebuff(self, duration) {
+    applyDebuff(self, duration, quantity) {
         if (this.isPermanent) {
             return;
         }
 
         this.state = true;
         this.duration = duration;
+        this.quantity += quantity;
+        self.statistics.str -= this.quantity;
     }
 
     checkDebuff(self) {
@@ -33,6 +35,9 @@ class LowStrength extends Debuff {
 
         if (this.duration === 0) {
             this.state = false;
+            
+            self.statistics.str += this.quantity;
+            this.quantity = 0;
 
             return
         }

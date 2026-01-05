@@ -25,6 +25,7 @@ class SpatialShear extends Spell {
         const log = [];
 
         let damage = Fight.calculateCharacterDamage(self.statistics.str, target.statistics.arm * 0.66);
+        target.debuffs[0].applyDebuff(target, 10, 5);
 
         let riftPassive = self.passives.find(element => element.name === "Rift Charge");
 

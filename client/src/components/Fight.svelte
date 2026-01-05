@@ -149,6 +149,7 @@
             } else {
                 playTurn = enemy.name;
 
+                enemy = await fight.refreshCharacterDebuff(authUser, enemy.name);
                 enemy = await fight.refreshCharacterBuff(authUser, enemy.name);
 
                 enemy = await fight.passivePerTurn(authUser, player.name, enemy.name);

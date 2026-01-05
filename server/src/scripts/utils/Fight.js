@@ -49,6 +49,7 @@ class Fight {
         }
 
         character.statistics = char.statistics;
+        character.baseStatistics = char.baseStatistics;
 
         if (character.passives.length) {
             character.passives.forEach(passive => {
@@ -65,6 +66,16 @@ class Fight {
                 buff.isActive = charBuff.isActive;
                 buff.isPermanent = charBuff.isPermanent;
                 buff.duration = charBuff.duration;
+            })
+        }
+
+        if (character.debuffs.length) {
+            character.debuffs.forEach(debuff => {
+                const charDebuff = char.debuffs.find(element => element.name === debuff.name);
+                debuff.state = charDebuff.state;
+                debuff.isPermanent = charDebuff.isPermanent;
+                debuff.duration = charDebuff.duration;
+                debuff.quantity = charDebuff.quantity
             })
         }
 

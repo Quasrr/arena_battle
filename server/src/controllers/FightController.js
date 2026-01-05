@@ -103,7 +103,7 @@ class FightController {
 
         character.buffs.forEach(buff => {
             buff.checkBuff(character);
-        })
+        });
 
         battle.data[key] = character;
 
@@ -113,7 +113,24 @@ class FightController {
     }
 
     async checkCharacterDebuffs(req, res) {
-        
+        const { currentBattle, name } = req.body;
+
+        const battle = await BattleStore.getBattle(currentBattle);
+
+        const entry = Object.entries(battle.data).find(element => element[1].name === name);
+        const [ key, savedChar ] = entry;
+
+        const character = Fight.createCharacter(savedChar);
+
+        character.debuffs.forEach(debuff => {
+            debuff.checkDebuff(character);
+        });
+
+        battle.data[key] = character;
+
+        await BattleStore.updateBattleData(battle.data, currentBattle);
+
+        res.status(200).json(character);
     }
 
     // méthode d'instance qui utilise les passifs des personnages

@@ -10,6 +10,7 @@ class Characters {
         this.baseStatistics = data.baseStatistics || {};
         this.passives = data.passives || [];
         this.buffs = data.buffs || [];
+        this.debuffs = data.debuffs || [];
         this.negativeEffects = data.negativeEffects || [];
         this.spells = data.spells || [];
     }
