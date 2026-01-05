@@ -22,6 +22,7 @@ router.post('/api/battle/turn/', AuthMiddleware.requireAuth, FightController.cho
 router.post('/api/battle/reduce-character-spells-cd', AuthMiddleware.requireAuth, FightController.reduceCharacterSpellsCooldown);
 router.post('/api/battle/check-character-negative-effect', AuthMiddleware.requireAuth, FightController.checkCharacterNegativeEffectStates);
 router.post('/api/battle/check-character-buffs', AuthMiddleware.requireAuth, FightController.checkCharacterBuffs);
+router.post('/api/battle/check-character-debuffs', AuthMiddleware.requireAuth, FightController.checkCharacterDebuffs);
 router.post('/api/battle/passive-per-turn', AuthMiddleware.requireAuth, FightController.passivePerTurn);
 router.post('/api/battle/determine-player-action', AuthMiddleware.requireAuth, FightController.determinePlayerAction);
 router.post('/api/battle/determine-enemy-action', AuthMiddleware.requireAuth, FightController.determineEnemyAction);

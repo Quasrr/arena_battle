@@ -8,7 +8,7 @@ class SpatialShear extends Spell {
             image: "/images/characters/monsters/boss/dimensional_devourer/spells_icon/spatial_shear.png",
             description: "Ignore 33% of the target armor, deal damage to the target and grant rift stacks",
             castChance: 0.3,
-            cooldown: 2,
+            cooldown: 0,
             currentCooldown: 0,
             damageType: 'magical',
             type: 'enemy'

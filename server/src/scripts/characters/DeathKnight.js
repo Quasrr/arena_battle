@@ -4,6 +4,11 @@ import Characters from "../Character.js";
 import CounterStrike from "../buffs/CounterStrike.js";
 import HighSpeed from "../buffs/HighSpeed.js";
 
+//import des debuffs du personnage
+import LowArmor from "../debuffs/LowArmor.js";
+import LowSpeed from "../debuffs/LowSpeed.js";
+import LowStrength from "../debuffs/LowStrength.js";
+
 //import des passifs du personnage
 import CounterStrikePassive from "../passives/CounterStrikePassive.js";
 import SoulsScalingPassive from "../passives/SoulsScalingPassive.js";
@@ -50,6 +55,7 @@ class DeathKnight extends Characters {
             },
             passives: [new SoulsScalingPassive(), new CounterStrikePassive()],
             buffs: [new CounterStrike(), new HighSpeed()],
+            debuffs: [new LowArmor(), new LowSpeed(), new LowStrength()],
             negativeEffects: [new Bleed(), new Burn(), new Freeze(), new Poison(), new Slow(), new Stun()],
             spells: [
                 new PiercingStrike(),

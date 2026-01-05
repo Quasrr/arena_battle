@@ -75,6 +75,20 @@ class Fight {
         return char;
     }
 
+    async refreshCharacterDebuff(data, name) {
+        const { id, username, currentBattle } = data;
+
+        const res = await fetch('/api/battle/check-character-debuffs', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id, username, currentBattle, name }),
+        });
+        
+        const char = await res.json();
+
+        return char;
+    }
+
     async passivePerTurn(data, targetName, selfName) {
         const { id, username, currentBattle } = data;
 

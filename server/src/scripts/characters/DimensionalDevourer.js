@@ -41,6 +41,7 @@ class DimensionalDevourer extends Characters {
             },
             passives: [new RiftChargePassive()],
             buffs: [],
+            debuffs: [],
             negativeEffects: [new Bleed(), new Burn(), new Freeze(), new Poison(), new Slow(), new Stun()],
             spells: [new SpatialShear()],
         };

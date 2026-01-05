@@ -121,6 +121,11 @@
 
                 playTurn = player.name;
 
+                player = await fight.refreshCharacterDebuff(authUser, player.name);
+                player = await fight.refreshCharacterBuff(authUser, player.name);
+
+                player = await fight.passivePerTurn(authUser, enemy.name, player.name);
+
                 let negateLog = [];
 
                 // affectations par destructuration de la réponse
@@ -129,9 +134,6 @@
                 negateLog.forEach((element) => fight.addLogsLine(element));
 
                 if (fight.canPlayTurn(player)) {
-                    player = await fight.refreshCharacterBuff(authUser, player.name);
-
-                    player = await fight.passivePerTurn(authUser, enemy.name, player.name);
 
                     // attente de choix d'une action
                     while (!action) {
@@ -147,6 +149,10 @@
             } else {
                 playTurn = enemy.name;
 
+                enemy = await fight.refreshCharacterBuff(authUser, enemy.name);
+
+                enemy = await fight.passivePerTurn(authUser, player.name, enemy.name);
+
                 let negateLog = [];
 
                 ({ character: enemy, log: negateLog } = await fight.checkCharacterNegativeEffectStates(authUser, enemy.name));
@@ -154,9 +160,6 @@
                 negateLog.forEach((element) => fight.addLogsLine(element));
 
                 if (fight.canPlayTurn(enemy)) {
-                    enemy = await fight.refreshCharacterBuff(authUser, enemy.name);
-
-                    enemy = await fight.passivePerTurn(authUser, player.name, enemy.name);
 
                     let act;
 

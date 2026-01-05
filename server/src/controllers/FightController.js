@@ -112,6 +112,10 @@ class FightController {
         res.status(200).json(character);
     }
 
+    async checkCharacterDebuffs(req, res) {
+        
+    }
+
     // méthode d'instance qui utilise les passifs des personnages
     async passivePerTurn(req, res) {
        const { currentBattle, targetName, selfName } = req.body;

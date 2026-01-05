@@ -7,6 +7,7 @@ class LowSpeed extends Debuff {
             state: false,
             isPermanent: false,
             duration: 0,
+            quantity: 0
         }
 
         super(debuffData);

@@ -4,6 +4,7 @@ class Debuff {
         this.state = debuffData.state;
         this.isPermanent = debuffData.isPermanent;
         this.duration = debuffData.duration;
+        this.quantity = debuffData.quantity;
     }
 }
 
