@@ -8,7 +8,7 @@ class SpatialShear extends Spell {
             image: "/images/characters/monsters/boss/dimensional_devourer/spells_icon/spatial_shear.png",
             description: "Ignore 33% of the target armor, deal damage to the target and grant rift stacks",
             castChance: 0.3,
-            cooldown: 0,
+            cooldown: 2,
             currentCooldown: 0,
             damageType: 'magical',
             type: 'enemy'
@@ -25,7 +25,7 @@ class SpatialShear extends Spell {
         const log = [];
 
         let damage = Fight.calculateCharacterDamage(self.statistics.str, target.statistics.arm * 0.66);
-        target.debuffs[0].applyDebuff(target, 10, 5);
+        target.debuffs[0].applyDebuff(target, 3, 5);
 
         let riftPassive = self.passives.find(element => element.name === "Rift Charge");
 
