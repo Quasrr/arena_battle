@@ -8,19 +8,20 @@ class HighSpeed extends Buff {
             isActive: false,
             isPermanent: false,
             duration: 0,
+            quantity: 0
         }
 
         super(buffData);
     }
 
-    applyBuff(self) {
+    applyBuff(self, duration, quantity) {
         if (this.isPermanent) {
             return;
         }
 
         this.state = true;
-        this.duration = 5;
-        self.statistics.speed += Math.round(self.statistics.speed * 0.3);
+        this.duration = duration;
+        self.statistics.speed += Math.round(self.statistics.speed * quantity);
     }
 
     checkBuff(self) {
@@ -35,7 +36,7 @@ class HighSpeed extends Buff {
         if (this.duration === 0) {
             this.state = false;
 
-            self.statistics.speed = Math.round(self.statistics.speed / 1.3);
+            self.statistics.speed = Math.round(self.statistics.speed / (1 + quantity));
             return
         }
     }

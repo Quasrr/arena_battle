@@ -5,6 +5,7 @@ class Buff {
         this.isActive = buffData.isActive;
         this.isPermanent = buffData.isPermanent;
         this.duration = buffData.duration;
+        this.quantity = buffData.quantity;
     }
 }
 

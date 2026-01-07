@@ -4,14 +4,14 @@ import Fight from "../utils/Fight.js";
 class VoidstepAssault extends Spell {
     constructor() {
         const spellData = {
-            name: "Spatial Shear",
-            image: "/images/characters/monsters/boss/dimensional_devourer/spells_icon/spatial_shear.png",
-            description: "Ignore 33% of the target armor, deal damage to the target and grant rift stacks",
+            name: "Voidstep Assault",
+            image: "/images/characters/monsters/boss/dimensional_devourer/spells_icon/voidstep_assaut.png",
+            description: "Gain +10% speed for 3 turn, consume 1 stack of rift passive",
             castChance: 0.3,
             cooldown: 3,
             currentCooldown: 0,
             damageType: 'magical',
-            type: 'enemy'
+            type: 'self'
         };
 
         super(spellData);
