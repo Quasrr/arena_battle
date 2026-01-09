@@ -2,12 +2,10 @@
 
 Application web de combat tour par tour. Le joueur se connecte, choisit un personnage et lance un duel 1v1 contre un adversaire. Le moteur de combat gere tours, sorts, buffs, debuffs, effets negatifs et journaux de combat.
 
-```
-Démo Web: http://162.19.76.60/
-Crédentials: Demo:password
-```
+**Démo :** http://162.19.76.60/  
+**Identifiants (compte de test) :** Demo / password  
 
-## Fonctionnalites
+## Fonctionnalités
 - Authentification via JWT en cookie httpOnly (register, login, logout, session)
 - Selection de personnages et demarrage de combat 1v1
 - Moteur de combat cote serveur (cooldowns, passifs, buffs, debuffs, effets negatifs)
@@ -25,7 +23,7 @@ Crédentials: Demo:password
 - Les combats sont stockes dans PostgreSQL (state, turn, data serialize).
 
 ## Lancer en local
-### Prerequis
+### Prérequis
 - Node.js + npm
 - PostgreSQL
 
