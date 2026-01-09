@@ -114,7 +114,7 @@
                 ],
             });
 
-            await Utilities.sleep(1500);
+            await Utilities.sleep(1000);
 
             if (toPlay) {
                 // tour du joueur
@@ -146,6 +146,8 @@
 
                     spellLog.forEach((element) => fight.addLogsLine(element));
                 }
+
+                await Utilities.sleep(2000);
             } else {
                 playTurn = enemy.name;
 
@@ -172,6 +174,8 @@
 
                     spellLog.forEach((element) => fight.addLogsLine(element));
                 }
+
+                await Utilities.sleep(2000);
             }
 
             turn++;
