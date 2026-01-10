@@ -9,14 +9,20 @@ class AuthController {
     async register(req, res) {
         const { username, password } = req.body;
 
-        try {
-            const passwordHashed = await argon2.hash(password);
+        if (!username || !password) return res.status(500).json({ error: 'Internal Server Error' });
+        if (username.length < 3) return res.status(422).json({ error: 'Invalid username format (min. 3 characters)'});
+        if (password.length < 8 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[^a-zA-Z0-9]/.test(password)) {
+            return res.status(422).json({ error: 'Invalid password format. Please include uppercase, lowercase, a number, and a special character (min. 8 characters)'});
+        }
 
+        try {
             const userCheck = await User.findOne({ where: { username } });
 
             if (userCheck) {
                 return res.status(409).json({ error: "Username already taken" });
             }
+
+            const passwordHashed = await argon2.hash(password);
 
             const user = await User.create({
                 username,
@@ -33,6 +39,12 @@ class AuthController {
     
     async login(req, res) {
         const { username, password } = req.body;
+
+        if (!username || !password) return res.status(500).json({ error: 'Internal Server Error' });
+        if (username.length < 3) return res.status(422).json({ error: 'Invalid username format (min. 3 characters)'});
+        if (password.length < 8 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[^a-zA-Z0-9]/.test(password)) {
+            return res.status(422).json({ error: 'Invalid password format. Please include uppercase, lowercase, a number, and a special character (min. 8 characters)'});
+        }
 
         const user = await User.findOne({ where: { username } });
 
