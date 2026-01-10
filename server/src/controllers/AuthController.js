@@ -46,29 +46,34 @@ class AuthController {
             return res.status(422).json({ error: 'Invalid password format. Please include uppercase, lowercase, a number, and a special character (min. 8 characters)'});
         }
 
-        const user = await User.findOne({ where: { username } });
+        try {
+            const user = await User.findOne({ where: { username } });
 
-        if (!user) return res.status(401).json({ error: "Invalid credentials" });
+            if (!user) return res.status(401).json({ error: "Invalid credentials" });
 
-        if (await argon2.verify(user.dataValues.password, password)) {
-            const token = jwt.sign(
-                { username },
-                JWT_SECRET,
-                { expiresIn: "1h" }
-            );
+            if (await argon2.verify(user.dataValues.password, password)) {
+                const token = jwt.sign(
+                    { username },
+                    JWT_SECRET,
+                    { expiresIn: "1h" }
+                );
 
-            res.cookie(COOKIE_NAME, token, {
-                httpOnly: true,
-                secure: false,
-                sameSite: "lax",
-                path: "/",
-                maxAger: 1000 * 60 * 60
-            });
+                res.cookie(COOKIE_NAME, token, {
+                    httpOnly: true,
+                    secure: false,
+                    sameSite: "lax",
+                    path: "/",
+                    maxAger: 1000 * 60 * 60
+                });
 
-            const { id, currentBattle } = user.dataValues;
+                const { id, currentBattle } = user.dataValues;
 
-            res.status(201).json({ id, username, currentBattle });
+                res.status(201).json({ id, username, currentBattle });
+            }
+        } catch (error) {
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
+        
     }
 
     logout(_req, res) {
@@ -77,13 +82,17 @@ class AuthController {
     }
 
     async me(req, res) {
-        const user = await User.findOne({ where: { username: req.username } });
+        try {
+            const user = await User.findOne({ where: { username: req.username } });
 
-        if (!user) return res.status(401).json({ error: "Not authenticated" });
+            if (!user) return res.status(401).json({ error: "Not authenticated" });
 
-        const { id, username, currentBattle } = user.dataValues;
+            const { id, username, currentBattle } = user.dataValues;
 
-        res.json({ id, username, currentBattle });
+            res.json({ id, username, currentBattle });
+        } catch (error) {
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
     }
 }
 

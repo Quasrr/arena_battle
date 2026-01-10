@@ -47,13 +47,16 @@ class SelectionController {
                 enemyCharacter = new DimensionalDevourer(enemyName);
                 break;
         }
+        try {
+            const battle = await BattleStore.createBattle(userId, playerCharacter, enemyCharacter);
+            const { id } = battle;
 
-        const battle = await BattleStore.createBattle(userId, playerCharacter, enemyCharacter);
-        const { id } = battle;
-
-        res.status(200).json({
-            battleId: id,
-        });
+            res.status(200).json({
+                battleId: id,
+            });
+        } catch (error) {
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
     }
 }
 
