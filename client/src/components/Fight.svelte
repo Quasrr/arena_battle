@@ -402,7 +402,7 @@
                 <p>En attente du combat...</p>
                 {/if}
                 
-                <p>Turn {turn}</p>
+                <p>Tour {turn}</p>
             </div>
         </section>
     </main>

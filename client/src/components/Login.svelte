@@ -26,17 +26,17 @@
 <div class="login">
     <form action="POST" name="login-form" class="login-form" on:submit={login}>
         <header class="login-header">
-            <h1>Login</h1>
-            <p>Connecte-toi pour continuer l'aventure.</p>
+            <h1>Se connecter</h1>
+            <p>Connectez-vous pour continuer l'aventure.</p>
         </header>
 
         <label class="login-field">
-            <span>Username</span>
+            <span>Identifiant</span>
             <input type="text" name="username" autocomplete="username" required />
         </label>
 
         <label class="login-field">
-            <span>Password</span>
+            <span>Mot de passe</span>
             <input type="password" name="password" autocomplete="current-password" required />
         </label>
 

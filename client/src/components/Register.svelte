@@ -26,22 +26,22 @@
 <div class="register">
     <form action="POST" name="register-form" class="register-form" on:submit={register}>
         <header class="register-header">
-            <h1>Register</h1>
-            <p>Créer ton compte.</p>
+            <h1>S'enregistrer</h1>
+            <p>Créez votre compte.</p>
         </header>
 
         <label class="register-field">
-            <span>Username</span>
+            <span>Identifiant</span>
             <input type="text" name="username" autocomplete="username" required />
         </label>
 
         <label class="register-field">
-            <span>Password</span>
+            <span>Mot de passe</span>
             <input type="password" name="password" required />
         </label>
 
         <label class="register-field">
-            <span>Validate Password</span>
+            <span>Confirmation du mot de passe</span>
             <input type="password" name="validate-password" required />
         </label>
 
