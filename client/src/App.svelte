@@ -5,6 +5,8 @@
     import Fight from "./components/Fight.svelte";
     import Game from "./assets/scripts/utils/Game.svelte.js";
     import CharacterSelection from "./components/CharacterSelection.svelte";
+    import Bestiary from "./components/Bestiary.svelte";
+    import Leaderboard from "./components/Leaderboard.svelte";
     import { initAuth, logoutUser } from "./assets/scripts/services/auth.service.js";
     import { authUser } from "./assets/scripts/store/auth.svelte.js";
 
@@ -67,8 +69,8 @@
     <nav class="main-nav">
         <ul>
             <li><button class="nav-link" onclick={handlePlayingClick}>Jouer</button></li>
-            <li><button class="nav-link">Bestiaire</button></li>
-            <li><button class="nav-link">Classement</button></li>
+            <li><button class="nav-link" onclick={gameState = 'bestiary'}>Bestiaire</button></li>
+            <li><button class="nav-link" onclick={gameState = 'leaderboard'}>Classement</button></li>
         </ul>
     </nav>
     <div class="header-actions">
@@ -157,6 +159,7 @@
         </div>
     </div>
 </header>
+
 {#if gameState === ""}
     <section class="home">
         <div class="hero">
@@ -213,7 +216,15 @@
     <Login bind:gameState />
 {/if}
 
-{#if gameState === "login" || gameState === "register" || gameState === ""}
+{#if gameState === "bestiary"}
+    <Bestiary bind:gameState />
+{/if}
+
+{#if gameState === "leaderboard"}
+    <Leaderboard bind:gameState />
+{/if}
+
+{#if gameState === "login" || gameState === "register" || gameState === "" || gameState === "bestiary" || gameState === "leaderboard"}
     <footer>
         <section class="copyright">
             <p>© 2026 Arena Battle</p>
