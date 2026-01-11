@@ -3,27 +3,30 @@
     import Login from "./components/Login.svelte";
     import Register from "./components/Register.svelte";
     import Fight from "./components/Fight.svelte";
-    import Game from "./assets/scripts/utils/Game.svelte.js";
     import CharacterSelection from "./components/CharacterSelection.svelte";
     import Bestiary from "./components/Bestiary.svelte";
     import Leaderboard from "./components/Leaderboard.svelte";
     import { initAuth, logoutUser } from "./assets/scripts/services/auth.service.js";
     import { authUser } from "./assets/scripts/store/auth.svelte.js";
 
-    let gameState = $state(Game.state);
+    let gameState = $state(localStorage.getItem("gameState") || "home");
     let profileMenuOpen = $state(false);
+    let authReady = $state(false);
 
     onMount(async () => {
         document.addEventListener("click", handleDocumentClick);
 
         await initAuth();
-        if (authUser.username) {
-            if (authUser.currentBattle) {
-                gameState = "fight";
-            } else {
-                gameState = "character-selection";
+
+        if (gameState === "fight") {
+            if (!authUser.username) {
+                setStorage("login");
+            } else if (!authUser.currentBattle) {
+                setStorage("character-selection");
             }
         }
+        
+        authReady = true;
     });
 
     onDestroy(() => {
@@ -45,13 +48,20 @@
         }
     }
 
+    function setStorage(value) {
+        localStorage.setItem('gameState', value);
+
+        gameState = localStorage.getItem("gameState");
+    }
+
     function handlePlayingClick() {
         if (authUser.username && authUser.currentBattle) {
-            gameState = 'fight';
+
+            setStorage('fight');
         } else if(authUser.username && !authUser.currentBattle) {
-            gameState = 'character-selection';
+            setStorage('character-selection');
         } else {
-            gameState = 'register';
+            setStorage('register');
         }
     }
 
@@ -63,14 +73,14 @@
 </script>
 
 <header class="site-header">
-    <div class="brand" style="cursor: pointer;" onclick={gameState = ''}>
+    <div class="brand" style="cursor: pointer;" onclick={() => { setStorage('home') }}>
         <img src="/images/logo.png" alt="arena-battle-logo" />
     </div>
     <nav class="main-nav">
         <ul>
             <li><button class="nav-link" onclick={handlePlayingClick}>Jouer</button></li>
-            <li><button class="nav-link" onclick={gameState = 'bestiary'}>Bestiaire</button></li>
-            <li><button class="nav-link" onclick={gameState = 'leaderboard'}>Classement</button></li>
+            <li><button class="nav-link" onclick={() => { setStorage('bestiary') }}>Bestiaire</button></li>
+            <li><button class="nav-link" onclick={() => { setStorage('leaderboard') }}>Classement</button></li>
         </ul>
     </nav>
     <div class="header-actions">
@@ -138,7 +148,7 @@
                             role="menuitem"
                             onclick={() => {
                                 closeProfileMenu();
-                                gameState = "login";
+                                setStorage('login');
                             }}
                         >
                             Se connecter
@@ -148,7 +158,7 @@
                             role="menuitem"
                             onclick={() => {
                                 closeProfileMenu();
-                                gameState = "register";
+                                setStorage('register');
                             }}
                         >
                             S'enregistrer
@@ -160,87 +170,95 @@
     </div>
 </header>
 
-{#if gameState === ""}
-    <section class="home">
-        <div class="hero">
-            <div class="hero-text">
-                <p class="hero-eyebrow">Arena Battle</p>
-                <h1>Des duels tactiques au tour par tour.</h1>
-                <p class="hero-subtitle">
-                    Choisissez un champion, affrontez en un autre, et adaptez votre
-                    stratégie à chaque tour
-                </p>
+{#if authReady}
+    {#if gameState === "home"}
+        <section class="home">
+            <div class="hero">
+                <div class="hero-text">
+                    <p class="hero-eyebrow">Arena Battle</p>
+                    <h1>Des duels tactiques au tour par tour.</h1>
+                    <p class="hero-subtitle">
+                        Choisissez un champion, affrontez en un autre, et adaptez votre
+                        stratégie à chaque tour
+                    </p>
+                </div>
+                <div class="hero-visual">
+                    <img src="/images/characters.png" alt="Champions Arena Battle" />
+                </div>
             </div>
-            <div class="hero-visual">
-                <img src="/images/characters.png" alt="Champions Arena Battle" />
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <h2>Choisissez votre personnage</h2>
+                    <p>
+                        Chaque combattant a ses statistiques, ses competences et
+                        ses effets (buffs/debuffs).
+                    </p>
+                </article>
+                <article class="feature-card">
+                    <h2>Combattez tour par tour</h2>
+                    <p>
+                        Attaque, défense, compétences : chaque decision compte.
+                    </p>
+                </article>
+                <article class="feature-card">
+                    <h2>Analysez et progressez</h2>
+                    <p>
+                        Consultez le journal de combat et améliorez votre maîtrise.
+                    </p>
+                </article>
             </div>
-        </div>
-        <div class="feature-grid">
-            <article class="feature-card">
-                <h2>Choisissez votre personnage</h2>
-                <p>
-                    Chaque combattant a ses statistiques, ses competences et
-                    ses effets (buffs/debuffs).
-                </p>
-            </article>
-            <article class="feature-card">
-                <h2>Combattez tour par tour</h2>
-                <p>
-                    Attaque, défense, compétences : chaque decision compte.
-                </p>
-            </article>
-            <article class="feature-card">
-                <h2>Analysez et progressez</h2>
-                <p>
-                    Consultez le journal de combat et améliorez votre maîtrise.
-                </p>
-            </article>
+        </section>
+    {/if}
+
+
+    {#if gameState === "fight"}
+        <Fight bind:gameState />
+    {/if}
+
+    {#if gameState === "character-selection"}
+        <CharacterSelection bind:gameState />
+    {/if}
+
+    {#if gameState === "register"}
+        <Register bind:gameState />
+    {/if}
+
+    {#if gameState === "login"}
+        <Login bind:gameState />
+    {/if}
+
+    {#if gameState === "bestiary"}
+        <Bestiary bind:gameState />
+    {/if}
+
+    {#if gameState === "leaderboard"}
+        <Leaderboard bind:gameState />
+    {/if}
+
+    {#if gameState === "login" || gameState === "register" || gameState === "home" || gameState === "bestiary" || gameState === "leaderboard"}
+        <footer>
+            <section class="copyright">
+                <p>© 2026 Arena Battle</p>
+                <button class="code" onclick={ window.open('https://github.com/TonyLcfOclock/projet_personnel_2026_arena_battle', '_blank') }>
+                    <span><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 0h24v24H0z" fill="none"></path>
+                        <path
+                            d="M24 12l-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12zM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12zm6.96 9H7.66l6.552-18h2.128L9.788 21z"
+                            fill="currentColor"
+                        ></path>
+                        </svg>
+                        Code
+                    </span>
+                </button>
+            </section>
+        </footer>
+    {/if}
+{:else}
+    <section class="loading-screen">
+        <div class="loading-card">
+            <p>Chargement du compte...</p>
         </div>
     </section>
-{/if}
-
-
-{#if gameState === "fight"}
-    <Fight bind:gameState />
-{/if}
-
-{#if gameState === "character-selection"}
-    <CharacterSelection bind:gameState />
-{/if}
-
-{#if gameState === "register"}
-    <Register bind:gameState />
-{/if}
-
-{#if gameState === "login"}
-    <Login bind:gameState />
-{/if}
-
-{#if gameState === "bestiary"}
-    <Bestiary bind:gameState />
-{/if}
-
-{#if gameState === "leaderboard"}
-    <Leaderboard bind:gameState />
-{/if}
-
-{#if gameState === "login" || gameState === "register" || gameState === "" || gameState === "bestiary" || gameState === "leaderboard"}
-    <footer>
-        <section class="copyright">
-            <p>© 2026 Arena Battle</p>
-            <button class="code" onclick={ window.open('https://github.com/TonyLcfOclock/projet_personnel_2026_arena_battle', '_blank') }>
-                <span><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 0h24v24H0z" fill="none"></path>
-                    <path
-                        d="M24 12l-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12zM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12zm6.96 9H7.66l6.552-18h2.128L9.788 21z"
-                        fill="currentColor"
-                    ></path>
-                    </svg>
-                    Code
-                </span>
-            </button>
-        </section>
-    </footer>
 {/if}
 
 <style>
@@ -391,6 +409,26 @@
 
     .menu-item.danger {
         color: #f5b2bf;
+    }
+
+    .loading-screen {
+        min-height: calc(100dvh - var(--menu-height));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem var(--page-gutter);
+    }
+
+    .loading-card {
+        background: #10100c;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 1rem;
+        padding: 1.5rem 2rem;
+        color: rgba(231, 231, 226, 0.85);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.85rem;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
     }
 
     .home {

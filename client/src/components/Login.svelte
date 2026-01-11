@@ -16,6 +16,9 @@
 
             setAuth(data);
             
+            localStorage.setItem('gameState', 'home');
+
+            gameState = localStorage.getItem('gameState');
             window.location.reload();
         } catch (error) {
             // TODO

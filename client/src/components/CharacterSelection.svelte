@@ -62,7 +62,9 @@
         const { battleId } = await res.json();
         
         authUser.currentBattle = battleId;
-        gameState = "fight";
+        localStorage.setItem('gameState', 'fight');
+
+        gameState = localStorage.getItem('gameState');
     }
 </script>
 
