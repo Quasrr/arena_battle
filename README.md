@@ -6,6 +6,7 @@ Application web de combat tour par tour. Le joueur se connecte, choisit un perso
 **Identifiants (compte de test) :** demo / P@ssw0rd  
 
 ## Fonctionnalités
+- Protection CSRF via token dédié (cookie + en-tête sur les requêtes mutatives)
 - Authentification via JWT en cookie httpOnly (register, login, logout, session)
 - Sélection de personnages et démarrage de combat 1v1
 - Moteur de combat côté serveur (cooldowns, passifs, buffs, debuffs, effets négatifs)
@@ -18,9 +19,9 @@ Application web de combat tour par tour. Le joueur se connecte, choisit un perso
 - Base de données: PostgreSQL + Sequelize
 
 ## Architecture et flux
-- Le client Svelte appelle l'API via le proxy Vite (`/api` -> `http://localhost:3000`).
-- Le serveur Express expose les routes d'auth, de sélection et de combat.
-- Les combats sont stockés dans PostgreSQL (state, turn, data serialize).
+- Le client Svelte appelle l'API via le proxy Vite (`/api` -> `http://localhost:3000`)
+- Le serveur Express expose les routes d'auth, de sélection et de combat
+- Les combats sont stockés dans PostgreSQL (state, turn, data serialize)
 
 ## Lancer en local
 ### Prérequis
@@ -58,6 +59,9 @@ Ouvrir http://localhost:5173
 - `client`: `npm run dev`, `npm run build`, `npm run preview`
 
 ## API (extrait)
+CSRF:
+- `GET /api/csrf`
+
 Auth:
 - `POST /api/auth/register`
 - `POST /api/auth/login`
