@@ -20,15 +20,13 @@ class Fight {
     }
 
     async reduceCharactersSpellsCooldown(data, name) {
-        const { id, username, currentBattle } = data;
-
-        const res = await fetch('/api/battle/reduce-character-spells-cd', {
-            method: "POST",
+        const res = await fetch(`/api/battle/${data.currentBattle}/reduce-character-spells-cd`, {
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 'x-csrf-token': localStorage.getItem('csrfToken') || '',    
             },
-            body: JSON.stringify({ id, username, currentBattle, name}),
+            body: JSON.stringify({ name }),
         });
 
         const char = await res.json();
@@ -41,29 +39,20 @@ class Fight {
     }
 
     async getCharacterHitTurn(data) {
-        const res = await fetch("/api/battle/turn/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                'x-csrf-token': localStorage.getItem('csrfToken') || '',    
-            },
-            body: JSON.stringify(data),
-        });
+        const res = await fetch(`/api/battle/${data.currentBattle}/turn/`);
 
         const toPlay = await res.json();
         return toPlay;
     }
 
     async checkCharacterNegativeEffectStates(data, name) {
-        const { id, username, currentBattle } = data;
-
-        const res = await fetch('/api/battle/check-character-negative-effect', {
-            method: "POST",
+        const res = await fetch(`/api/battle/${data.currentBattle}/check-character-negative-effect`, {
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 'x-csrf-token': localStorage.getItem('csrfToken') || '',    
             },
-            body: JSON.stringify({ id, username, currentBattle, name }),
+            body: JSON.stringify({ name }),
         });
 
         const obj = await res.json();
@@ -71,15 +60,13 @@ class Fight {
     }
 
     async refreshCharacterBuff(data, name) {
-        const { id, username, currentBattle } = data;
-
-        const res = await fetch('/api/battle/check-character-buffs', {
-            method: "POST",
+        const res = await fetch(`/api/battle/${data.currentBattle}/check-character-buffs`, {
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 'x-csrf-token': localStorage.getItem('csrfToken') || '',    
             },
-            body: JSON.stringify({ id, username, currentBattle, name }),
+            body: JSON.stringify({ name }),
         });
         
         const char = await res.json();
@@ -88,15 +75,13 @@ class Fight {
     }
 
     async refreshCharacterDebuff(data, name) {
-        const { id, username, currentBattle } = data;
-
-        const res = await fetch('/api/battle/check-character-debuffs', {
-            method: "POST",
+        const res = await fetch(`/api/battle/${data.currentBattle}/check-character-debuffs`, {
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 'x-csrf-token': localStorage.getItem('csrfToken') || '',    
             },
-            body: JSON.stringify({ id, username, currentBattle, name }),
+            body: JSON.stringify({ name }),
         });
         
         const char = await res.json();
@@ -105,15 +90,13 @@ class Fight {
     }
 
     async passivePerTurn(data, targetName, selfName) {
-        const { id, username, currentBattle } = data;
-
-        const res = await fetch('/api/battle/passive-per-turn', {
-            method: "POST",
+        const res = await fetch(`/api/battle/${data.currentBattle}/passive-per-turn`, {
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 'x-csrf-token': localStorage.getItem('csrfToken') || '',    
             },
-            body: JSON.stringify({ id, username, currentBattle, targetName, selfName }),
+            body: JSON.stringify({ targetName, selfName }),
         });
 
         const char = await res.json();
@@ -123,15 +106,13 @@ class Fight {
     async actionToDo(data, actionName, targetName, selfName, turn) {
         if (!actionName) return;
 
-        const { id, username, currentBattle } = data;
-        
-        const res = await fetch('/api/battle/character-use-spell', {
-            method: "POST",
+        const res = await fetch(`/api/battle/${data.currentBattle}/character-use-spell`, {
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 'x-csrf-token': localStorage.getItem('csrfToken') || '',    
             },
-            body: JSON.stringify({ id, username, currentBattle, actionName, targetName, selfName, turn }),
+            body: JSON.stringify({ actionName, targetName, selfName, turn }),
         });
 
         const obj = await res.json();
@@ -139,17 +120,8 @@ class Fight {
         return obj;
     }
 
-    async randomAction(data, selfName) {
-        const { id, username, currentBattle } = data;
-
-        const res = await fetch('/api/battle/determine-enemy-action', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                'x-csrf-token': localStorage.getItem('csrfToken') || '',    
-            },
-            body: JSON.stringify({ id, username, currentBattle, selfName }),
-        });
+    async randomAction(data, name) {
+        const res = await fetch(`/api/battle/${data.currentBattle}/determine-enemy-action?name=${name}`);
 
         const action = await res.json();
 
@@ -157,15 +129,13 @@ class Fight {
     }
 
     async checkCharacterAlive(data, name) {
-        const { id, username, currentBattle } = data;
-
-        const res = await fetch('/api/battle/check-character-alive', {
-            method: "POST",
+        const res = await fetch(`/api/battle/${data.currentBattle}/check-character-alive`, {
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 'x-csrf-token': localStorage.getItem('csrfToken') || '',    
             },
-            body: JSON.stringify({ id, username, currentBattle, name }),
+            body: JSON.stringify({ name }),
         });
 
         const response = await res.json();

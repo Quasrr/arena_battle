@@ -47,7 +47,7 @@
 
         player.name = name;
 
-        const res = await fetch('/api/initialiseBattle', {
+        const res = await fetch('/api/create-battle', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

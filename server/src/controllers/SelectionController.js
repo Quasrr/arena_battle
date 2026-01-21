@@ -17,8 +17,8 @@ class SelectionController {
         return res.status(200).json(characters);
     }
 
-    // méthode d'instance qui initialise un combat en utilisant BattleStore
-    async initialiseBattle(req, res) {
+    // méthode d'instance qui créer un combat en utilisant BattleStore
+    async createBattle(req, res) {
         const { userId, playerClass, playerName, enemyClass, enemyName } = req.body;
 
         let playerCharacter;

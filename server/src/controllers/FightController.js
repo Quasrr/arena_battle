@@ -6,7 +6,7 @@ class FightController {
 
     // méthode d'instance qui démarre un combat en utilisant BattleStore
     async startBattle(req, res) {
-        const { currentBattle } = req.body;
+        const currentBattle = req.params.id;
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
@@ -32,7 +32,7 @@ class FightController {
 
     // méthode d'instance qui choisit quel personnage joue le tour
     async chooseCharacterHitTurn(req, res) {
-        const { currentBattle } = req.body;
+        const currentBattle = req.params.id;
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
@@ -56,7 +56,8 @@ class FightController {
 
     // méthode d'instance qui réduit les temps de récupérations des sorts des personnages
     async reduceCharacterSpellsCooldown(req, res) {
-        const { currentBattle, name } = req.body;
+        const currentBattle = req.params.id;
+        const { name } = req.body;
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
@@ -75,7 +76,8 @@ class FightController {
 
     // méthode d'instance qui vérifie les états négatif des personnages
     async checkCharacterNegativeEffectStates(req, res) {
-        const { currentBattle, name } = req.body;
+        const currentBattle = req.params.id;
+        const { name } = req.body;
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
@@ -109,7 +111,8 @@ class FightController {
 
     // méthode d'instance qui vérifie les buffs d'un personnage
     async checkCharacterBuffs(req, res) {
-        const { currentBattle, name } = req.body;
+        const currentBattle = req.params.id;
+        const { name } = req.body;
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
@@ -134,7 +137,8 @@ class FightController {
     }
 
     async checkCharacterDebuffs(req, res) {
-        const { currentBattle, name } = req.body;
+        const currentBattle = req.params.id;
+        const { name } = req.body;
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
@@ -160,7 +164,8 @@ class FightController {
 
     // méthode d'instance qui utilise les passifs des personnages
     async passivePerTurn(req, res) {
-        const { currentBattle, targetName, selfName } = req.body;
+        const currentBattle = req.params.id;
+        const { targetName, selfName } = req.body;
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
@@ -189,7 +194,9 @@ class FightController {
 
     // méthode d'instance qui vérifie les conditions d'utilisation des sorts du joueur
     async determinePlayerAction(req, res) {
-        const { currentBattle, act, name} = req.body;
+        const currentBattle = req.params.id;
+        const act = req.query.action;
+        const name = req.query.name;
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
@@ -209,12 +216,13 @@ class FightController {
 
     // méthode d'instance qui vérifie les conditions d'utilisation des sorts de l'adversaire
     async determineEnemyAction(req, res) {
-        const { currentBattle, selfName } = req.body;
+        const currentBattle = req.params.id;
+        const name = req.query.name;
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
 
-            const savedChar = Object.values(battle.data).find(element => element.name === selfName);
+            const savedChar = Object.values(battle.data).find(element => element.name === name);
 
             const self = Fight.createCharacter(savedChar);
 
@@ -233,7 +241,8 @@ class FightController {
 
     // méthode d'instance qui utilise les sorts d'un personnage
     async characterUseSpell(req, res) {
-        const { currentBattle, actionName, targetName, selfName, turn } = req.body;
+        const currentBattle = req.params.id;
+        const { actionName, targetName, selfName, turn } = req.body;
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
@@ -268,7 +277,8 @@ class FightController {
     }
 
     async checkCharacterAlive(req, res) {
-        const { id, currentBattle, name } = req.body;
+        const currentBattle = req.params.id;
+        const { name } = req.body;
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);

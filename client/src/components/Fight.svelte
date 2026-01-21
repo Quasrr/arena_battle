@@ -69,14 +69,7 @@
 
     async function startBattle() {
         // demande au serveur les informations du combat
-        const res = await fetch("/api/battle/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                'x-csrf-token': localStorage.getItem('csrfToken') || '',    
-            },
-            body: JSON.stringify(authUser),
-        });
+        const res = await fetch(`/api/battle/${authUser.currentBattle}`);
 
         const battle = await res.json();
 
@@ -84,16 +77,7 @@
     }
 
     async function determineAction(data, act, name) {
-        const { id, username, currentBattle } = data;
-
-        const res = await fetch("/api/battle/determine-player-action", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                'x-csrf-token': localStorage.getItem('csrfToken') || '',    
-            },
-            body: JSON.stringify({ id, username, currentBattle, act, name }),
-        });
+        const res = await fetch(`/api/battle/${data.currentBattle}/determine-player-action?action=${act}&name=${name}`);
 
         const spell = await res.json();
 
