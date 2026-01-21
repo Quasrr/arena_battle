@@ -32,9 +32,11 @@ Application web de combat tour par tour. Le joueur se connecte, choisit un perso
 Créer un fichier `.env` ou renommer le fichier `.env.example` dans `server/`:
 
 ```env
+NODE_ENV=dev
 PORT=express_port
-PG_URL=postgres://user:password@server:port/database
-JWT_SECRET=change_me
+PG_URL=postgres://user:password@localhost:5432/database
+JWT_SECRET=jwt_secret
+CSRF_SECRET=csrf_secret
 ```
 
 ### 2) Installer et initialiser le serveur
