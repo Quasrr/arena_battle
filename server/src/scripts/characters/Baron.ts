@@ -58,8 +58,8 @@ export default class Baron extends Character {
     perTurn(target: Character, self: Character) {
         this.passives.forEach(passive => {
             passive.onTurn(target, self);
-        })
-    }
+        });
+    };
 
     perHit(target: Character, self: Character, damage: number): DamageLog {
         const log: Array<FightingLog> = [];
@@ -71,9 +71,9 @@ export default class Baron extends Character {
             
             if (p) {
                 log.push(p);
-            }
-        })
+            };
+        });
 
         return { damage, log };
-    }
+    };
 };

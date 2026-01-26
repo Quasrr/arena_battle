@@ -1,7 +1,7 @@
 import type Character from "../Character.ts";
 import NegativeEffects from "../NegativeEffects.ts";
 
-class Slow extends NegativeEffects {
+export default class Slow extends NegativeEffects {
     constructor() {
         super({
             name: "Slow",
@@ -19,8 +19,6 @@ class Slow extends NegativeEffects {
             text: `${self.name} est ralentit et a du mal à avancer`,
             styles:
                 []
-        }
-    }
-}
-
-export default Slow;
+        };
+    };
+};

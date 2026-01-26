@@ -1,6 +1,5 @@
 import type Character from "../Character.ts";
 import Spell from "../Spell.ts";
-import Fight from "../utils/Fight.ts";
 
 export default class VoidstepAssault extends Spell {
     constructor() {

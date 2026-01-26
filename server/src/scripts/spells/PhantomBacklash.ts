@@ -1,9 +1,9 @@
 import type Character from "../Character.ts";
 import Spell from "../Spell.ts";
 
-class PhantomBacklash extends Spell {
+export default class PhantomBacklash extends Spell {
     constructor() {
-        const spellData = {
+        super({
             name: "Phantom Backlash",
             image: "/images/characters/humans/classes/death_knight/spells_icons/phantom_backlash.png",
             description: "Activate counterattack for 2 turns. Counterattack dealing -50% attack damage. Can't fail.",
@@ -12,10 +12,8 @@ class PhantomBacklash extends Spell {
             currentCooldown: 0,
             damageType: 'physical',
             type: 'self'
-        };
-
-        super(spellData);
-    }
+        });
+    };
 
     canUseSpell(caster: Character) {
         // const counterStrike = caster.buffs.find(element => {
@@ -25,7 +23,7 @@ class PhantomBacklash extends Spell {
         return (
             this.currentCooldown === 0
         );
-    }
+    };
 
     useSpell(target: Character, self: Character) {
         const log = [];
@@ -48,12 +46,10 @@ class PhantomBacklash extends Spell {
                     { word: `riposter`, color: 'orange' },
                     { word: `2`, color: 'green' }
                 ]
-        }
+        };
 
         log.push(spellLog);
 
         return log;
-    }
-}
-
-export default PhantomBacklash;
+    };
+};

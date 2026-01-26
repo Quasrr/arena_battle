@@ -15,24 +15,24 @@ export default class CounterStrike extends Buff {
     applyBuff(self: Character, duration: number, quantity: number, name: string) {
         if (this.isPermanent) {
             return;
-        }
+        };
 
         this.state = true;
         this.duration = duration;
-    }
+    };
 
     checkBuff(self: Character) {
         if (!this.state) {
             return;
-        }
+        };
 
         if (this.duration > 0) {
             this.duration--;
-        }
+        };
 
         if (this.duration === 0) {
             this.state = false;
-            return
-        }
-    }
-}
+            return;
+        };
+    };
+};

@@ -18,12 +18,12 @@ class BattleStore {
             state: "running",
             turn: 1,
             data: JSON.stringify(data)
-        })
+        });
 
         const user = await User.update({ currentBattle: id }, { where: { id: userId } });
 
         return { id };
-    }
+    };
     
     async getBattle(id: string) {
         const battle: BattleSchema | null = await Battle.findOne({ where: { battleId: id } });
@@ -33,19 +33,19 @@ class BattleStore {
         const { battleId, state, turn, data } = battle.dataValues;
 
         return { battleId, state, turn, data: JSON.parse(data) as BattleData };
-    }
+    };
 
     async updateBattleData(data: BattleData, id: string) {
         const battle = await Battle.update({ data: JSON.stringify(data) }, { where: { battleId: id } });
-    }
+    };
 
     async updateBattleTurn(turn: number, id: string) {
         const battle = await Battle.update({ turn }, { where: { battleId: id } });
-    }
+    };
 
     async deleteUserCurrentBattle(id: string) {
         const user = await User.update({ currentBattle: null }, { where: { id: id } });
-    }
-}
+    };
+};
 
 export default new BattleStore();

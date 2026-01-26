@@ -1,7 +1,7 @@
 import type Character from "../Character.ts";
 import NegativeEffects from "../NegativeEffects.ts";
 
-class Poison extends NegativeEffects {
+export default class Poison extends NegativeEffects {
     constructor() {
         super({
             name: "Poison",
@@ -22,8 +22,6 @@ class Poison extends NegativeEffects {
                     { word: `${this.damage}`, color: 'purple' },
                     { word: `empoisonnement`, color: 'purple' }
                 ]
-        }
-    }
-}
-
-export default Poison;
+        };
+    };
+};

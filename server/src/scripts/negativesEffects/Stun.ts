@@ -1,7 +1,7 @@
 import type Character from "../Character.ts";
 import NegativeEffects from "../NegativeEffects.ts";
 
-class Stun extends NegativeEffects {
+export default class Stun extends NegativeEffects {
     constructor() {
         super({
             name: "Stun",
@@ -21,8 +21,6 @@ class Stun extends NegativeEffects {
                 [
                     { word: `paralysé`, color: 'yellow' }
                 ]
-        }
-    }
-}
-
-export default Stun;
+        };
+    };
+};

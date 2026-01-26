@@ -1,7 +1,7 @@
 import Spell from "../Spell.ts";
-import type { CharacterData } from '../../types.ts';
+import type Character from "../Character.ts";
 
-class Overpower extends Spell {
+export default class Overpower extends Spell {
     constructor() {
         super({
             name: "Overpower",
@@ -15,7 +15,7 @@ class Overpower extends Spell {
         });
     };
 
-    canUseSpell(caster: CharacterData): boolean {
+    canUseSpell(caster: Character): boolean {
         // const overpower = caster.buffs.find(element => {
         //     return element.name === "High Speed";
         // });
@@ -23,9 +23,9 @@ class Overpower extends Spell {
         // if (!overpower) return false;
 
         return this.currentCooldown === 0;
-    }
+    };
 
-    useSpell(target: CharacterData, self: CharacterData) {
+    useSpell(target: Character, self: Character) {
         const log = [];
 
         let damage = 0;
@@ -46,12 +46,10 @@ class Overpower extends Spell {
                     { word: `dégats`, color: 'grey' },
                     { word: `30%`, color: 'green' }
                 ]
-        }
+        };
 
         log.push(spellLog);
 
         return log;
-    }
-}
-
-export default Overpower;
+    };
+};

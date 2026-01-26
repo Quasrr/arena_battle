@@ -3,9 +3,9 @@ import Fight from "../utils/Fight.ts";
 import type { CharacterData, DamageLog } from '../../types.ts';
 import type Character from "../Character.ts";
 
-class PiercingStrike extends Spell {
+export default class PiercingStrike extends Spell {
     constructor() {
-        const spellData = {
+        super({
             name: "Piercing Strike",
             image: "/images/characters/humans/classes/death_knight/spells_icons/piercing_strike.png",
             description: "Piercing Strike on the enemy head, dealing 100 dmg",
@@ -14,14 +14,12 @@ class PiercingStrike extends Spell {
             currentCooldown: 0,
             damageType: 'physical',
             type: 'enemy',
-        };
-
-        super(spellData);
-    }
+        });
+    };
 
     canUseSpell(caster: Character) {
         return this.currentCooldown === 0;
-    }
+    };
 
     useSpell(target: Character, self: Character) {
         const log = [];
@@ -30,7 +28,7 @@ class PiercingStrike extends Spell {
 
         if (soulsPassive) {
             soulsPassive.stacks++;
-        }
+        };
 
         let damage = Math.round(Fight.calculateCharacterDamage(self.statistics.str, target.statistics.arm) * 1.2);
         
@@ -47,17 +45,15 @@ class PiercingStrike extends Spell {
                         { word: `Strike`, color: 'grey' },
                         { word: `${damageEffect.damage}`, color: 'yellow' }
                 ]
-            }
+            };
 
             log.push(spellLog);
-        }
+        };
 
         if (damageEffect.log) {
             damageEffect.log.forEach(element => log.push(element));
-        }
+        };
 
         return log;
-    }
-}
-
-export default PiercingStrike;
+    };
+};

@@ -1,4 +1,7 @@
-import Characters from "../Character.ts";
+import Character from "../Character.ts";
+
+// import des types du personnage
+import type { FightingLog, DamageLog } from "../../types.ts";
 
 // import des passifs du personnage
 import RiftChargePassive from "../passives/RiftChargePassive.ts";
@@ -23,10 +26,8 @@ import Freeze from "../negativesEffects/Freeze.ts";
 import Poison from "../negativesEffects/Poison.ts";
 import Slow from "../negativesEffects/Slow.ts";
 import Stun from "../negativesEffects/Stun.ts";
-import type Character from "../Character.ts";
-import type { DamageLog, FightingLog } from "../../types.ts";
 
-class DimensionalDevourer extends Characters {
+export default class DimensionalDevourer extends Character {
     constructor(name: string) {
         super({
             name: name,
@@ -62,8 +63,8 @@ class DimensionalDevourer extends Characters {
     perTurn(target: Character, self: Character) {
         this.passives.forEach(passive => {
             passive.onTurn(target, self);
-        })
-    }
+        });
+    };
 
     perHit(target: Character, self: Character, damage: number): DamageLog {
         const log: Array<FightingLog> = [];
@@ -74,7 +75,7 @@ class DimensionalDevourer extends Characters {
             const stacks = rift.stacks >= 80 ? 80 : rift.stacks;
 
             damage = Math.round(damage - ((damage * stacks) / 100));
-        }
+        };
         
         this.statistics.hp -= damage;
 
@@ -83,11 +84,9 @@ class DimensionalDevourer extends Characters {
             
             if (p) {
                 log.push(p);
-            }
-        })
+            };
+        });
 
         return { damage, log };
-    }
-}
-
-export default DimensionalDevourer;
+    };
+};

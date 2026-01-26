@@ -24,4 +24,4 @@ export default abstract class Spell {
 
     abstract canUseSpell(caster: CharacterData): boolean;
     abstract useSpell(target: CharacterData, self: CharacterData): void;
-}
+};

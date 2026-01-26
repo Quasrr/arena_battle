@@ -2,12 +2,7 @@ import type { Request, Response } from 'express';
 import BattleStore from '../scripts/BattleStore.ts';
 import Fight from '../scripts/utils/Fight.ts';
 import Utilities from '../scripts/utils/Utilities.ts';
-import type { CharacterData, FightingLog } from '../types.ts';
-
-type BattleData = {
-    player: CharacterData;
-    enemy: CharacterData;
-};
+import type { BattleData, FightingLog } from '../types.ts';
 
 class FightController {
 
@@ -85,7 +80,7 @@ class FightController {
 
         if (typeof name !== 'string') {
             return res.status(400).json({ error: "Invalid name" });
-        }
+        };
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
@@ -104,8 +99,8 @@ class FightController {
             res.status(200).json(char);
         } catch (error) {
             return res.status(500).json({ error: 'Internal Server Error' });
-        }
-    }
+        };
+    };
 
     // méthode d'instance qui vérifie les états négatif des personnages
     async checkCharacterNegativeEffectStates(req: Request, res: Response) {
@@ -118,7 +113,7 @@ class FightController {
 
         if (typeof name !== 'string') {
             return res.status(400).json({ error: "Invalid name" });
-        }
+        };
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
@@ -143,8 +138,8 @@ class FightController {
                 if (negate.state && negate.duration >= 0) {
                     logs.push(negate.applyNegativeEffect(character));
                     Fight.reduceCharacterNegativeEffectDuration(negate);
-                }
-            }) 
+                };
+            });
 
             battle.data[key] = character;
 
@@ -156,8 +151,8 @@ class FightController {
             });
         } catch (error) {
             return res.status(500).json({ error: 'Internal Server Error' });
-        }
-    }
+        };
+    };
 
     // méthode d'instance qui vérifie les buffs d'un personnage
     async checkCharacterBuffs(req: Request, res: Response) {
@@ -170,7 +165,7 @@ class FightController {
 
         if (typeof name !== 'string') {
             return res.status(400).json({ error: "Invalid name" });
-        }
+        };
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
@@ -200,8 +195,8 @@ class FightController {
             res.status(200).json(character);
         } catch (error) {
             return res.status(500).json({ error: 'Internal Server Error' });
-        }
-    }
+        };
+    };
 
     async checkCharacterDebuffs(req: Request, res: Response) {
         const currentBattle = req.params.id;
@@ -213,7 +208,7 @@ class FightController {
 
         if (typeof name !== 'string') {
             return res.status(400).json({ error: "Invalid name" });
-        }
+        };
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
@@ -243,8 +238,8 @@ class FightController {
             res.status(200).json(character);
         } catch (error) {
             return res.status(500).json({ error: 'Internal Server Error' });
-        }
-    }
+        };
+    };
 
     // méthode d'instance qui utilise les passifs des personnages
     async passivePerTurn(req: Request, res: Response) {
@@ -257,7 +252,7 @@ class FightController {
 
         if (typeof targetName !== 'string' || typeof selfName !== 'string') {
             return res.status(400).json({ error: "Invalid name" });
-        }
+        };
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
@@ -294,8 +289,8 @@ class FightController {
             res.status(200).json(self);
         } catch (error) {
             return res.status(500).json({ error: 'Internal Server Error' });
-        }
-    }
+        };
+    };
 
     // méthode d'instance qui vérifie les conditions d'utilisation des sorts du joueur
     async determinePlayerAction(req: Request, res: Response) {
@@ -309,7 +304,7 @@ class FightController {
 
         if (typeof act !== 'string' || typeof name !== 'string') {
             return res.status(400).json({ error: "Invalid action or name" });
-        }
+        };
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
@@ -336,8 +331,8 @@ class FightController {
             res.status(200).json({ action });
         } catch (error) {
             return res.status(500).json({ error: 'Internal Server Error' });
-        }
-    }
+        };
+    };
 
     // méthode d'instance qui vérifie les conditions d'utilisation des sorts de l'adversaire
     async determineEnemyAction(req: Request, res: Response) {
@@ -350,7 +345,7 @@ class FightController {
 
         if (typeof name !== 'string') {
             return res.status(400).json({ error: "Invalid name" });
-        }
+        };
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
@@ -384,8 +379,8 @@ class FightController {
             res.status(200).json({ action });
         } catch (error) {
             return res.status(500).json({ error: 'Internal Server Error' });
-        }
-    }
+        };
+    };
 
     // méthode d'instance qui utilise les sorts d'un personnage
     async characterUseSpell(req: Request, res: Response) {
@@ -398,7 +393,7 @@ class FightController {
 
         if (typeof actionName !== 'string' || typeof targetName !== 'string' || typeof selfName !== 'string') {
             return res.status(400).json({ error: "Invalid action or name" });
-        }
+        };
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
@@ -441,11 +436,11 @@ class FightController {
                 target,
                 self,
                 log
-            })
+            });
         } catch (error) {
             return res.status(500).json({ error: 'Internal Server Error' });
-        }
-    }
+        };
+    };
 
     async checkCharacterAlive(req: Request, res: Response) {
         const currentBattle = req.params.id;
@@ -457,7 +452,7 @@ class FightController {
 
         if (typeof name !== 'string') {
             return res.status(400).json({ error: "Invalid name" });
-        }
+        };
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
@@ -476,14 +471,14 @@ class FightController {
 
                 if (typeof userId === 'string') {
                     await BattleStore.deleteUserCurrentBattle(userId);
-                }
-            }
+                };
+            };
 
             return res.status(200).json(state);
         } catch (error) {
             return res.status(500).json({ error: 'Internal Server Error' });
-        }
-    }
-}
+        };
+    };
+};
 
 export default new FightController();

@@ -1,9 +1,11 @@
 import BattleStore from '../scripts/BattleStore.ts';
 
-//import des personnages
+// import des personnages
 import DeathKnight from '../scripts/characters/DeathKnight.ts';
 import Baron from '../scripts/characters/Baron.ts';
 import DimensionalDevourer from '../scripts/characters/DimensionalDevourer.ts';
+
+// import des types
 import type { Request, Response } from 'express';
 
 class SelectionController {

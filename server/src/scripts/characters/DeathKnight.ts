@@ -1,4 +1,7 @@
-import Characters from "../Character.ts";
+import Character from "../Character.ts";
+
+// import des types du personnage
+import type { FightingLog, DamageLog } from "../../types.ts";
 
 //import des buffs du personnages
 import CounterStrike from "../buffs/CounterStrike.ts";
@@ -27,10 +30,8 @@ import Freeze from "../negativesEffects/Freeze.ts";
 import Poison from "../negativesEffects/Poison.ts";
 import Slow from "../negativesEffects/Slow.ts";
 import Stun from "../negativesEffects/Stun.ts";
-import type Character from "../Character.ts";
-import type { DamageLog, FightingLog } from "../../types.ts";
 
-export default class DeathKnight extends Characters {
+export default class DeathKnight extends Character {
     constructor(name: string) {
         super({
             name: name,
@@ -72,8 +73,8 @@ export default class DeathKnight extends Characters {
     perTurn(target: Character, self: Character) {
         this.passives.forEach(passive => {
             passive.onTurn(target, self);
-        })
-    }
+        });
+    };
 
     perHit(target: Character, self: Character, damage: number): DamageLog {
         const log: Array<FightingLog> = [];
@@ -85,9 +86,9 @@ export default class DeathKnight extends Characters {
             
             if (p) {
                 log.push(p);
-            }
-        })
+            };
+        });
 
         return { damage, log };
-    }
+    };
 };

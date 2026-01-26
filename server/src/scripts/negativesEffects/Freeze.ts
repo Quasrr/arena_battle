@@ -1,7 +1,7 @@
 import type Character from "../Character.ts";
 import NegativeEffects from "../NegativeEffects.ts";
 
-class Freeze extends NegativeEffects {
+export default class Freeze extends NegativeEffects {
     constructor() {
         super({
             name: "Freeze",
@@ -21,9 +21,7 @@ class Freeze extends NegativeEffects {
                 [
                     { word: `${this.damage}`, color: 'lightblue' },
                     { word: `gel`, color: 'lightblue' }
-                ]
-        }
-    }
-}
-
-export default Freeze;
+            ]
+        };
+    };
+};

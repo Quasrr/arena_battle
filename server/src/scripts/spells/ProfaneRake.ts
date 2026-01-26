@@ -27,7 +27,7 @@ export default class ProfaneRake extends Spell {
 
         const targetBleedState = target.negativeEffects.find(negate => {
             return negate.name === 'Bleed';
-        })
+        });
 
         if (!targetBleedState) return;
 
@@ -52,11 +52,11 @@ export default class ProfaneRake extends Spell {
             };
 
             log.push(spellLog);
-        }
+        };
 
         if (damageEffect.log) {
             damageEffect.log.forEach(element => log.push(element));
-        }
+        };
 
         return log;
     };

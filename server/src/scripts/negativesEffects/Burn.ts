@@ -1,7 +1,7 @@
 import type Character from "../Character.ts";
 import NegativeEffects from "../NegativeEffects.ts";
 
-class Burn extends NegativeEffects {
+export default class Burn extends NegativeEffects {
     constructor() {
         super({
             name: "Burn",
@@ -21,9 +21,7 @@ class Burn extends NegativeEffects {
                 [
                     { word: `${this.damage}`, color: 'orange' },
                     { word: `brûlure`, color: 'orange' }
-                ]
-        }
-    }
-}
-
-export default Burn;
+            ]
+        };
+    };
+};
