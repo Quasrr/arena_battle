@@ -1,0 +1,63 @@
+import type Character from "../Character.ts";
+import Spell from "../Spell.ts";
+import Fight from "../utils/Fight.ts";
+
+export default class ProfaneRake extends Spell {
+    constructor() {
+        super({
+            name: "Profane Rake",
+            image: "/images/characters/monsters/boss/baron/spells_icon/profane_rake.png",
+            description: "Perform a huge claw attack on the target, dealing damage, apply bleeding, 2 per turn, stackable, 3 turn duration.",
+            castChance: 0.3,
+            cooldown: 2,
+            currentCooldown: 0,
+            damageType: 'physical',
+            type: 'enemy',
+        });
+    };
+
+    canUseSpell(caster: Character) {
+        return this.currentCooldown === 0;
+    };
+
+    useSpell(target: Character, self: Character) {
+        const log = [];
+
+        let damage = Math.round(Fight.calculateCharacterDamage(self.statistics.str, target.statistics.arm) * 1.2);
+
+        const targetBleedState = target.negativeEffects.find(negate => {
+            return negate.name === 'Bleed';
+        })
+
+        if (!targetBleedState) return;
+
+        targetBleedState.state = true;
+        targetBleedState.duration = 3;
+        targetBleedState.damage += 2;
+
+        const damageEffect = target.perHit(target, self, damage);
+
+        this.currentCooldown = this.cooldown;
+
+        if (damageEffect.damage > 0) {
+            const spellLog = {
+                text: `${self.name} utilise Profane Rake et griffe ${target.name}, inflige ${damageEffect.damage} et applique un saignement! `,
+                styles:
+                    [
+                        { word: `Profane`, color: 'red' },
+                        { word: `Rake`, color: 'red' },
+                        { word: `${damageEffect.damage}`, color: 'red' },
+                        { word: `saignement`, color: 'red' }
+                ]
+            };
+
+            log.push(spellLog);
+        }
+
+        if (damageEffect.log) {
+            damageEffect.log.forEach(element => log.push(element));
+        }
+
+        return log;
+    };
+};
