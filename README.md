@@ -16,7 +16,7 @@ Application web de combat tour par tour. Le joueur se connecte, choisit un perso
 ## Stack technique
 - Frontend: Svelte 5 + Vite
 - Backend: Node.js + Express
-- Base de données: PostgreSQL + Sequelize
+- Base de données: PostgreSQL + Prisma
 
 ## Architecture et flux
 - Le client appelle l'API via le proxy Vite (`/api` -> `http://localhost:3000`)
@@ -34,7 +34,7 @@ Créer un fichier `.env` ou renommer le fichier `.env.example` dans `server/`:
 ```env
 NODE_ENV=dev
 PORT=express_port
-PG_URL=postgres://user:password@localhost:5432/database
+DATABASE_URL=postgres://user:password@localhost:5432/database
 JWT_SECRET=jwt_secret
 CSRF_SECRET=csrf_secret
 ```
@@ -43,7 +43,7 @@ CSRF_SECRET=csrf_secret
 ```bash
 cd server
 npm install
-npm run db:create
+npm run db:migrate:dev
 npm run dev
 ```
 
@@ -57,7 +57,7 @@ npm run dev
 Ouvrir http://localhost:5173
 
 ## Scripts utiles
-- `server`: `npm run db:create` (créer les tables), `npm run dev`
+- `server`: `npm run db:migrate:dev` (applique les migrations (créer / met à jour les tables)), `npm run dev`
 - `client`: `npm run dev`, `npm run build`, `npm run preview`
 
 ## API (extrait)
@@ -91,7 +91,7 @@ Combat:
 ```text
 .
 ├─ client/                 # Svelte + Vite (UI)
-├─ server/                 # Express + moteur de combat
+├─ server/                 # Express + moteur de combat + Prisma
 ├─ conception/             # MCD / MLD / user stories
 └─ README.md
 ```
