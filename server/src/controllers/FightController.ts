@@ -468,10 +468,7 @@ class FightController {
 
             if (character.statistics.hp <= 0) {
                 state = true;
-
-                if (typeof userId === 'string') {
-                    await BattleStore.deleteUserCurrentBattle(userId);
-                };
+                await BattleStore.deleteUserCurrentBattle(userId);
             };
 
             return res.status(200).json(state);

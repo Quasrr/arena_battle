@@ -1,4 +1,4 @@
-import { User } from '../models/index.ts';
+import { prisma } from "../models/index.ts";
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 import type { Request, Response } from 'express';
@@ -35,7 +35,7 @@ class AuthController {
         const { username, password } = parsedAuth.data;
 
         try {
-            const userCheck = await User.findOne({ where: { username } });
+            const userCheck = await prisma.user.findUnique({ where: { username } });
 
             if (userCheck) {
                 return res.status(409).json({ error: "Username already taken" });
@@ -43,10 +43,11 @@ class AuthController {
 
             const passwordHashed = await argon2.hash(password);
 
-            const user = await User.create({
-                username,
-                password: passwordHashed,
-                currentBattle: null
+            const user = await prisma.user.create({
+                data: {
+                    username,
+                    password: passwordHashed
+                }
             });
 
             return res.status(201).json({ username: user.username  });
@@ -57,20 +58,19 @@ class AuthController {
     };
     
     async login(req: Request, res: Response) {
-        const { username, password } = req.body;
-
-        if (!username || !password) return res.status(500).json({ error: 'Internal Server Error' });
-        if (username.length < 3) return res.status(422).json({ error: 'Invalid username format (min. 3 characters)'});
-        if (password.length < 8 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[^a-zA-Z0-9]/.test(password)) {
-            return res.status(422).json({ error: 'Invalid password format. Please include uppercase, lowercase, a number, and a special character (min. 8 characters)'});
+        const parsedAuth = AuthSchema.safeParse(req.body);
+        if (!parsedAuth.success) {
+            const errors = z.treeifyError(parsedAuth.error);
+            return res.status(422).json({ errors });
         };
 
-        try {
-            const user = await User.findOne({ where: { username } });
+        const { username, password } = parsedAuth.data;
 
+        try {
+            const user = await prisma.user.findUnique({ where: { username } });
             if (!user) return res.status(401).json({ error: "Invalid credentials" });
 
-            if (await argon2.verify(user.dataValues.password, password)) {
+            if (await argon2.verify(user.password, password)) {
                 const token = jwt.sign(
                     { username },
                     requireEnv("JWT_SECRET"),
@@ -85,14 +85,15 @@ class AuthController {
                     maxAge: 1000 * 60 * 60
                 });
 
-                const { id, currentBattle } = user.dataValues;
+                const { id, currentBattle } = user;
 
-                res.status(201).json({ id, username, currentBattle });
+                return res.status(201).json({ id, username, currentBattle });
             }
+
+            return res.status(401).json({ error: "Invalid credentials" });
         } catch (error) {
             return res.status(500).json({ error: 'Internal Server Error' });
         };
-        
     };
 
     logout(_req: Request, res: Response) {
@@ -102,11 +103,15 @@ class AuthController {
 
     async me(req: RequestAuth, res: Response) {
         try {
-            const user = await User.findOne({ where: { username: req.username } });
+            if (!req.username) {
+                throw new Error("Username needed");
+            }
+
+            const user = await prisma.user.findUnique({ where: { username: req.username } });
 
             if (!user) return res.status(401).json({ error: "Not authenticated" });
 
-            const { id, username, currentBattle } = user.dataValues;
+            const { id, username, currentBattle } = user;
 
             res.json({ id, username, currentBattle });
         } catch (error) {

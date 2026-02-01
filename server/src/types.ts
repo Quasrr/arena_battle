@@ -59,12 +59,11 @@ export type DamageLog = {
 };
 
 export type BattleSchema = {
-    dataValues: {
-        battleId: string;
-        state: string;
-        turn: number;
-        data: string;
-    };
+    battleId: string;
+    state: string;
+    turn: number;
+    data: string;
+
 };
 
 export type BattleData = {

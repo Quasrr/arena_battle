@@ -4,7 +4,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "node --watch server.ts",
-    "db:create": "node src/migrations/createTables.js"
+    "db:migrate:dev": "prisma migrate dev",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:migrate:reset": "prisma migrate reset --force",
+    "db:generate": "prisma generate",
+    "db:studio": "prisma studio"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +16,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@prisma/client": "^6.19.2",
     "argon2": "^0.44.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -31,6 +36,7 @@
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.0.10",
+    "prisma": "^6.19.2",
     "typescript": "^5.9.3"
   }
 }
