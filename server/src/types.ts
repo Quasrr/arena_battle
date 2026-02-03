@@ -6,9 +6,14 @@ import type NegativeEffects from "./scripts/NegativeEffects.ts";
 import type Passive from "./scripts/Passive.ts";
 import type Spell from "./scripts/Spell.ts";
 
-export type RequestAuth = Request  & {
+export type RequestAuth = Request & {
     username?: string;
 };
+
+export type parsedAuthSchema = {
+    username: string;
+    password: string;
+}
 
 export type JWTPayload = {
     username: string;

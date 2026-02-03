@@ -3,21 +3,23 @@ import BattleStore from '../scripts/BattleStore.ts';
 import Fight from '../scripts/utils/Fight.ts';
 import Utilities from '../scripts/utils/Utilities.ts';
 import type { BattleData, FightingLog } from '../types.ts';
+import { BadRequestError, NotFoundError } from '../scripts/utils/Error.ts';
+import ErrorHandler from '../scripts/ErrorHandler.ts';
 
 class FightController {
 
     // méthode d'instance qui démarre un combat en utilisant BattleStore
     async startBattle(req: Request, res: Response) {
-        const currentBattle = req.params.id;
-        
-        if (!currentBattle || Array.isArray(currentBattle)) {
-            return res.status(400).json({ error: "Invalid id" });
-        };
-
         try {
+            const currentBattle = req.params.id;
+            
+            if (!currentBattle || Array.isArray(currentBattle)) {
+                throw new BadRequestError("Invalid id");
+            };
+            
             const battle = await BattleStore.getBattle(currentBattle);
 
-            if (!battle) throw new Error;
+            if (!battle) throw new NotFoundError("No battle found");
 
             const { turn, data } = battle;
             const { player, enemy } = data as BattleData;
@@ -27,29 +29,29 @@ class FightController {
                 styles: [],
             };
 
-            res.status(200).json({
+            res.send({
                 player,
                 enemy,
                 turn,
                 log,
             });
         } catch (error) {
-            return res.status(500).json({ error: 'Internal Server Error' });
+            ErrorHandler.sendError(res, error);
         };
     };
 
     // méthode d'instance qui choisit quel personnage joue le tour
     async chooseCharacterHitTurn(req: Request, res: Response) {
-        const currentBattle = req.params.id;
-
-        if (!currentBattle || Array.isArray(currentBattle)) {
-            return res.status(400).json({ error: "Invalid id" });
-        };
-
         try {
+            const currentBattle = req.params.id;
+
+            if (!currentBattle || Array.isArray(currentBattle)) {
+                throw new BadRequestError("Invalid id");
+            };
+
             const battle = await BattleStore.getBattle(currentBattle);
 
-            if (!battle) throw new Error;
+            if (!battle) throw new NotFoundError("No battle found");
 
             const { data } = battle;
             const { player, enemy } = data as BattleData;
@@ -62,63 +64,63 @@ class FightController {
 
             const toPlay = Fight.chooseCharacterHitTurn(playerHitChance, enemyHitChance);
 
-            res.status(200).json(toPlay);
+            res.send(toPlay);
         } catch (error) {
-            return res.status(500).json({ error: 'Internal Server Error' });
+            ErrorHandler.sendError(res, error);
         };
     };
 
     // méthode d'instance qui réduit les temps de récupérations des sorts des personnages
     async reduceCharacterSpellsCooldown(req: Request, res: Response) {
-        const currentBattle = req.params.id;
-
-        if (!currentBattle || Array.isArray(currentBattle)) {
-            return res.status(400).json({ error: "Invalid id" });
-        };
-        
-        const { name } = req.body;
-
-        if (typeof name !== 'string') {
-            return res.status(400).json({ error: "Invalid name" });
-        };
-
         try {
+            const currentBattle = req.params.id;
+
+            if (!currentBattle || Array.isArray(currentBattle)) {
+                throw new BadRequestError("Invalid id");
+            };
+            
+            const { name } = req.body;
+
+            if (typeof name !== 'string') {
+                throw new BadRequestError("Invalid name");
+            };
+
             const battle = await BattleStore.getBattle(currentBattle);
 
-            if (!battle) throw new Error;
+            if (!battle) throw new NotFoundError("No battle found");
         
             const data = battle.data as BattleData;
             const char = Object.values(data).find(element => element.name === name);
 
-            if (!char) throw new Error;
+            if (!char) throw new NotFoundError("Character not found");
 
             Fight.reduceCharacterSpellsCooldown(char.spells);
 
             await BattleStore.updateBattleData(battle.data, currentBattle);
 
-            res.status(200).json(char);
+            res.send(char);
         } catch (error) {
-            return res.status(500).json({ error: 'Internal Server Error' });
+            ErrorHandler.sendError(res, error);
         };
     };
 
     // méthode d'instance qui vérifie les états négatif des personnages
     async checkCharacterNegativeEffectStates(req: Request, res: Response) {
-        const currentBattle = req.params.id;
-        const { name } = req.body;
-
-        if (!currentBattle || Array.isArray(currentBattle)) {
-            return res.status(400).json({ error: "Invalid id" });
-        };
-
-        if (typeof name !== 'string') {
-            return res.status(400).json({ error: "Invalid name" });
-        };
-
         try {
+            const currentBattle = req.params.id;
+            const { name } = req.body;
+
+            if (!currentBattle || Array.isArray(currentBattle)) {
+                throw new BadRequestError("Invalid id");
+            };
+
+            if (typeof name !== 'string') {
+                throw new BadRequestError("Invalid name");
+            };
+
             const battle = await BattleStore.getBattle(currentBattle);
 
-            if (!battle) throw new Error;
+            if (!battle) throw new NotFoundError("No battle found");
 
             const data = battle.data as BattleData;
             const entry = Object.entries(data).find(element => element[1].name === name);
@@ -130,7 +132,7 @@ class FightController {
 
             const character = Fight.createCharacter(savedChar);
 
-            if (!character) throw new Error;
+            if (!character) throw new NotFoundError("Character not found");
             
             const logs: Array<FightingLog> = [];
 
@@ -145,32 +147,33 @@ class FightController {
 
             await BattleStore.updateBattleData(battle.data, currentBattle);
 
-            res.status(200).json({
+            res.send({
                 character,
                 log: logs
             });
         } catch (error) {
-            return res.status(500).json({ error: 'Internal Server Error' });
+            ErrorHandler.sendError(res, error);
         };
     };
 
     // méthode d'instance qui vérifie les buffs d'un personnage
     async checkCharacterBuffs(req: Request, res: Response) {
-        const currentBattle = req.params.id;
-        const { name } = req.body;
-
-        if (!currentBattle || Array.isArray(currentBattle)) {
-            return res.status(400).json({ error: "Invalid id" });
-        };
-
-        if (typeof name !== 'string') {
-            return res.status(400).json({ error: "Invalid name" });
-        };
-
         try {
+            const currentBattle = req.params.id;
+            const { name } = req.body;
+
+            if (!currentBattle || Array.isArray(currentBattle)) {
+                throw new BadRequestError("Invalid id");
+            };
+
+            if (typeof name !== 'string') {
+                throw new BadRequestError("Invalid name");
+            };
+
+        
             const battle = await BattleStore.getBattle(currentBattle);
 
-            if (!battle) throw new Error;
+            if (!battle) throw new NotFoundError("No battle found");
 
             const data = battle.data as BattleData;
             const entry = Object.entries(data).find(element => element[1].name === name);
@@ -182,7 +185,7 @@ class FightController {
 
             const character = Fight.createCharacter(savedChar);
 
-            if (!character) throw new Error;
+            if (!character) throw new NotFoundError("Character not found");
 
             character.buffs.forEach(buff => {
                 buff.checkBuff(character);
@@ -192,9 +195,9 @@ class FightController {
 
             await BattleStore.updateBattleData(battle.data, currentBattle);
 
-            res.status(200).json(character);
+            res.send(character);
         } catch (error) {
-            return res.status(500).json({ error: 'Internal Server Error' });
+            ErrorHandler.sendError(res, error);
         };
     };
 
@@ -203,17 +206,17 @@ class FightController {
         const { name } = req.body;
 
         if (!currentBattle || Array.isArray(currentBattle)) {
-            return res.status(400).json({ error: "Invalid id" });
+            throw new BadRequestError("Invalid id");
         };
 
         if (typeof name !== 'string') {
-            return res.status(400).json({ error: "Invalid name" });
+            throw new BadRequestError("Invalid name");
         };
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
 
-            if (!battle) throw new Error;
+            if (!battle) throw new NotFoundError("No battle found");
 
             const data = battle.data as BattleData;
             const entry = Object.entries(data).find(element => element[1].name === name);
@@ -225,7 +228,7 @@ class FightController {
 
             const character = Fight.createCharacter(savedChar);
 
-            if (!character) throw new Error;
+            if (!character) throw new NotFoundError("Character not found");
 
             character.debuffs.forEach(debuff => {
                 debuff.checkDebuff(character);
@@ -235,9 +238,9 @@ class FightController {
 
             await BattleStore.updateBattleData(battle.data, currentBattle);
 
-            res.status(200).json(character);
+            res.send(character);
         } catch (error) {
-            return res.status(500).json({ error: 'Internal Server Error' });
+            ErrorHandler.sendError(res, error);
         };
     };
 
@@ -247,17 +250,17 @@ class FightController {
         const { targetName, selfName } = req.body;
 
         if (!currentBattle || Array.isArray(currentBattle)) {
-            return res.status(400).json({ error: "Invalid id" });
+            throw new BadRequestError("Invalid id");
         };
 
         if (typeof targetName !== 'string' || typeof selfName !== 'string') {
-            return res.status(400).json({ error: "Invalid name" });
+            throw new BadRequestError("Invalid name");
         };
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
 
-            if (!battle) throw new Error;
+            if (!battle) throw new NotFoundError("No battle found");
 
             const data = battle.data as BattleData;
             const targetEntry = Object.entries(data).find(element => element[1].name === targetName);
@@ -286,9 +289,9 @@ class FightController {
 
             await BattleStore.updateBattleData(battle.data, currentBattle);
 
-            res.status(200).json(self);
+            res.send(self);
         } catch (error) {
-            return res.status(500).json({ error: 'Internal Server Error' });
+            ErrorHandler.sendError(res, error);
         };
     };
 
@@ -299,38 +302,38 @@ class FightController {
         const name = req.query.name;
 
         if (!currentBattle || Array.isArray(currentBattle)) {
-            return res.status(400).json({ error: "Invalid id" });
+            throw new BadRequestError("Invalid id");
         };
 
         if (typeof act !== 'string' || typeof name !== 'string') {
-            return res.status(400).json({ error: "Invalid action or name" });
+            throw new BadRequestError("Invalid name");
         };
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
 
-            if (!battle) throw new Error;
+            if (!battle) throw new NotFoundError("No battle found");
 
             const data = battle.data as BattleData;
             const savedChar = Object.values(data).find(element => element.name === name);
 
-            if (!savedChar) throw new Error;
+            if (!savedChar) throw new NotFoundError("Character not found");
 
             const player = Fight.createCharacter(savedChar);
 
-            if (!player) throw new Error;
+            if (!player) throw new NotFoundError("Player not found");
 
             const spell = player.spells.find(spell => spell.name === act);
 
             if (!spell) {
-                return res.status(200).json({ action: undefined });
+                return res.send({ action: undefined });
             }
 
             const action = spell.canUseSpell(player) ? spell.name : undefined;
 
-            res.status(200).json({ action });
+            res.send({ action });
         } catch (error) {
-            return res.status(500).json({ error: 'Internal Server Error' });
+            ErrorHandler.sendError(res, error);
         };
     };
 
@@ -340,45 +343,45 @@ class FightController {
         const name = req.query.name;
 
         if (!currentBattle || Array.isArray(currentBattle)) {
-            return res.status(400).json({ error: "Invalid id" });
+            throw new BadRequestError("Invalid id");
         };
 
         if (typeof name !== 'string') {
-            return res.status(400).json({ error: "Invalid name" });
+            throw new BadRequestError("Invalid name");
         };
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
 
-            if (!battle) throw new Error;
+            if (!battle) throw new NotFoundError("No battle found");
 
             const data = battle.data as BattleData;
             const savedChar = Object.values(data).find(element => element.name === name);
 
-            if (!savedChar) throw new Error;
+            if (!savedChar) throw new NotFoundError("Character not found");
 
             const self = Fight.createCharacter(savedChar);
 
-            if (!self) throw new Error;
+            if (!self) throw new NotFoundError("Character not found");
 
             const availableSpells = self.spells.filter(spell => {
                 return spell.canUseSpell(self);
             })
 
             if (availableSpells.length === 0) {
-                return res.status(200).json({ action: null });
+                return res.send({ action: null });
             }
 
             const randomIndex = Utilities.getRandomInt(availableSpells.length);
             const chosenSpell = availableSpells.length > 1 ? availableSpells[randomIndex] : availableSpells[0];
 
-            if (!chosenSpell) throw new Error;
+            if (!chosenSpell) throw new NotFoundError("Spell not found");
 
             const action = chosenSpell.name;
             
-            res.status(200).json({ action });
+            res.send({ action });
         } catch (error) {
-            return res.status(500).json({ error: 'Internal Server Error' });
+            ErrorHandler.sendError(res, error);
         };
     };
 
@@ -388,17 +391,17 @@ class FightController {
         const { actionName, targetName, selfName, turn } = req.body;
 
         if (!currentBattle || Array.isArray(currentBattle)) {
-            return res.status(400).json({ error: "Invalid id" });
+            throw new BadRequestError("Invalid id");
         };
 
         if (typeof actionName !== 'string' || typeof targetName !== 'string' || typeof selfName !== 'string') {
-            return res.status(400).json({ error: "Invalid action or name" });
+            throw new BadRequestError("Invalid name");
         };
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
 
-            if (!battle) throw new Error;
+            if (!battle) throw new NotFoundError("No battle found");
 
             const data = battle.data as BattleData;
             const targetEntry = Object.entries(data).find(element => element[1].name === targetName);
@@ -418,11 +421,11 @@ class FightController {
             const target = Fight.createCharacter(targetSavedChar);
             const self = Fight.createCharacter(selfSavedChar);
 
-            if (!target || !self) throw new Error;
+            if (!target || !self) throw new NotFoundError("Character not found");
 
             const spell = self.spells.find(element => element.name === actionName);
 
-            if (!spell) throw new Error;
+            if (!spell) throw new NotFoundError("Spell not found");
 
             let log = spell.useSpell(target, self);
 
@@ -432,13 +435,13 @@ class FightController {
             await BattleStore.updateBattleData(battle.data, currentBattle);
             await BattleStore.updateBattleTurn(turn, currentBattle);
 
-            res.status(200).json({
+            res.send({
                 target,
                 self,
                 log
             });
         } catch (error) {
-            return res.status(500).json({ error: 'Internal Server Error' });
+            ErrorHandler.sendError(res, error);
         };
     };
 
@@ -447,22 +450,22 @@ class FightController {
         const { name, userId } = req.body;
 
         if (!currentBattle || Array.isArray(currentBattle)) {
-            return res.status(400).json({ error: "Invalid id" });
+            throw new BadRequestError("Invalid id");
         };
 
         if (typeof name !== 'string') {
-            return res.status(400).json({ error: "Invalid name" });
+            throw new BadRequestError("Invalid name");
         };
 
         try {
             const battle = await BattleStore.getBattle(currentBattle);
 
-            if (!battle) throw new Error;
+            if (!battle) throw new NotFoundError("No battle found");
 
             const data = battle.data as BattleData;
             const character = Object.values(data).find(element => element.name === name);
 
-            if (!character) throw new Error;
+            if (!character) throw new NotFoundError("Character not found");
 
             let state = false;
 
@@ -471,9 +474,9 @@ class FightController {
                 await BattleStore.deleteUserCurrentBattle(userId);
             };
 
-            return res.status(200).json(state);
+            return res.send(state);
         } catch (error) {
-            return res.status(500).json({ error: 'Internal Server Error' });
+            ErrorHandler.sendError(res, error);
         };
     };
 };

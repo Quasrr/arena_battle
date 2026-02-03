@@ -7,6 +7,8 @@ import DimensionalDevourer from '../scripts/characters/DimensionalDevourer.ts';
 
 // import des types
 import type { Request, Response } from 'express';
+import { BadRequestError } from '../scripts/utils/Error.ts';
+import ErrorHandler from '../scripts/ErrorHandler.ts';
 
 class SelectionController {
 
@@ -17,7 +19,7 @@ class SelectionController {
             new DimensionalDevourer("Dimensional Devourer")
         ];
 
-        return res.status(200).json(characters);
+        return res.send(characters);
     };
 
     // méthode d'instance qui créer un combat en utilisant BattleStore
@@ -52,18 +54,16 @@ class SelectionController {
         };
 
         if (!playerCharacter || !enemyCharacter) {
-            return res.status(400).json({ error: "Invalid class" });
+            throw new BadRequestError("Invalid class");
         };
 
         try {
             const battle = await BattleStore.createBattle(userId, playerCharacter, enemyCharacter);
             const { id } = battle;
 
-            res.status(200).json({
-                battleId: id,
-            });
+            res.send({ battleId: id });
         } catch (error) {
-            return res.status(500).json({ error: 'Internal Server Error' });
+            ErrorHandler.sendError(res, error);
         };
     };
 };

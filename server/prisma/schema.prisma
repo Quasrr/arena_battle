@@ -14,11 +14,13 @@ generator client {
 }
 
 model User {
-  id            Int    @id @default(autoincrement())
-  username      String @unique
+  id            Int                 @id @default(autoincrement())
+  username      String              @unique
   password      String
   currentBattle String?
+  roleId        Int                 @default(2)
 
+  role          Role                @relation(fields: [roleId], references: [id])
   battles       BattleParticipant[]
 
   @@map("user")
@@ -44,4 +46,11 @@ model BattleParticipant {
 
   @@id([userId, battleId])
   @@map("battle_participant")
+}
+
+model Role {
+  id     Int    @id
+  name   String @unique
+
+  users  User[]
 }

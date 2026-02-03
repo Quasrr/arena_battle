@@ -2,9 +2,11 @@ import { prisma } from "../models/index.ts";
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 import type { Request, Response } from 'express';
-import type { RequestAuth } from '../types.ts';
+import type { parsedAuthSchema, RequestAuth } from '../types.ts';
 import { requireEnv } from '../config/env.ts';
 import { z } from 'zod';
+import { ConflictError, UnauthorizedError, UnexpectedServerError } from "../scripts/utils/Error.ts";
+import ErrorHandler from "../scripts/ErrorHandler.ts";
 
 const COOKIE_NAME = "access_token";
 
@@ -25,20 +27,15 @@ const AuthSchema = z.object({
 
 class AuthController {
     async register(req: Request, res: Response) {
-        const parsedAuth = AuthSchema.safeParse(req.body);
-        
-        if (!parsedAuth.success) {
-            const errors = z.treeifyError(parsedAuth.error);
-            return res.status(422).json({ errors });
-        };
-
-        const { username, password } = parsedAuth.data;
-
         try {
+            const parsedAuth = AuthSchema.safeParse(req.body);
+
+            const { username, password } = parsedAuth.data as parsedAuthSchema;
+
             const userCheck = await prisma.user.findUnique({ where: { username } });
 
             if (userCheck) {
-                return res.status(409).json({ error: "Username already taken" });
+                throw new ConflictError("Username already taken");
             };
 
             const passwordHashed = await argon2.hash(password);
@@ -46,29 +43,26 @@ class AuthController {
             const user = await prisma.user.create({
                 data: {
                     username,
-                    password: passwordHashed
+                    password: passwordHashed,
                 }
             });
 
             return res.status(201).json({ username: user.username  });
 
         } catch(error) {
-            return res.status(500).json({ error: 'Internal Server Error' });
+            ErrorHandler.sendError(res, error);
         };
     };
     
     async login(req: Request, res: Response) {
-        const parsedAuth = AuthSchema.safeParse(req.body);
-        if (!parsedAuth.success) {
-            const errors = z.treeifyError(parsedAuth.error);
-            return res.status(422).json({ errors });
-        };
-
-        const { username, password } = parsedAuth.data;
-
         try {
+            const parsedAuth = AuthSchema.safeParse(req.body);
+
+            const { username, password } = parsedAuth.data as parsedAuthSchema;
+
             const user = await prisma.user.findUnique({ where: { username } });
-            if (!user) return res.status(401).json({ error: "Invalid credentials" });
+
+            if (!user) throw new UnauthorizedError("Invalid credentials");
 
             if (await argon2.verify(user.password, password)) {
                 const token = jwt.sign(
@@ -88,11 +82,11 @@ class AuthController {
                 const { id, currentBattle } = user;
 
                 return res.status(201).json({ id, username, currentBattle });
-            }
+            };
 
-            return res.status(401).json({ error: "Invalid credentials" });
+            throw new UnauthorizedError("Invalid credentials");
         } catch (error) {
-            return res.status(500).json({ error: 'Internal Server Error' });
+            ErrorHandler.sendError(res, error);
         };
     };
 
@@ -103,19 +97,18 @@ class AuthController {
 
     async me(req: RequestAuth, res: Response) {
         try {
-            if (!req.username) {
-                throw new Error("Username needed");
-            }
+            if (!req.username) throw new UnexpectedServerError("Username needed");
+
 
             const user = await prisma.user.findUnique({ where: { username: req.username } });
 
-            if (!user) return res.status(401).json({ error: "Not authenticated" });
+            if (!user) throw new UnauthorizedError("Not authenticated");
 
             const { id, username, currentBattle } = user;
 
-            res.json({ id, username, currentBattle });
+            res.send({ id, username, currentBattle });
         } catch (error) {
-            return res.status(500).json({ error: 'Internal Server Error' });
+            ErrorHandler.sendError(res, error);
         };
     };
 };
