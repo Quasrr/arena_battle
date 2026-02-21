@@ -14,4 +14,4 @@ export async function storeCsrfToken() {
     const { csrfToken } = await getCsrfToken();
 
     localStorage.setItem('csrfToken', csrfToken);
-}
+};

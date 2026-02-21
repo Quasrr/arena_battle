@@ -1,561 +1,264 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Spline+Sans:wght@300..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pirata+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap");
 
 *,
 *::before,
 *::after {
-    margin: 0;
     box-sizing: border-box;
+    margin: 0;
 }
 
 :root {
-    --page-gutter: 1.25rem;
-    --zone-gutter: 1.25rem;
-    --menu-height: clamp(4rem, 9vh, 4rem);
+    --page-gutter: clamp(1rem, 2vw, 1.5rem);
+    --zone-gutter: clamp(0.9rem, 1.8vw, 1.35rem);
+    --menu-height: clamp(4rem, 9vh, 5.25rem);
     --menu-gap: clamp(0.75rem, 2vh, 1.5rem);
+
+    --radius-2xs: 0.125rem;
+    --radius-xs: 0.25rem;
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-pill: 999px;
+
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-strong: 750;
+
+    --gothic-night-1000: #040303;
+    --gothic-night-950: #080606;
+    --gothic-night-900: #0e0b0a;
+    --gothic-night-850: #15100f;
+    --gothic-night-800: #1c1514;
+    --gothic-night-750: #261d1a;
+    --gothic-night-700: #2f2521;
+
+    --gothic-bone-050: #f5f0e7;
+    --gothic-bone-100: #ece2d3;
+    --gothic-bone-200: #d8c9b2;
+    --gothic-bone-300: #b8a894;
+    --gothic-bone-400: #998a79;
+
+    --gothic-brass-300: #f1db9f;
+    --gothic-brass-400: #ddc17c;
+    --gothic-brass-500: #c9a45f;
+    --gothic-brass-600: #b1884a;
+    --gothic-brass-700: #866432;
+
+    --gothic-blood-300: #d65151;
+    --gothic-blood-400: #be2f2f;
+    --gothic-blood-500: #9f1a1a;
+    --gothic-blood-600: #771212;
+    --gothic-blood-700: #4f0c0c;
+
+    --gothic-smoke-300: #7f7468;
+    --gothic-smoke-500: #6c6359;
+    --gothic-smoke-700: #4f4842;
+
+    --gothic-verdigris-400: #87a498;
+    --gothic-verdigris-600: #4f6a61;
+
+    --accent-gold: var(--gothic-brass-500);
+    --blood-red: var(--gothic-blood-500);
+    --blood-red-dark: var(--gothic-blood-700);
+    --blood-red-soft: var(--gothic-blood-600);
+    --ink-900: var(--gothic-night-950);
+    --ink-850: var(--gothic-night-850);
+
+    --text-primary: var(--gothic-bone-050);
+    --text-body: color-mix(in srgb, var(--gothic-bone-100) 90%, transparent);
+    --text-body-soft: color-mix(in srgb, var(--gothic-bone-200) 84%, transparent);
+    --text-muted: color-mix(in srgb, var(--gothic-smoke-300) 90%, transparent);
+    --text-accent: var(--accent-gold);
+    --text-danger: var(--blood-red);
+
+    --ui-border-soft: color-mix(in srgb, var(--gothic-smoke-700) 58%, transparent);
+    --ui-border: color-mix(in srgb, var(--gothic-smoke-500) 72%, transparent);
+    --ui-border-strong: color-mix(in srgb, var(--gothic-smoke-500) 90%, transparent);
+    --panel-border: color-mix(in srgb, var(--gothic-blood-500) 38%, transparent);
+    --panel-border-soft: color-mix(in srgb, var(--gothic-brass-500) 28%, transparent);
+
+    --surface-0: color-mix(in srgb, var(--gothic-night-1000) 95%, transparent);
+    --surface-1: color-mix(in srgb, var(--gothic-night-950) 95%, transparent);
+    --surface-2: color-mix(in srgb, var(--gothic-night-900) 95%, transparent);
+    --surface-3: color-mix(in srgb, var(--gothic-night-850) 92%, transparent);
+    --surface-4: color-mix(in srgb, var(--gothic-night-800) 78%, transparent);
+
+    --panel-bg: var(--surface-1);
+    --block-radius: var(--radius-md);
+    --block-bg: var(--surface-3);
+    --block-bg-soft: var(--surface-4);
+    --block-hover: color-mix(in srgb, var(--gothic-night-700) 70%, transparent);
+
+    --shadow-soft-color: color-mix(in srgb, #000000 45%, transparent);
+    --shadow-panel-color: color-mix(in srgb, #000000 62%, transparent);
+    --shadow-soft: 0 10px 22px var(--shadow-soft-color);
+    --shadow-panel: 0 16px 32px var(--shadow-panel-color);
+    --focus-ring: 0 0 0 3px color-mix(in srgb, var(--gothic-blood-400) 32%, transparent);
+
+    --color-transparent: transparent;
+    --color-black: #000000;
+    --color-white: var(--text-primary);
+    --color-white-soft: color-mix(in srgb, var(--gothic-bone-050) 10%, transparent);
+
+    --color-text-primary: var(--text-primary);
+    --color-text-body: var(--text-body);
+    --color-text-muted: color-mix(in srgb, var(--gothic-bone-300) 78%, transparent);
+    --color-text-subtle: color-mix(in srgb, var(--gothic-smoke-500) 80%, transparent);
+
+    --color-surface-base: var(--surface-1);
+    --color-surface-soft: var(--surface-2);
+    --color-surface-elevated: var(--surface-3);
+    --color-surface-strong: color-mix(in srgb, var(--gothic-night-850) 95%, transparent);
+    --color-surface-contrast: color-mix(in srgb, var(--gothic-night-750) 92%, transparent);
+
+    --color-overlay-soft: color-mix(in srgb, #000000 28%, transparent);
+    --color-overlay-medium: color-mix(in srgb, #000000 55%, transparent);
+    --color-overlay-strong: color-mix(in srgb, #000000 76%, transparent);
+    --color-overlay-hard: color-mix(in srgb, #000000 88%, transparent);
+
+    --color-border-muted: color-mix(in srgb, var(--gothic-smoke-500) 60%, transparent);
+    --color-border-base: var(--ui-border);
+    --color-border-strong: var(--ui-border-strong);
+    --color-border-accent: color-mix(in srgb, var(--gothic-brass-500) 24%, var(--gothic-smoke-500));
+    --color-border-danger: color-mix(in srgb, var(--gothic-blood-500) 84%, transparent);
+
+    --color-accent: var(--accent-gold);
+    --color-accent-soft: color-mix(in srgb, var(--gothic-brass-400) 82%, transparent);
+    --color-accent-strong: color-mix(in srgb, var(--gothic-brass-300) 94%, transparent);
+    --color-accent-faint: color-mix(in srgb, var(--gothic-brass-500) 8%, transparent);
+
+    --color-danger: var(--blood-red);
+    --color-danger-soft: color-mix(in srgb, var(--gothic-blood-400) 22%, transparent);
+    --color-danger-faint: color-mix(in srgb, var(--gothic-blood-400) 10%, transparent);
+
+    --color-success: #46b986;
+    --color-success-soft: color-mix(in srgb, #46b986 42%, transparent);
+
+    --primary-blood: var(--blood-red);
+    --primary-blood-strong: var(--color-danger);
+    --gold: var(--color-accent);
+    --bone: var(--color-white);
+    --charcoal: var(--color-surface-base);
+    --dark-stone: var(--color-surface-soft);
+    --divider-red: var(--color-danger);
+    --divider-gold: var(--color-border-muted);
+    --stone-200: var(--color-text-body);
+    --stone-300: var(--color-text-muted);
+    --stone-400: var(--color-text-muted);
+    --stone-500: var(--color-text-muted);
+    --stone-600: var(--color-text-subtle);
+    --stone-700: var(--color-text-subtle);
+    --stone-800: var(--color-border-muted);
+}
+
+html,
+body {
+    min-height: 100%;
 }
 
 body {
-    font-family: Spline Sans, sans-serif;
-    min-height: 100dvh;
+    position: relative;
     width: 100%;
-    background:
-    radial-gradient(circle at center,
-      rgba(255,255,255,0.10) 0%,
-      rgba(255,255,255,0.00) 5%,
-      rgba(0,0,0,0.75) 50%
-    ),
-    #251010;
+    min-height: 100dvh;
     overflow-x: hidden;
+    font-family: "Spline Sans", sans-serif;
+    color: var(--text-body);
+    background: linear-gradient(165deg, var(--gothic-night-1000), var(--gothic-night-900) 45%, var(--gothic-night-950));
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("https://www.transparenttextures.com/patterns/black-paper.png");
+    mix-blend-mode: soft-light;
+    opacity: 0.22;
+    z-index: -2;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at center, transparent 42%, color-mix(in srgb, #000000 72%, transparent) 100%);
+    opacity: 0.48;
+    z-index: -1;
 }
 
 #app {
     min-height: 100dvh;
-}
-
-main {
     display: flex;
     flex-direction: column;
 }
 
-.characters-hp-stats {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-    grid-template-areas: "player turn enemy";
-    gap: 1.25rem;
-    align-items: center;
-    max-width: 86rem;
-    width: 100%;
-    margin: clamp(1.25rem, 3vh, 1.5rem) auto 0;
-    padding: 0 var(--page-gutter);
+button,
+input,
+textarea,
+select {
+    font: inherit;
+    color: inherit;
 }
 
-.player, .enemy {
-    color: white;
-    border-radius: 1rem;
-    width: 100%;
-    max-width: 28rem;
-    min-height: 16rem;
-    background-color: #252525;
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
-    margin: 0;
-    padding: 0.75rem;
+button {
+    letter-spacing: 0.03em;
 }
 
-.player {
-    grid-area: player;
-    justify-self: start;
+a {
+    color: inherit;
 }
 
-.enemy {
-    grid-area: enemy;
-    justify-self: end;
+:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
 }
 
-.player-name-class, .enemy-name-class {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0.5rem 0.5rem 0.35rem;
-    font-size: 1.2rem;
+::selection {
+    background: var(--color-danger-soft);
+    color: var(--color-white);
 }
 
-.player-bars, .enemy-bars {
-    display: flex;
-    flex-direction: column;
-}
-
-.health {
-    background-color: #1B1B12;
-    padding: 0.5rem 0;
-    border-radius: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.2rem;
-    border: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.health-text {
-    color: #898B8B;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 0.75rem;
-    width: 90%;
-}
-
-.health-text p {
-    font-size: 0.9rem;
-}
-
-.hp {
-    color: #EC6B7D;
-}
-
-.healthbar {
-    height: 0.7rem;
-    border-radius: 1rem;
-    width: 90%;
-    background-color: #1F2937;
-}
-
-.health-fill {
-    border-radius: 1rem;
-    height: 100%;
-    background-color: #E2224C;
-}
-
-.statistics {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.25rem 0.75rem;
-    font-size: 0.9rem;
-    background-color: #1B1B12;
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    border-radius: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.statistics span {
-    color: #A5A8A9;
-    padding-right: 0.6rem;
-}
-
-.passives {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-}
-
-.passive {
+:where(.collection-page, .marketplace-page, .bestiary-page, .leaderboard-page, .profile-page, .messages-page, .selection-page, .home-landing) {
     position: relative;
-    display: inline-flex;
-    align-items: center;
+    isolation: isolate;
 }
 
-.passives p {
-    background-color: rgb(92, 116, 192);
-    border-radius: 0.6rem;
-    padding: 0.3rem 0.6rem;
-    margin-top: 0.5rem;
-    margin-right: 0.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+:where(.collection-page, .marketplace-page, .bestiary-page, .leaderboard-page, .profile-page, .messages-page, .selection-page, .home-landing)::before {
+    content: none;
 }
 
-.passive-info {
-    position: absolute;
-    top: calc(100% + 0.35rem);
-    left: 50%;
-    transform: translate(-50%, 4px);
-    padding: 6px 10px;
-    background: rgba(0, 0, 0, 0.85);
-    color: #fff;
-    font-size: 12px;
-    border-radius: 4px;
-    white-space: nowrap;
-
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transform: translate(-50%, 4px);
-    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
-    z-index: 9999;
-    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+:where(.panel, .unified-panel, .bestiary-panel, .messages-reader, .messages-inbox, .messages-compose, .leaderboard-table-container, .marketplace-footer) {
+    box-shadow: 0 12px 24px var(--shadow-panel-color), inset 0 0 0 1px var(--color-white-soft);
 }
 
-.passive:hover .passive-info {
-    opacity: 1;
-    visibility: visible;
-    transform: translate(-50%, 0);
+:where(.panel-title, .panel-subtitle, .messages-inbox-head h2, .messages-compose h2, .messages-reader h3, .inventory-header h3) {
+    text-shadow: none;
 }
 
-.buffs-debuffs {
-    display: flex;
-    justify-content: flex-start;
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-accent) var(--color-surface-base);
 }
 
-.buffs-debuffs p {
-    border-radius: 0.6rem;
-    padding: 0.3rem 0.6rem;
-    margin-top: 0.5rem;
-    margin-right: 0.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+*::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
 }
 
-.buff {
-    background-color: rgb(64, 139, 70);
+*::-webkit-scrollbar-track {
+    background: var(--color-surface-base);
 }
 
-.debuff {
-    background-color: rgb(228, 61, 75);
-}
-
-.playing-turn {
-    grid-area: turn;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 0.25rem;
-}
-
-.playing-turn p {
-    color: white;
-    font-size: clamp(1.25rem, 2.2vw, 2.5rem);
-    letter-spacing: 0.02em;
-    text-align: center;
-}
-
-.characters-fight {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: clamp(14rem, 34vh, 33rem);
-    max-width: 86rem;
-    margin: clamp(0.75rem, 2.5vh, 1.5rem) auto 0;
-    padding: 0 var(--page-gutter);
-}
-
-.fight-zone {
-    width: 100%;
-    max-width: 86rem;
-    height: 100%;
-    background:
-        radial-gradient(circle at 50% 20%, rgba(226, 34, 76, 0.18), rgba(226, 34, 76, 0) 55%),
-        linear-gradient(180deg, rgba(16, 16, 12, 0.65), rgba(16, 16, 12, 0.9));
-    border-radius: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
-    overflow: hidden;
-}
-
-.characters {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-    width: 100%;
-    height: 100%;
-    padding: 0.5rem var(--zone-gutter) 1rem;
-    gap: 1.25rem;
-}
-
-.characters img {
-    flex: 0 0 auto;
-    max-width: min(42%, 460px);
-    max-height: 100%;
-    object-fit: contain;
-}
-
-.utilities {
-    display: grid;
-    grid-template-columns: minmax(0, 28rem) minmax(34rem, 44rem);
-    gap: 1.5rem;
-    align-items: stretch;
-    max-width: 90rem;
-    margin: clamp(0.75rem, 2vh, 1.25rem) auto 0;
-    padding: 0 calc(var(--page-gutter) + var(--zone-gutter));
-    justify-content: space-between;
-}
-
-.spells {
-    justify-self: start;
-}
-
-.logs {
-    justify-self: end;
-}
-.logs {
-    color: #10100C;
-    min-height: 18rem;
-    height: clamp(20rem, 29vh, 30rem);
-    width: 100%;
-    margin-top: 0;
-    background-color: #10100C;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 1rem;
-    overflow-y: auto;
-    overflow-x: hidden;
-    white-space: pre-wrap;
-    box-sizing: border-box;
-    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
-}
-
-.logs-header {
-    background-color: #1C1C17;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.title {
-    background-color: #1C1C17;
-    color: white;
-    display: flex;
-    align-items: center;
-    border-radius: 1rem 1rem 0 0;
-    padding: 0.95rem 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.switch button {
-    margin-right: 1rem;
-}
-
-.logs .title,
-.spells .title {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-}
-
-.text {
-    color: white;
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem 1rem;
-    font-size: 0.95rem;
-    line-height: 1.35;
-}
-
-.text.is-reverse {
-    flex-direction: column-reverse;
-}
-
-.switch-button {
-    border: 1px solid rgba(226, 34, 76, 0.35);
-    background: linear-gradient(180deg, rgba(226, 34, 76, 0.35), rgba(146, 24, 48, 0.65));
-    color: #F4E9EC;
-    font-family: inherit;
-    font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    padding: 0.45rem 0.9rem;
-    border-radius: 0.75rem;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    cursor: pointer;
-    transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease, filter 0.12s ease;
-}
-
-.switch-button:hover {
-    transform: translateY(-1px);
-    border-color: rgba(226, 34, 76, 0.55);
-    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-    filter: brightness(1.05);
-}
-
-.switch-button:active {
-    transform: translateY(0);
-    filter: brightness(0.98);
-}
-
-.spells {
-    color: white;
-    min-height: 18rem;
-    height: clamp(20rem, 29vh, 30rem);
-    width: 100%;
-    margin-top: 0;
-    background-color: #10100C;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 1rem;
-    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
-    overflow: visible;
-    position: relative;
-    padding-bottom: 0.75rem;
-}
-
-.spell {
-    --spell-size: 115px;
-    border-radius: 0.5rem;
-    margin: 0.5rem 1rem;
-    position: relative;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.35rem;
-    width: var(--spell-size);
-    min-height: calc(var(--spell-size) + 2.4rem);
-}
-
-.spell-icon {
-    border-radius: 0.5rem;
-    cursor: pointer;
-    display: block;
-    width: var(--spell-size);
-    height: var(--spell-size);
-    transition: transform 0.12s ease, filter 0.12s ease;
-}
-
-.spell:hover .spell-icon {
-    transform: translateY(-1px);
-    filter: brightness(1.08);
-}
-
-.spell.is-cooldown .spell-icon,
-.spell.is-cooldown:hover .spell-icon {
-    transform: none;
-    filter: none;
-}
-
-.spell > p {
-    margin: 0;
-    max-width: 100%;
-    font-size: 0.85rem;
-    font-weight: 600;
-    line-height: 1.15;
-    text-align: center;
-    color: #E7E7E2;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
-    overflow-wrap: anywhere;
-    min-height: 2.2rem;
-}
-
-.veil{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: var(--spell-size);
-    height: var(--spell-size);
-    background: rgba(0, 0, 0, 0.849);
-    pointer-events: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 0.5rem;
-}
-
-.spell-info {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    z-index: 5;
-}
-
-.icon-info {
-    width: 20px;
-    height: 24px;
-    cursor: pointer;
-}
-
-.text-info {
-    position: absolute;
-    top: 110%;
-    right: 0;
-    padding: 6px 10px;
-    background: rgba(0, 0, 0, 0.85);
-    color: #fff;
-    font-size: 12px;
-    border-radius: 4px;
-    white-space: nowrap;
-
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transform: translateY(4px);
-    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
-    z-index: 9999;
-    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
-}
-
-.spell-info:hover .text-info {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.menu {
-    position: fixed;
-    display: flex;
-    align-items: center;
-    bottom: 0;
-    height: var(--menu-height);
-    width: 100%;
-    background-color: #13130B;
-    color: white;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.info {
-    display: flex;
-    flex-direction: column;
-    padding-left: 2rem;
-    gap: 0.5rem;
-    gap: 0.5²rem;
-}
-
-@media (max-width: 1100px) {
-    .characters-hp-stats {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "turn"
-            "player"
-            "enemy";
-        gap: 1rem;
-        margin-top: 1.75rem;
-    }
-
-    .player,
-    .enemy {
-        max-width: none;
-        justify-self: stretch;
-    }
-
-    .playing-turn {
-        padding: 0.25rem 0;
-    }
-
-    .utilities {
-        grid-template-columns: 1fr;
-        justify-content: stretch;
-        padding: 0 var(--page-gutter);
-    }
-
-    .logs,
-    .spells {
-        max-width: none;
-    }
-}
-
-@media (max-width: 700px) {
-    .characters-fight {
-        height: clamp(16rem, 55vw, 24rem);
-    }
-
-    .statistics {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .spell {
-        --spell-size: 96px;
-        margin: 0.5rem 0.75rem;
-    }
-
-    .spell-icon {
-        width: var(--spell-size);
-        height: var(--spell-size);
-    }
+*::-webkit-scrollbar-thumb {
+    background: var(--color-border-base);
+    border: 2px solid var(--color-surface-base);
+    border-radius: var(--radius-pill);
 }

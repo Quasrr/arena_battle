@@ -34,7 +34,7 @@ export async function registerUser(credentials) {
     const data = await res.json();
 
     return data;
-}
+};
 
 export async function loginUser(credentials) {
     const res = await fetch('/api/auth/login', {
@@ -50,7 +50,7 @@ export async function loginUser(credentials) {
     const data = await res.json();
 
     return data;
-}
+};
 
 export async function logoutUser() {
     await fetch('/api/auth/logout', {
@@ -63,4 +63,4 @@ export async function logoutUser() {
     });
 
     clearAuth();
-}
+};
