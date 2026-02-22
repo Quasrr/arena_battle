@@ -7,11 +7,11 @@ import ErrorHandler from "../scripts/ErrorHandler.ts";
 
 class AuthMiddleware {
     requireAuth(req: RequestAuth, res: Response, next: NextFunction ) {
-        const token = req.cookies?.["access_token"];
-
-        if (!token) throw new UnauthorizedError("Not Authenticated");
-
         try {
+            const token = req.cookies?.["access_token"];
+
+            if (!token) throw new UnauthorizedError("Not Authenticated");
+            
             const payload = jwt.verify(token, requireEnv("JWT_SECRET")) as JWTPayload;
             
             if (!payload) throw new UnauthorizedError("Invalid token");

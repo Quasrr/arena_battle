@@ -105,7 +105,7 @@ class AuthController {
 
     async me(req: RequestAuth, res: Response) {
         try {
-            if (!req.username) throw new UnexpectedServerError("Username needed");
+            if (!req.username) throw new UnauthorizedError("Username needed");
 
             const user = await prisma.user.findUnique({ where: { username: req.username } });
 
